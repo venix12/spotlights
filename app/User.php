@@ -71,25 +71,4 @@ class User extends Authenticatable
     {
         return $this->hasOne('UserGroup');
     }
-
-    public function getName()
-    {
-        $namedUsers = self::all();
-
-        $name = [];
-
-        foreach($namedUsers as $namedUser)
-        {
-            if ($namedUser->id == 2)
-            {
-                $name[] = $namedUser->username;
-            }
-            
-             //$namedUser->where('username', $user->username)->username;
-        }
-
-        //return $this->username;
-        return $name;
-
-    }
 }

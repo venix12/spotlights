@@ -41,10 +41,20 @@
                                 <td>{{\App\UserGroup::find($user->group_id)->group_name}}</td>
                                 <td>
                                     <div class="row">
-                                        <form action={{route('admin.deactivateUser')}} method="POST">
-                                            @csrf
-                                            <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
-                                            <input onclick="return confirm('Are you sure you want to deactivate {{$user->username}}?')" class="btn btn-dark btn-sm" type="submit" value="Deactivate">
+                                        @php
+
+                                            if ($user->active == 1)
+                                            {
+                                                $activeValue = "deactivate";
+                                            } else {
+                                                $activeValue = "activate";
+                                            }
+
+                                        @endphp
+                                        <form action={{route('admin.'.$activeValue.'User')}} method="POST">
+                                        @csrf
+                                        <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
+                                        <input onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')" class="btn btn-dark btn-sm" type="submit" value={{ucfirst($activeValue)}}>
                                         </form> &nbsp;&nbsp;
                                         <form action={{route('admin.removeUser')}} method="POST">
                                             @csrf

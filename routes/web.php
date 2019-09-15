@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/spotlights', 'SpotlightsController');
 
+Route::post('/activate-user', 'UserController@activate')->name('admin.activateUser');
 Route::post('/deactivate-user', 'UserController@deactivate')->name('admin.deactivateUser');
 Route::post('/remove-user', 'UserController@destroy')->name('admin.removeUser');
 

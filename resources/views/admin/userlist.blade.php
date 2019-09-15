@@ -38,7 +38,7 @@
                             <tr>
                                 <td>{{$user->username}}</td>
                                 <td>{{$user->id}}</td>
-                                <td>{{UserGroup::find($user->group_id)->group_name}}</td>
+                                <td>{{\App\UserGroup::find($user->group_id)->group_name}}</td>
                                 <td>
                                     <div class="row">
                                         <form action={{route('admin.deactivateUser')}} method="POST">

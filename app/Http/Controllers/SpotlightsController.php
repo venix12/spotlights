@@ -20,6 +20,11 @@ class SpotlightsController extends Controller
     {
         $spotlights = Spotlights::find($id);
 
+        if(!$spotlights)
+        {
+            return redirect('/');
+        }
+
         $nominations = SpotlightsNomination::all();
 
         $votes = SpotlightsNominationVote::all();
@@ -127,5 +132,34 @@ class SpotlightsController extends Controller
         }
 
         return redirect()->back()->with('success', 'Created new spotlights!');
+    }
+
+    public function activate(Request $request)
+    {
+        $spotlights = Spotlights::find($request->spotlightsID);
+        $spotlights->active = 1;
+        $spotlights->save();
+        return redirect()->back()->with('success', 'Successfully activated the spotlights!');
+    }
+
+    public function deactivate(Request $request)
+    {
+        $spotlights = Spotlights::find($request->spotlightsID);
+        $spotlights->active = 0;
+        $spotlights->save();
+        return redirect()->back()->with('success', 'Successfully deactivated the spotlights!');
+    }
+
+    public function destroy(Request $request)
+    {
+        $vote = SpotlightsNominationVote::where('spots_id', $request->spotlightsID);
+        $nomination = SpotlightsNomination::where('spots_id', $request->spotlightsID);
+        $spotlights = Spotlights::find($request->spotlightsID);
+
+        $vote->delete();
+        $nomination->delete();
+        $spotlights->delete();
+
+        return redirect()->back()->with('success', 'Successfully removed the spotlights!');
     }
 }

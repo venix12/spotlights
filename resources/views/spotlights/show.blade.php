@@ -191,8 +191,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        @if(count($votes->where('nomination_id', $nomination->id)) > 0 && count($votes->where('comment', )) > 0)
-                                            <label for="comments">Comments ({{count($votes->where('nomination_id', $nomination->id)->where('comment', '!=', ''))}})</label>
+                                        @if(count($votes->where('nomination_id', $nomination->id)) > 0 && count($votes->where('nomination_id', $nomination->id)->where('comment','!=', null)) > 0)
+                                            <label for="comments">Comments ({{count($votes->where('nomination_id', $nomination->id)->where('comment', '!=', null))}})</label>
                                             <div class="scrollable" name="comments">
                                                 @foreach($votes as $vote)
                                                     @if($vote->nomination_id == $nomination->id)

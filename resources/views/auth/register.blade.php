@@ -12,12 +12,12 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+                            <label for="osu_user_id" class="col-md-4 col-form-label text-md-right">{{ __('User ID') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('name') }}" required autocomplete="username" autofocus>
+                                <input id="osu_user_id" type="text" class="form-control @error('osu_user_id') is-invalid @enderror" name="osu_user_id" value="{{ old('osu_user_id') }}" required autofocus>
 
-                                @error('username')
+                                @error('osu_user_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -26,16 +26,13 @@
                         </div>
 
                         <div class="form-group row">
-                            <?php
+                            @php
                                 session(['passwordToken' => bin2hex(random_bytes(15))]);
-                            ?>
+                            @endphp
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-secondary">
-                                    {{ __('Create Invite') }}
-                                </button>
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Add User') }}
                                 </button>

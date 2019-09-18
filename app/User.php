@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'user_group'
+        'osu_user_id', 'password', 'user_group', 'username'
     ];
 
     /**
@@ -34,6 +34,14 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    public function isActive()
+    {
+        if (Auth::user()->active == 1)
+        {
+            return true;
+        }
+    }
 
     public function isMember()
     {

@@ -36,7 +36,11 @@
                     <tbody>
                         @foreach($users as $user)
                             <tr>
-                                <td>{{$user->username}}</td>
+                                @if($user->osu_user_id != null)
+                                    <td><a href="https://osu.ppy.sh/u/{{$user->osu_user_id}}">{{$user->username}}</a></td>
+                                @else
+                                    <td>{{$user->username}}</td>
+                                @endif
                                 <td>{{$user->id}}</td>
                                 <td>{{\App\UserGroup::find($user->group_id)->group_name}}</td>
                                 <td>

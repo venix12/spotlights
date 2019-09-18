@@ -54,7 +54,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'osu_user_id' => ['required', 'integer', 'unique:users'],
         ]);
     }
 
@@ -77,11 +77,26 @@ class RegisterController extends Controller
     
     protected function create(array $data)
     {
-        session(['registeredUsername' => $data['username']]);
+        $user_id = $data['osu_user_id'];
+
+        //get api string
+        $key = env('OSU_API_KEY');
+        $url = 'osu.ppy.sh/api/get_user?k='.$key.'&u='.$user_id;
+        $client = new \GuzzleHttp\Client();
+        $response = $client->get($url);
+        $userData = json_decode((string) $response->getBody(), true);
+
+        //get user data from api
+        foreach($userData as $key => $item)
+        {
+            $username = $item['username'];
+        }
+
+        session(['registeredUsername' => $username]);
         return User::create([
-            'username' => $data['username'],
+            'username' => $username,
             'password' => Hash::make(session('passwordToken')),
+            'osu_user_id' => $user_id
         ]);
-        session(['registered' => true]);
     }
 }

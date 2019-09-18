@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//user
+Route::get('/users/{user_id}', 'UserProfileController@index');
+
 //admin user
 Route::post('/activate-user', 'UserController@activate')->name('admin.activateUser');
 Route::post('/deactivate-user', 'UserController@deactivate')->name('admin.deactivateUser');

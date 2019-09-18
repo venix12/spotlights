@@ -28,6 +28,11 @@
     .card-text{
         white-space: pre-wrap;
     }
+
+    .margin-img {
+        margin-right: 5px;
+    }
+
     </style>
 </head>
 <body>
@@ -71,6 +76,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/spotlights/public/users/{{Auth::id()}}">
+                                        {{ __('User profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

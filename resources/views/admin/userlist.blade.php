@@ -42,7 +42,7 @@
                                     <td>{{$user->username}}</td>
                                 @endif
                                 <td>{{$user->id}}</td>
-                                <td>{{\App\UserGroup::find($user->group_id)->group_name}}</td>
+                                <td>{{\App\UserGroup::GROUPS[$user->group_id]}}</td>
                                 <td>
                                     <div class="row">
                                         @php

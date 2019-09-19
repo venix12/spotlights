@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Spotlights;
 use App\SpotlightsNomination;
@@ -15,7 +16,12 @@ class UserProfileController extends Controller
     {
         $user = User::find($user_id);
 
-        if(!$user)
+        if(!Auth::check() || !$user)
+        {
+            return redirect('/');
+        }
+
+        if($user->active == 0 && !Auth::user()->isAdmin())
         {
             return redirect('/');
         }

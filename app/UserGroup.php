@@ -9,12 +9,14 @@ class UserGroup extends Model
     const GROUPS = [
         0 => 'Member',
         1 => 'Administrator',
-        2 => 'Leader',
+        2 => 'Project Leader',
         3 => 'Manager',
     ];
 
     const GROUP_COLOURS = [
-        0 => '#000000',
+        0 => '',
         1 => '#6eed1f',
+        2 => '',
+        3 => '',
     ];
 }

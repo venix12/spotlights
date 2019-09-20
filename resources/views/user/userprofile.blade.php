@@ -10,13 +10,13 @@
                         <img src="https://a.ppy.sh/{{$user->osu_user_id}}" width="100%" height="100%" class="float-left margin-img">
                     </div> <br />
                     @if($user->active == 1)
-                        <h4><div style="color: {{\App\UserGroup::GROUP_COLOURS[$user->group_id]}}; margin-bottom: 0;">{{$user->username}}</div></h4>
+                        <h4><div style="color: {{\App\User::GROUP_COLOURS[$user->group_id]}}; margin-bottom: 0;">{{$user->username}}</div></h4>
                     @else
                         <h4><div style="color: #a6a6a6; margin-bottom: 0;">{{$user->username}}</div></h4>
                     @endif
 
                     @if($user->group_id != 0)
-                        <b>{{\App\UserGroup::GROUPS[$user->group_id]}}</b><br /><br />
+                        <b>{{\App\User::GROUPS[$user->group_id]}}</b><br /><br />
                     @else
                         <br /><br />
                     @endif

@@ -11,6 +11,20 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const GROUPS = [
+        0 => 'Member',
+        1 => 'Administrator',
+        2 => 'Project Leader',
+        3 => 'Manager'
+    ];
+
+    const GROUP_COLOURS = [
+        0 => '',
+        1 => '#2e88e8',
+        2 => '#ff0000',
+        3 => '#f56e20',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

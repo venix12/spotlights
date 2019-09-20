@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     const GROUP_COLOURS = [
         0 => '',
-        1 => '#2e88e8',
+        1 => '#ff0000',
         2 => '#ff0000',
         3 => '#f56e20',
     ];
@@ -67,18 +67,10 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        if (Auth::user()->group_id == 1)
+        if (Auth::user()->group_id == 1 || Auth::user()->group_id == 2) 
         {
            return true;
         }
-    }
-
-    public function isLeader()
-    {
-       if (Auth::user()->group_id == 2)
-       {
-           return true;
-       }
     }
 
     public function isManager()

@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //user
 Route::get('/users/{id}', 'UserProfileController@index')->name('user.profile');
+Route::get('/users-list', 'UserListController@index')->name('user.list');
 
 //admin user
 Route::post('/activate-user', 'UserController@activate')->name('admin.activateUser');

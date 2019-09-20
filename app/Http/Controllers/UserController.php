@@ -21,6 +21,10 @@ class UserController extends Controller
         if($request->userID != Auth::user()->id)
         {
             $user = User::find($request->userID);
+            if($user->group_id != 0)
+            {
+                $user->group_id = 0;
+            }
             $user->active = 0;
             $user->save();
             return redirect()->back()->with('success', 'Successfully deactivated an user!');

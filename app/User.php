@@ -88,9 +88,4 @@ class User extends Authenticatable
            return true;
        }
     }
-
-    public function group()
-    {
-        return $this->hasOne('UserGroup');
-    }
 }

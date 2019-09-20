@@ -33,6 +33,10 @@
         margin-right: 5px;
     }
 
+    .medium-font {
+        font-size: 0.8rem;
+    }
+
     </style>
 </head>
 <body>

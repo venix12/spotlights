@@ -20,7 +20,7 @@
                     @else
                         <br /><br />
                     @endif
-                    Joined at {{$user->created_at}} <br />
+                    <div class="medium-font">Joined at {{$user->created_at}}</div>
                     @if($user->osu_user_id != null)
                         <a href="https://osu.ppy.sh/u/{{$user->osu_user_id}}"> osu! Profile</a>
                     @endif
@@ -28,6 +28,18 @@
                     <h4>Statistics</h4>
                     Nominatinated maps: {{count($nominations->where('user_id', $user->id))}} <br />
                     Votes casted: {{count($votes->where('user_id', $user->id))}}
+                    <hr>
+                    <h4>Spotlights</h4>
+                    @if(count($spotlightsParticipated) > 0)
+                        <p class="medium-font"><b>The user participated in following spotlights:</b></p>
+                        <ul>
+                            @foreach($spotlightsParticipated as $spotlight)
+                                <li>{{$spotlight}} <br />
+                            @endforeach
+                        </ul>
+                    @else
+                        This user hasn't participated in any spotlights yet!
+                    @endif
                 </div>
             </div>
         </div>

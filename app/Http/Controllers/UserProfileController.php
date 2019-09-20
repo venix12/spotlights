@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Illuminate\Http\Request;
 use App\Spotlights;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
 use App\User;
+use Illuminate\Http\Request;
+use Auth;
 
 
 class UserProfileController extends Controller
@@ -25,14 +25,29 @@ class UserProfileController extends Controller
         {
             return redirect('/');
         }
+        
+        $nominations = SpotlightsNomination::all();
+        
+        $spotlights = Spotlights::all();
+
+        $userSpotlights = $nominations->where('user_id', $user_id);
 
         $votes = SpotlightsNominationVote::all();
 
-        $nominations = SpotlightsNomination::all();
+        $spotlightsParticipated = [];
+
+        foreach($userSpotlights as $userSpotlight)
+        {
+            if(!in_array($spotlights->find($userSpotlight->spots_id)->title, $spotlightsParticipated))
+            {
+                $spotlightsParticipated[] = $spotlights->find($userSpotlight->spots_id)->title;
+            }
+        }
 
         return view('user.userprofile')
+            ->with('nominations', $nominations)
             ->with('user', $user)
-            ->with('votes', $votes)
-            ->with('nominations', $nominations);
+            ->with('spotlightsParticipated', $spotlightsParticipated)
+            ->with('votes', $votes);
     }
 }

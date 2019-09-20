@@ -36,11 +36,7 @@
                     <tbody>
                         @foreach($users as $user)
                             <tr>
-                                @if($user->osu_user_id != null)
-                                    <td><a href="https://osu.ppy.sh/u/{{$user->osu_user_id}}">{{$user->username}}</a></td>
-                                @else
-                                    <td>{{$user->username}}</td>
-                                @endif
+                                <td><a href={{route('user.profile', ['id' => $user->id])}}>{{$user->username}}</a></td>
                                 <td>{{$user->id}}</td>
                                 <td>{{\App\User::GROUPS[$user->group_id]}}</td>
                                 <td>

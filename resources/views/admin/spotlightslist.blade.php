@@ -35,7 +35,7 @@
                     <tbody>
                         @foreach($spotlights as $spotlight)
                             <tr>
-                                <td>{{$spotlight->title}}</td>
+                                <td><a href={{route('spotlights.show', ['id' => $spotlight->id])}}>{{$spotlight->title}}</a></td>
                                 <td>{{$spotlight->created_at}}</td>
                                 <td>
                                     <div class="row">

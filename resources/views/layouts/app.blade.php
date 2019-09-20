@@ -80,7 +80,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href={{route('user.profile', ['user_id' => Auth::id()])}}>
+                                    <a class="dropdown-item" href={{route('user.profile', ['id' => Auth::id()])}}>
                                         {{ __('User profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

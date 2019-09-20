@@ -12,9 +12,9 @@ use Auth;
 
 class UserProfileController extends Controller
 {   
-    public function index($user_id)
+    public function index($id)
     {
-        $user = User::find($user_id);
+        $user = User::find($id);
 
         if(!Auth::check() || !$user)
         {
@@ -30,7 +30,7 @@ class UserProfileController extends Controller
         
         $spotlights = Spotlights::all();
 
-        $userSpotlights = $nominations->where('user_id', $user_id);
+        $userSpotlights = $nominations->where('user_id', $id);
 
         $votes = SpotlightsNominationVote::all();
 

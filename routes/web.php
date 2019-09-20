@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //user
-Route::get('/users/{user_id}', 'UserProfileController@index');
+Route::get('/users/{id}', 'UserProfileController@index')->name('user.profile');
 
 //admin user
 Route::post('/activate-user', 'UserController@activate')->name('admin.activateUser');
@@ -41,7 +41,7 @@ Route::post('/change-password', 'ChangePasswordController@changePassword')->name
 
 //management
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
-    Route::get('/', 'ManageController@index')->name('admin.dashboard');
+    Route::get('/', 'ManageController@index')->name('admin.manage');
     Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
     Route::get('/added-user', 'AddedUserController@index')->name('admin.addedUser');
     Route::get('/spotlist', 'SpotlightsListController@index')->name('admin.spotlist');
@@ -53,6 +53,6 @@ Route::group(['prefix' => 'spotlights'], function() {
     Route::get('/{id}', 'SpotlightsController@show')->name('spotlights.show');
     Route::post('/{id}/nominate', 'SpotlightsController@nominate')->name('spotlights.nominate');
     Route::post('/remove-nomination', 'SpotlightsNominationController@destroy')->name('spotlights.removeNomination');
-    Route::post('/vote', 'SpotlightsNominationVoteController@index')->name('spotlightsVote');
-    Route::post('/update-vote', 'SpotlightsNominationVoteController@update')->name('spotlightsUpdateVote');
+    Route::post('/vote', 'SpotlightsNominationVoteController@index')->name('spotlights.vote');
+    Route::post('/update-vote', 'SpotlightsNominationVoteController@update')->name('spotlights.updateVote');
 });

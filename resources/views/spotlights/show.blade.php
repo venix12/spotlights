@@ -12,7 +12,7 @@
     <h1>{{$spotlights->title}}</h1>
     <small>{{$spotlights->description}}</small><br /> <br />
     @if($spotlights->active == 1)
-        <form method="POST" action={{route('spotlight.nominate', ['id' => $spotlights->id])}}>
+        <form method="POST" action={{route('spotlights.nominate', ['id' => $spotlights->id])}}>
             @csrf
             <div class="col-md-6">
                 <div class="form-group row">
@@ -106,9 +106,9 @@
                                     <div class="col-md-6">
                                         @if($nomination->user_id != Auth::id())
                                             @if(count($votes->where('user_id', Auth::id())->where('nomination_id', $nomination->id)) == 0)
-                                                <form action={{route('spotlightsVote')}} method="POST">
+                                                <form action={{route('spotlights.vote')}} method="POST">
                                             @else
-                                                <form action={{route('spotlightsUpdateVote')}} method="POST">
+                                                <form action={{route('spotlights.updateVote')}} method="POST">
                                             @endif
                                                 @csrf
                                                 <label for="commentField">Put your comment here!</label>

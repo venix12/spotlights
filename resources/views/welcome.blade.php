@@ -69,7 +69,7 @@
                     @auth
                         <a href="{{ url('/home') }}">HOME</a>
                         @if (Auth::user()->isAdmin())
-                            <a href={{route('admin.dashboard')}}>MANAGE</a>
+                            <a href={{route('admin.manage')}}>MANAGE</a>
                         @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>

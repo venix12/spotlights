@@ -24,6 +24,7 @@ Route::get('/users/{id}', 'UserProfileController@index')->name('user.profile');
 
 //admin user
 Route::post('/activate-user', 'UserController@activate')->name('admin.activateUser');
+Route::post('/change-usergroup', 'UserController@change_usergroup')->name('admin.changeUsergroup');
 Route::post('/deactivate-user', 'UserController@deactivate')->name('admin.deactivateUser');
 Route::post('/remove-user', 'UserController@destroy')->name('admin.removeUser');
 

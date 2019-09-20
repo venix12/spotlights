@@ -31,6 +31,22 @@ class UserController extends Controller
         }
     }
 
+    public function change_usergroup(Request $request)
+    {
+        $user = User::find($request->userID);
+
+        if($user->active == 0)
+        {
+            $user->active = 1;
+        }
+
+        $user->group_id = $request->group_id;
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Successfully changed the usergroup!');
+    }
+
     public function destroy(Request $request)
     {
         if($request->userID != Auth::user()->id)

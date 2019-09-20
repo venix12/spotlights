@@ -29,8 +29,8 @@
                     Nominatinated maps: {{count($nominations->where('user_id', $user->id))}} <br />
                     Votes casted: {{count($votes->where('user_id', $user->id))}}
                     <hr>
-                    <h4>Spotlights</h4>
                     @if(count($spotlightsParticipated) > 0)
+                        <h4>Spotlights ({{count($spotlightsParticipated)}})</h4>
                         <p class="medium-font"><b>The user participated in following spotlights:</b></p>
                         <ul>
                             @foreach($spotlightsParticipated as $spotlight)
@@ -38,6 +38,7 @@
                             @endforeach
                         </ul>
                     @else
+                        <h4>Spotlights</h4>
                         This user hasn't participated in any spotlights yet!
                     @endif
                 </div>

@@ -12,7 +12,7 @@
     <h1>{{$spotlights->title}}</h1>
     <small>{{$spotlights->description}}</small><br /> <br />
     @if($spotlights->active == 1)
-        <form method="POST" action="/spotlights/public/spotlights/{{$spotlights->id}}/nominate">
+        <form method="POST" action={{route('spotlight.nominate', ['id' => $spotlights->id])}}>
             @csrf
             <div class="col-md-6">
                 <div class="form-group row">

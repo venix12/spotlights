@@ -66,12 +66,12 @@
                         @else
                             @if (Auth::user()->isAdmin() || Auth::user()->isLeader())
                                 <li class="nav-item">
-                                    <a class="nav-link" href=/spotlights/public/admin>{{ __('Manage') }}</a>
+                                    <a class="nav-link" href={{route('admin.manage')}}>{{ __('Manage') }}</a>
                                 </li>
                             @endif
 
                             <li class="nav-item">
-                                    <a class="nav-link" href=/spotlights/public/spotlights>{{ __('Spotlights') }}</a>
+                                    <a class="nav-link" href={{route('spotlights')}}>{{ __('Spotlights') }}</a>
                                 </li>
                             
                             <li class="nav-item dropdown">
@@ -80,7 +80,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/spotlights/public/users/{{Auth::id()}}">
+                                    <a class="dropdown-item" href={{route('user.profile', ['user_id' => Auth::id()])}}>
                                         {{ __('User profile') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

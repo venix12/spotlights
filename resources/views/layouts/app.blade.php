@@ -62,17 +62,11 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->   
-                        @guest
+                        <!-- Authentication Links -->
+                        @if(!Auth::guest())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href={{route('home')}}>{{ __('Home') }}</a>
                             </li>
-                        @else
-                            @if (Auth::user()->isAdmin() || Auth::user()->isManager())
-                                <li class="nav-item">
-                                    <a class="nav-link" href={{route('admin.manage')}}>{{ __('Manage') }}</a>
-                                </li>
-                            @endif
 
                             <li class="nav-item">
                                 <a class="nav-link" href={{route('spotlights')}}>{{ __('Spotlights') }}</a>
@@ -91,6 +85,16 @@
                                     <a class="dropdown-item" href={{route('user.profile', ['id' => Auth::id()])}}>
                                         {{ __('User profile') }}
                                     </a>
+                                    @if(Auth::user()->isAdmin() || Auth::user()->isManager())
+                                        <a class="dropdown-item" href="{{ route('admin.manage') }}">
+                                            {{ __('Manage') }}
+                                        </a>
+                                    @endif
+
+                                    <a class="dropdown-item" href="{{ route('password.change') }}">
+                                        {{ __('Change password') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -102,7 +106,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                        @endif
                     </ul>
                 </div>
             </div>

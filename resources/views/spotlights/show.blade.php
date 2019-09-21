@@ -96,7 +96,7 @@
                                     <form action={{route('spotlights.removeNomination')}} method="POST">
                                         @csrf
                                         <input type="hidden" id="nominationID" name="nominationID" value="{{$nomination->id}}">
-                                        <input class="btn btn-danger btn-sm" type="submit" value="Remove">
+                                        <input onclick="return confirm('Are you sure you want to remove {{$nomination->beatmap_artist}} - {{$nomination->beatmap_title}}?')" class="btn btn-danger btn-sm" type="submit" value="Remove">
                                     </form>
                                 @endif
                             </td>

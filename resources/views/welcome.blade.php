@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="#">Click here to apply now!</a>
+                    <a href="https://osu.spotlights.team">Click here to apply now!</a>
                 </div>
             </div>
         </div>

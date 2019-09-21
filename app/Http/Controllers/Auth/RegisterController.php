@@ -38,12 +38,14 @@ class RegisterController extends Controller
      * @return void
      */
 
-    /*
-     public function __construct()
+    public function showRegistrationForm()
     {
-        $this->middleware('guest');
-    } 
-    */
+        if(!Auth::check() || !Auth::user()->isAdmin())
+        {
+            return redirect('/');
+        }
+        return view('auth.register');
+    }
 
     /**
      * Get a validator for an incoming registration request.

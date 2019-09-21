@@ -54,11 +54,13 @@
                                         <input type="hidden" id="spotlightsID" name="spotlightsID" value="{{$spotlight->id}}">
                                         <input onclick="return confirm('Are you sure you want to {{$activeValue}} {{$spotlight->title}}?')" class="btn btn-dark btn-sm" type="submit" value={{ucfirst($activeValue)}}>
                                         </form>&nbsp;&nbsp;
-                                        <form action={{route('admin.removeSpotlights')}} method="POST">
-                                            @csrf
-                                            <input type="hidden" id="spotlightsID" name="spotlightsID" value="{{$spotlight->id}}">
-                                            <input onclick="return confirm('Are you sure you want to remove {{$spotlight->title}}?')" class="btn btn-danger btn-sm" type="submit" value="Remove">
-                                        </form>
+                                        @if(Auth::user()->isAdmin())
+                                            <form action={{route('admin.removeSpotlights')}} method="POST">
+                                                @csrf
+                                                <input type="hidden" id="spotlightsID" name="spotlightsID" value="{{$spotlight->id}}">
+                                                <input onclick="return confirm('Are you sure you want to remove {{$spotlight->title}}?')" class="btn btn-danger btn-sm" type="submit" value="Remove">
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

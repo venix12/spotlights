@@ -56,7 +56,9 @@
                         <h4>Spotlights</h4>
                         This user hasn't participated in any spotlights yet!
                     @endif
-                    <hr>
+                    @if(Auth::user()->isAdmin() || Auth::user()->isManager())
+                        <hr>
+                    @endif
                     @if(Auth::user()->isAdmin())
                         <form method="POST" action={{route('admin.changeUsergroup')}}>
                             @csrf
@@ -79,8 +81,10 @@
                                 </button>
                             </div>
                         </form>
-                        @php
+                    @endif
+                    @if(Auth::user()->isAdmin() || Auth::user()->isManager())
 
+                        @php
                             if ($user->active == 1)
                             {
                                 $activeValue = "deactivate";
@@ -89,6 +93,7 @@
                             }
 
                         @endphp
+
                         <form action={{route('admin.'.$activeValue.'User')}} method="POST">
                             @csrf
                             <input type="hidden" id="userID" name="userID" value="{{$user->id}}">

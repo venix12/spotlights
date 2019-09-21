@@ -11,7 +11,7 @@ class RegisteredUsersController extends Controller
 {
     public function index()
     {
-    if(!Auth::check() || !Auth::user()->isAdmin())
+    if(!Auth::check() || !(Auth::user()->isAdmin() || Auth::user()->isManager()))
         {
             return redirect('/');
         }

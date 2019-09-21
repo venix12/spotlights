@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\User;
+use App\SpotlightsNomination;
+use App\SpotlightsNominationVote;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -53,10 +55,17 @@ class UserController extends Controller
 
     public function destroy(Request $request)
     {
+        //TODO: remove all votes of deleted nomination
         if($request->userID != Auth::user()->id)
         {
             $user = User::find($request->userID);
+            $userNominations = SpotlightsNomination::where('user_id', $request->userID);
+            $userNominationVotes = SpotlightsNominationVote::where('user_id', $request->userID);
+
+            $userNominationVotes->delete();
+            $userNominations->delete();
             $user->delete();
+
             return redirect()->back()->with('success', 'Successfully removed an user!');
         }
         else

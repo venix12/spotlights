@@ -68,7 +68,7 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
-                            @if (Auth::user()->isAdmin())
+                            @if (Auth::user()->isAdmin() || Auth::user()->isManager())
                                 <li class="nav-item">
                                     <a class="nav-link" href={{route('admin.manage')}}>{{ __('Manage') }}</a>
                                 </li>

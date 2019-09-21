@@ -52,15 +52,17 @@
 
                                         @endphp
                                         <form action={{route('admin.'.$activeValue.'User')}} method="POST">
-                                        @csrf
-                                        <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
-                                        <input onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')" class="btn btn-dark btn-sm" type="submit" value={{ucfirst($activeValue)}}>
-                                        </form> &nbsp;&nbsp;
-                                        <form action={{route('admin.removeUser')}} method="POST">
                                             @csrf
                                             <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
-                                            <input onclick="return confirm('Are you sure you want to remove {{$user->username}}?')" class="btn btn-danger btn-sm" type="submit" value="Remove">
-                                        </form>
+                                            <input onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')" class="btn btn-dark btn-sm" type="submit" value={{ucfirst($activeValue)}}>
+                                        </form> &nbsp;&nbsp;
+                                        @if(Auth::user()->isAdmin())
+                                            <form action={{route('admin.removeUser')}} method="POST">
+                                                @csrf
+                                                <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
+                                                <input onclick="return confirm('Are you sure you want to remove {{$user->username}}?')" class="btn btn-danger btn-sm" type="submit" value="Remove">
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

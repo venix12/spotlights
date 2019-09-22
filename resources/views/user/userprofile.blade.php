@@ -56,17 +56,19 @@
                         <h4>Spotlights</h4>
                         This user hasn't participated in any spotlights yet!
                     @endif
+
                     @if(Auth::user()->isAdmin() || Auth::user()->isManager())
                         <hr>
                     @endif
+
                     @if(Auth::user()->isAdmin())
                         <form method="POST" action={{route('admin.changeUsergroup')}}>
                             @csrf
                             <label for="group_id" class="col-form-label text-md-right">Change Usergroup</label>
                             <div class="form-group row">
                                 <div class="col-md-3">
-                                    <select class="custom-select mr-sm-2" name="group_id" >
-                                        <option selected>Choose...</option>
+                                    <select class="custom-select mr-sm-2" name="group_id" required>
+                                        <option selected value="">Choose...</option>
                                         <option value="0">0 - Member</option>
                                         <option value="1">1 - Administrator</option>
                                         <option value="2">2 - Leader</option>
@@ -82,6 +84,7 @@
                             </div>
                         </form>
                     @endif
+                    
                     @if(Auth::user()->isAdmin() || Auth::user()->isManager())
 
                         @php

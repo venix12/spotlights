@@ -25,10 +25,22 @@
                             </div>
                         </div>
 
+                        @php
+                            session(['passwordToken' => bin2hex(random_bytes(15))]);
+                        @endphp
+
                         <div class="form-group row">
-                            @php
-                                session(['passwordToken' => bin2hex(random_bytes(15))]);
-                            @endphp
+                            <label for="mode" class="col-md-4 col-form-label text-md-right">{{ __('Gamemode') }}</label>
+
+                            <div class="col-md-3">
+                                <select class="custom-select mr-sm-2" id="mode" name="mode" required>
+                                    <option selected value="">Choose...</option>
+                                    <option value="osu">osu!</option>
+                                    <option value="taiko">osu!taiko</option>
+                                    <option value="catch">osu!catch</option>
+                                    <option value="mania">osu!mania</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group row mb-0">

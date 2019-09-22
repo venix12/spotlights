@@ -99,7 +99,8 @@ class RegisterController extends Controller
         return User::create([
             'username' => $username,
             'password' => Hash::make(session('passwordToken')),
-            'osu_user_id' => $user_id
+            'osu_user_id' => $user_id,
+            $data['mode'] => 1,
         ]);
     }
 }

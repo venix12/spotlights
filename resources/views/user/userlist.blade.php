@@ -7,7 +7,7 @@
                 <div class="card-header">Home ≫ Users ≫ List</div>
                 <div class="card-body">
                 <p><b>Administrators:</b></p>
-                <ul class="list-small-distance">
+                <ul>
                     @foreach($leaders as $leader)
                             <li><div style="color: {{\App\User::GROUP_COLOURS[$leader->group_id]}};"><a href={{route('user.profile', ['id' => $leader->id])}}>{{$leader->username}}</div></a></li>
                     @endforeach

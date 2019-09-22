@@ -34,6 +34,8 @@ class UserProfileController extends Controller
 
         $votes = SpotlightsNominationVote::all();
 
+        $userVotes = $votes->where('user_id', $id);
+
         $spotlightsParticipated = [];
 
         foreach($userSpotlights as $userSpotlight)
@@ -41,6 +43,14 @@ class UserProfileController extends Controller
             if(!in_array($spotlights->find($userSpotlight->spots_id)->title, $spotlightsParticipated))
             {
                 $spotlightsParticipated[] = $spotlights->find($userSpotlight->spots_id)->title;
+            }
+        }
+
+        foreach($userVotes as $userVote)
+        {
+            if(!in_array($spotlights->find($userVote->spots_id)->title, $spotlightsParticipated))
+            {
+                $spotlightsParticipated[] = $spotlights->find($userVote->spots_id)->title;
             }
         }
 

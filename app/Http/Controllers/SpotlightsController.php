@@ -25,7 +25,7 @@ class SpotlightsController extends Controller
             return redirect('/');
         }
 
-        $nominations = SpotlightsNomination::all();
+        $nominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
 
         $votes = SpotlightsNominationVote::all();
 

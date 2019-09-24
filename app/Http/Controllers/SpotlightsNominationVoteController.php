@@ -71,27 +71,78 @@ class SpotlightsNominationVoteController extends Controller
 
         ]);
 
+        $vote = SpotlightsNominationVote::find($request->voteID);
+
         if ($request->optionsRadios == 'voteFor')
         {
+            if($vote->value == -1)
+            {
+                $scoreAdd = 2;
+            } else {
+                $scoreAdd = 1;
+            }
+            
             $voteValue = 1;
         }
 
         if ($request->optionsRadios == 'voteNeutral')
         {
+            if($vote->value == -1)
+            {
+                $scoreAdd = 1;
+            } 
+            elseif($vote->value == 1) 
+            {
+                $scoreAdd = -1;
+            }
+            else
+            {
+                $scoreAdd = 0;
+            }
+
             $voteValue = 0;
+
         }
 
         if($request->optionsRadios == 'voteAgainst')
         {
+            if($vote->value == 1)
+            {
+                $scoreAdd = -2;
+            } else {
+                $scoreAdd = -1;
+            }
+
             $voteValue = -1;
         }
 
         if($request->optionsRadios == 'voteContributed')
         {
+            if($vote->value == -1)
+            {
+                $scoreAdd = 1;
+            } 
+            elseif($vote->value == 1)
+            {
+                $scoreAdd = -1;
+            }
+            else
+            {
+                $scoreAdd = 0;
+            }
+
             $voteValue = 2;
         }
+        
 
-        $vote = SpotlightsNominationVote::find($request->voteID);
+        //change score of nomination
+        if($vote->value != $voteValue)
+        {
+            $nomination = SpotlightsNomination::find($request->nominationID);
+            $nomination->score += $scoreAdd;
+            $nomination->save();
+        } 
+
         $vote->value = $voteValue;
         $vote->user_id = Auth::user()->id;
         $vote->spots_id = $request->spotlightsID;
@@ -101,14 +152,6 @@ class SpotlightsNominationVoteController extends Controller
             $vote->comment = $request->commentField;
         }
         $vote->save();
-
-        //change score of nomination
-        if($voteValue < 2)
-        {
-            $nomination = SpotlightsNomination::find($request->nominationID);
-            $nomination->score += $voteValue;
-            $nomination->save();
-        }
 
         return redirect()->back()->with('success', 'Vote updated successfully!');
 

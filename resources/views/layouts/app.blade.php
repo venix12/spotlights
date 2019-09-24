@@ -36,6 +36,10 @@
     .medium-font {
         font-size: 0.8rem;
     }
+    
+    .small-font {
+        font-size: 0.6rem;
+    }
 
     .list-small-distance {
         line-height: 0.5em;

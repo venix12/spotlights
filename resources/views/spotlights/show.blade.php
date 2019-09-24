@@ -80,7 +80,13 @@
                             @endphp
                             <td><div style="color:{{$scoreColor}}">{{$score}}</div></td>
                             <td><a href= "https://osu.ppy.sh/beatmapsets/{{$nomination->beatmap_id}}">{{$nomination->beatmap_artist}} - {{$nomination->beatmap_title}} ({{$nomination->beatmap_creator}})</a></td>
-                            <td>{{\App\User::find($nomination->user_id)->username}}</td>
+                            <td>
+                                @if(\App\User::find($nomination->user_id)->active == 1)
+                                    <a href={{route('user.profile', ['id' => $nomination->user_id])}}>{{\App\User::find($nomination->user_id)->username}}</a>
+                                @else
+                                    <div style="color: #757575;">{{\App\User::find($nomination->user_id)->username}}</div>
+                                @endif
+                            </td>
                             <td>{{count($votes->where('nomination_id', $nomination->id))+1}}</td>
                             <td>
                                 @if($nomination->user_id == Auth::id())
@@ -154,7 +160,11 @@
                                             @foreach($votes as $vote)
                                                 @if($vote->nomination_id == $nomination->id)
                                                     @if($vote->value == 1)
-                                                        {{\App\User::find($vote->user_id)->username}},
+                                                        @if(\App\User::find($vote->user_id)->active == 1)
+                                                            <a href={{route('user.profile', ['id' => $vote->user_id])}}>{{\App\User::find($vote->user_id)->username}}</a>,
+                                                        @else
+                                                            <div style="color: #757575;">{{\App\User::find($nomination->user_id)->username}},</div>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -164,7 +174,11 @@
                                             @foreach($votes as $vote)
                                                 @if($vote->nomination_id == $nomination->id)
                                                     @if($vote->value == -1)
-                                                        {{\App\User::find($vote->user_id)->username}},
+                                                        @if(\App\User::find($vote->user_id)->active == 1)
+                                                            <a href={{route('user.profile', ['id' => $vote->user_id])}}>{{\App\User::find($vote->user_id)->username}}</a>,
+                                                        @else
+                                                            <div style="color: #757575;">{{\App\User::find($nomination->user_id)->username}},</div>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -174,7 +188,11 @@
                                             @foreach($votes as $vote)
                                                 @if($vote->nomination_id == $nomination->id)
                                                     @if($vote->value == 0)
-                                                        {{\App\User::find($vote->user_id)->username}},
+                                                        @if(\App\User::find($vote->user_id)->active == 1)
+                                                            <a href={{route('user.profile', ['id' => $vote->user_id])}}>{{\App\User::find($vote->user_id)->username}}</a>,
+                                                        @else
+                                                            <div style="color: #757575;">{{\App\User::find($nomination->user_id)->username}},</div>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -184,7 +202,11 @@
                                             @foreach($votes as $vote)
                                                 @if($vote->nomination_id == $nomination->id)
                                                     @if($vote->value == 2)
-                                                        {{\App\User::find($vote->user_id)->username}},
+                                                        @if(\App\User::find($vote->user_id)->active == 1)
+                                                            <a href={{route('user.profile', ['id' => $vote->user_id])}}>{{\App\User::find($vote->user_id)->username}}</a>,
+                                                        @else
+                                                            <div style="color: #757575;">{{\App\User::find($nomination->user_id)->username}},</div>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @endforeach
@@ -212,16 +234,25 @@
                                                                 @endphp
                                                                 <div class="card-header">
                                                                     <div class="row">
-                                                                        {{\App\User::find($vote->user_id)->username}}
-                                                                        @if($vote->value < 2)
-                                                                            (<div style="color:{{$color}}">{{$vote->value}}</div>)
+                                                                        @if(\App\User::find($vote->user_id)->active == 1)
+                                                                            <a href={{route('user.profile', ['id' => $vote->user_id])}}>{{\App\User::find($vote->user_id)->username}}</a>
                                                                         @else
-                                                                            (contributor)
+                                                                            <div style="color: #757575;">{{\App\User::find($vote->user_id)->username}}</div>
+                                                                        @endif
+
+                                                                        @if($vote->value < 2)
+                                                                            &nbsp;(<div style="color:{{$color}}">{{$vote->value}}</div>)
+                                                                        @else
+                                                                            &nbsp;(contributor)
                                                                         @endif
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-body">
                                                                     <p class="card-text">{{$vote->comment}}</p>
+                                                                    <div style="color: #757575;" class="small-font">{{$vote->created_at}}</div>
+                                                                    @if($vote->created_at != $vote->updated_at)
+                                                                        <div style="color: #757575;" class="small-font">(edited on {{$vote->updated_at}})</div>
+                                                                    @endif
                                                                 </div>
                                                             </div> <br />
                                                         @endif

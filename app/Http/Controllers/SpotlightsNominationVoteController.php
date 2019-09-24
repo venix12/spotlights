@@ -156,4 +156,16 @@ class SpotlightsNominationVoteController extends Controller
         return redirect()->back()->with('success', 'Vote updated successfully!');
 
     }
+
+    public function remove_comment(Request $request)
+    {
+
+        $vote = SpotlightsNominationVote::find($request->voteID);
+
+        $vote->comment = null;
+
+        $vote->save();
+
+        return redirect()->back()->with('success', 'Removed a comment successfully!');
+    }
 }

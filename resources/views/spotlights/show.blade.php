@@ -252,9 +252,16 @@
                                                                 </div>
                                                                 <div class="card-body">
                                                                     <p class="card-text">{{$vote->comment}}</p>
-                                                                    <div style="color: #757575;" class="small-font">{{$vote->created_at}}</div>
+                                                                    <div style="color: #757575;" class="small-font float-left">{{$vote->created_at}}</div>
                                                                     @if($vote->created_at != $vote->updated_at)
-                                                                        <div style="color: #757575;" class="small-font">(edited on {{$vote->updated_at}})</div>
+                                                                        <div style="color: #757575;" class="small-font float-left">(edited on {{$vote->updated_at}})</div>
+                                                                    @endif
+                                                                    @if(Auth::user()->isAdmin())
+                                                                        <form action={{route('admin.removeComment')}} method="POST">
+                                                                            @csrf
+                                                                            <input type="hidden" id="voteID" name="voteID" value="{{$vote->id}}">
+                                                                            <input onclick="return confirm('Are you sure you want to remove this comment?')" class="btn btn-danger btn-sm float-right" type="submit" value="Remove">
+                                                                        </form>
                                                                     @endif
                                                                 </div>
                                                             </div> <br />

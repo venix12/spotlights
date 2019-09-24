@@ -12,11 +12,11 @@ class SpotlightsController extends Controller
 {   
     public function index()
     {
-        if(!Auth::check)
+        if(!Auth::check())
         {
             return redirect('/');
         }
-        
+
         $spotlights = Spotlights::all();
         return view('spotlights.index')->with('spotlights', $spotlights);
     }
@@ -25,7 +25,7 @@ class SpotlightsController extends Controller
     {
         $spotlights = Spotlights::find($id);
 
-        if(Auth::check() || !$spotlights)
+        if(!Auth::check() || !$spotlights)
         {
             return redirect('/');
         }

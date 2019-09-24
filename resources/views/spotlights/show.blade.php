@@ -1,3 +1,5 @@
+<title>{{$spotlights->title}} | osu! Spotlights Team</title>
+
 @extends('layouts.app')
 
 @section('content')
@@ -10,7 +12,8 @@
         </div>
     @endif
     <h1>{{$spotlights->title}}</h1>
-    <small>{{$spotlights->description}}</small><br /> <br />
+    <div class="medium-font">{{$spotlights->description}}</div>
+    <hr>
     @if($spotlights->active == 1)
         <form method="POST" action={{route('spotlights.nominate', ['id' => $spotlights->id])}}>
             @csrf

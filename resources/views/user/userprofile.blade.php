@@ -1,3 +1,5 @@
+<title>{{$user->username}}'s profile  | osu! Spotlights Team</title>
+
 @extends('layouts.app')
 
 @section('content')
@@ -14,9 +16,7 @@
                             </button>
                         </div>
                     @endif
-                    <div style="width: 100px;">
-                        <img src="https://a.ppy.sh/{{$user->osu_user_id}}" width="100%" height="100%" class="float-left margin-img">
-                    </div>
+                    <img src="https://a.ppy.sh/{{$user->osu_user_id}}" width="100" height="100" class="float-left margin-img">
                     <div style="line-height: 0.5em;">
                         <br /><br /><br /><br />
                         @if($user->active == 1)

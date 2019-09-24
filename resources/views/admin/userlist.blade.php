@@ -1,3 +1,5 @@
+<title> Manage users| osu! Spotlights Team</title>
+
 @extends('layouts.app')
 
 @section('content')
@@ -5,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registered users list') }}</div>
+                <div class="card-header">Home ≫ Manage ≫ Manage users</div>
 
                 <div class="card-body">
                 @if(session('success'))

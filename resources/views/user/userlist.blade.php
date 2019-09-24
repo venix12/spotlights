@@ -1,3 +1,5 @@
+<title>Users list | osu! Spotlights Team</title>
+
 @extends('layouts.app')
 
 @section('content')

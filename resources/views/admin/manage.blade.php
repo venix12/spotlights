@@ -1,3 +1,5 @@
+<title>Manage | osu! Spotlights Team</title>
+
 @extends('layouts.app')
 
 @section('content')
@@ -5,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Management Panel') }}</div>
+                <div class="card-header">Home ≫ Manage</div>
                 <div class="card-body">
                     @if(Auth::user()->isAdmin())
                         <label class="col-form-label text-md-right"><a href="{{route('register')}}">Add user</a></label> <br />

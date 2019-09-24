@@ -252,7 +252,7 @@
                                                                 </div>
                                                                 <div class="card-body">
                                                                     <p class="card-text">{{$vote->comment}}</p>
-                                                                    <div style="color: #757575;" class="small-font float-left">{{$vote->created_at}}</div>
+                                                                    <div style="color: #757575;" class="small-font">{{$vote->created_at}}</div>
                                                                     @if($vote->created_at != $vote->updated_at)
                                                                         <div style="color: #757575;" class="small-font float-left">(edited on {{$vote->updated_at}})</div>
                                                                     @endif

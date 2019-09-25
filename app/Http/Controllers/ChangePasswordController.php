@@ -30,7 +30,7 @@ class ChangePasswordController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            Event::log($user->username." just changed their password");
+            Event::log("Changed the password");
 
             return redirect()->route('home')->with('success', 'Password has been changed successfully!');
         }

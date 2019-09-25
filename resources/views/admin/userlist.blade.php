@@ -1,4 +1,4 @@
-<title> Manage users| osu! Spotlights Team</title>
+<title> Manage users | osu! Spotlights Team</title>
 
 @extends('layouts.app')
 

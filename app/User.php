@@ -22,9 +22,22 @@ class User extends Authenticatable
         0 => '',
         1 => '#ff0000',
         2 => '#ff0000',
-        3 => '#f56e20',
+        3 => '#f56e20'
     ];
 
+    const MODES = [
+        'osu',
+        'catch',
+        'mania',
+        'taiko'
+    ];
+
+    const MODES_NAMES = [
+        'osu' => 'osu!',
+        'taiko' => 'osu!taiko',
+        'catch' => 'osu!catch',
+        'mania' => 'osu!mania'
+    ];
     /**
      * The attributes that are mass assignable.
      *

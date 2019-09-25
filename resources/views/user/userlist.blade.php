@@ -10,18 +10,20 @@
                 <div class="card-body">
                 <p><b>Administrators:</b></p>
                 <ul>
-                    @foreach($leaders as $leader)
-                            <li><div><a style="color: {{\App\User::GROUP_COLOURS[$leader->group_id]}};" href={{route('user.profile', ['id' => $leader->id])}}>{{$leader->username}}</a></li>
-                    @endforeach
-                    @foreach($admins as $admin)
-                            <li><a style="color: {{\App\User::GROUP_COLOURS[$admin->group_id]}};" href={{route('user.profile', ['id' => $admin->id])}}>{{$admin->username}}</a></li>
+                    @foreach(App\User::MODES as $mode)
+                        @foreach($leaders->where($mode, 1) as $leader)
+                                <li><div><a style="color: {{\App\User::GROUP_COLOURS[$leader->group_id]}};" href={{route('user.profile', ['id' => $leader->id])}}>{{$leader->username}}</a> <span class="text-muted">({{App\User::MODES_NAMES[$mode]}})</li>
+                        @endforeach
+                        @foreach($admins->where($mode, 1) as $admin)
+                                <li><a style="color: {{\App\User::GROUP_COLOURS[$admin->group_id]}};" href={{route('user.profile', ['id' => $admin->id])}}>{{$admin->username}}</a> <span class="text-muted">({{App\User::MODES_NAMES[$mode]}})</li>
+                        @endforeach
                     @endforeach
                 </ul>
                 <p><b>Managers:</b></p>
                 <ul>
                 @foreach(App\User::MODES as $mode)
                     @foreach($managers->where($mode, 1) as $manager)
-                        <li><a style="color: {{\App\User::GROUP_COLOURS[$manager->group_id]}};" href={{route('user.profile', ['id' => $manager->id])}}>{{$manager->username}} <span class="text-muted">({{App\User::MODES_NAMES[$mode]}})</span></a></li>
+                        <li><a style="color: {{\App\User::GROUP_COLOURS[$manager->group_id]}};" href={{route('user.profile', ['id' => $manager->id])}}>{{$manager->username}}</a> <span class="text-muted">({{App\User::MODES_NAMES[$mode]}})</span></li>
                     @endforeach
                 @endforeach
                 </ul>
@@ -29,7 +31,7 @@
                 <ul>
                 @foreach(App\User::MODES as $mode)
                     @foreach($members->where($mode, 1) as $member)
-                        <li><a href={{route('user.profile', ['id' => $member->id])}}>{{$member->username}}</a> <span class="text-muted">({{App\User::MODES_NAMES[$mode]}})</span> </li>
+                        <li><a href={{route('user.profile', ['id' => $member->id])}}>{{$member->username}}</a> <span class="text-muted">({{App\User::MODES_NAMES[$mode]}})</span></li>
                     @endforeach
                 @endforeach
                 </ul>

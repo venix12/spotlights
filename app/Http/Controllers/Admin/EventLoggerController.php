@@ -16,7 +16,7 @@ class EventLoggerController extends Controller
             return redirect('/');
         }
 
-        $events = Event::all();
+        $events = Event::orderBy('id', 'DESC')->get();
         $users = User::all();
         
         return view('admin.eventlogger')

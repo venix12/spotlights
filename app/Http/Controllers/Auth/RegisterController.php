@@ -96,7 +96,7 @@ class RegisterController extends Controller
             $username = $item['username'];
         }
 
-        Event::log(Auth::user()->username." added a new user ".$username);
+        Event::log("Added new user ".$username);
 
         session(['registeredUsername' => $username]);
         return User::create([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Event;
 use App\User;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
@@ -15,6 +16,9 @@ class UserController extends Controller
         $user = User::find($request->userID);
         $user->active = 1;
         $user->save();
+
+        Event::log('Activated user'. $user->username);
+
         return redirect()->back()->with('success', 'Successfully activated an user!');
     }
 
@@ -29,6 +33,9 @@ class UserController extends Controller
             }
             $user->active = 0;
             $user->save();
+
+            Event::log('Deactivated user'. $user->username);
+
             return redirect()->back()->with('success', 'Successfully deactivated an user!');
         }
         else
@@ -49,6 +56,8 @@ class UserController extends Controller
         $user->group_id = $request->group_id;
 
         $user->save();
+
+        Event::log("Moved ".$user->username." to ".User::GROUPS[$request->group_id]."s");
 
         return redirect()->back()->with('success', 'Successfully changed the usergroup!');
     }

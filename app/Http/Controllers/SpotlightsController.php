@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Spotlights;
 use Auth;
+use App\Event;
+use App\Spotlights;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
+use Illuminate\Http\Request;
 
 class SpotlightsController extends Controller
 {   
@@ -136,6 +137,8 @@ class SpotlightsController extends Controller
             $spotlights->save();
         }
 
+        Event::log("Created new spotlights ".$request->title);
+
         return redirect()->back()->with('success', 'Created new spotlights!');
     }
 
@@ -144,6 +147,9 @@ class SpotlightsController extends Controller
         $spotlights = Spotlights::find($request->spotlightsID);
         $spotlights->active = 1;
         $spotlights->save();
+
+        Event::log("Activated spotlights ".$spotlights->title);
+
         return redirect()->back()->with('success', 'Successfully activated the spotlights!');
     }
 
@@ -152,6 +158,9 @@ class SpotlightsController extends Controller
         $spotlights = Spotlights::find($request->spotlightsID);
         $spotlights->active = 0;
         $spotlights->save();
+
+        Event::log("Dectivated spotlights ".$spotlights->title);
+
         return redirect()->back()->with('success', 'Successfully deactivated the spotlights!');
     }
 
@@ -164,6 +173,8 @@ class SpotlightsController extends Controller
         $vote->delete();
         $nomination->delete();
         $spotlights->delete();
+
+        Event::log("Removed spotlights ".$spotlights->title);
 
         return redirect()->back()->with('success', 'Successfully removed the spotlights!');
     }

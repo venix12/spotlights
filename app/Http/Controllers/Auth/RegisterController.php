@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use App\Event;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -94,6 +95,8 @@ class RegisterController extends Controller
         {
             $username = $item['username'];
         }
+
+        Event::log(Auth::user()->username." added a new user ".$username);
 
         session(['registeredUsername' => $username]);
         return User::create([

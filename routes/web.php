@@ -49,6 +49,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
     Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
     Route::get('/added-user', 'AddedUserController@index')->name('admin.addedUser');
     Route::get('/spotlist', 'SpotlightsListController@index')->name('admin.spotlist');
+    Route::get('/log', 'EventLoggerController@index')->name('admin.log');
 });
 
 //spotlights

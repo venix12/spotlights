@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
+use App\Event;
 use App\User;
 
 class ChangePasswordController extends Controller
@@ -28,6 +29,9 @@ class ChangePasswordController extends Controller
             $user = User::find(Auth::id());
             $user->password = Hash::make($request->password);
             $user->save();
+
+            Event::log($user->username." just changed their password");
+
             return redirect()->route('home')->with('success', 'Password has been changed successfully!');
         }
         else

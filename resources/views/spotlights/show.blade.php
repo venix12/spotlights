@@ -11,6 +11,14 @@
             </button>
         </div>
     @endif
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{session('error')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <h1>{{$spotlights->title}}</h1>
     <div class="medium-font">{{$spotlights->description}}</div>
     <hr>
@@ -19,7 +27,7 @@
             @csrf
             <div class="col-md-6">
                 <div class="form-group row">
-                    <label for="beatmap_id" class="col-form-label text-md-right">{{ __('Beatmap ID') }}</label>
+                    <label for="beatmap_id" class="col-form-label text-md-right">Beatmapset ID</label>
 
                     <div class="col-md-4">
                         <input id="beatmap_id" type="text" class="form-control" name="beatmap_id" required>

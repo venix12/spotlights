@@ -52,6 +52,11 @@ class SpotlightsController extends Controller
         $response = $client->get($url);
         $beatmapData = json_decode((string) $response->getBody(), true);
 
+        if($beatmapData == null)
+        {
+            return redirect()->back()->with('error', 'No beatmapset found!');
+        }
+
         //get beatmap data from api
         foreach($beatmapData as $key => $item)
         {

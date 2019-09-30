@@ -126,12 +126,15 @@
                                         @if($nomination->user_id != Auth::id())
                                             @if(count($votes->where('user_id', Auth::id())->where('nomination_id', $nomination->id)) == 0)
                                                 <form action={{route('spotlights.vote')}} method="POST">
+                                                    @csrf
+                                                    <label for="commentField">Put your comment here!</label>
+                                                    <textarea class="form-control" id="commentField" name="commentField" rows="4"></textarea> <br />
                                             @else
                                                 <form action={{route('spotlights.updateVote')}} method="POST">
+                                                    @csrf
+                                                    <label for="commentField">Put your comment here!</label>
+                                                    <textarea class="form-control" id="commentField" name="commentField" rows="4">{{$votes->where('user_id', Auth::id())->where('nomination_id', $nomination->id)->first()->comment}}</textarea> <br />
                                             @endif
-                                                @csrf
-                                                <label for="commentField">Put your comment here!</label>
-                                                <textarea class="form-control" id="commentField" name="commentField" rows="4"></textarea> <br />
                                                 <div class="form-check">
                                                     <label class="form-check-label">
                                                         <input type="radio" class="form-check-input" name="optionsRadios" id="option1" value="voteFor" required>
@@ -263,7 +266,7 @@
                                                                 <div class="card-body">
                                                                     <p class="card-text">{{$vote->comment}}</p>
                                                                     <div style="color: #757575;" class="small-font">{{$vote->created_at}}</div>
-                                                                    @if($vote->created_at != $vote->updated_at)
+                                                                    @if($vote->comment_updated_at)
                                                                         <div style="color: #757575;" class="small-font float-left">(edited on {{$vote->updated_at}})</div>
                                                                     @endif
                                                                     @if(Auth::user()->isAdmin())

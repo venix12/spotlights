@@ -147,9 +147,10 @@ class SpotlightsNominationVoteController extends Controller
         $vote->user_id = Auth::user()->id;
         $vote->spots_id = $request->spotlightsID;
         $vote->nomination_id = $request->nominationID;
-        if (strlen($request->commentField) > 0)
+        if ($vote->comment != $request->commentField)
         {
             $vote->comment = $request->commentField;
+            $vote->comment_updated_at = now();
         }
         $vote->save();
 

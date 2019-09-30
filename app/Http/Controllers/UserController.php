@@ -27,6 +27,12 @@ class UserController extends Controller
         if($request->userID != Auth::user()->id)
         {
             $user = User::find($request->userID);
+
+            if(Auth::user()->isManager() && ($user->group_id == 1 || $user->group_id == 2 || $user->group_id == 3))
+            {
+                return redirect()->back()->with('error', "You can't deactivate administrators and managers!");
+            }
+
             if($user->group_id != 0)
             {
                 $user->group_id = 0;

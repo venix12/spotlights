@@ -21,7 +21,7 @@
                             @foreach($events as $event)
                                 <tr>
                                     <td class="medium-font">{{$event->created_at}}</td>
-                                    <td class="medium-font">{{$users->find($event->user_id)->username}}</td>
+                                    <td class="medium-font"><a href={{route('user.profile', ['id' => $event->user_id])}} style="color: {{\App\User::GROUP_COLOURS[$users->find($event->user_id)->group_id]}};">{{$users->find($event->user_id)->username}}</a></td>
                                     <td class="medium-font">{{$event->action}}</td>
                                 </tr>
                             @endforeach

@@ -7,6 +7,7 @@ use App\Event;
 use App\User;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -66,6 +67,32 @@ class UserController extends Controller
         Event::log("Moved ".$user->username." to ".User::GROUPS[$request->group_id]."s");
 
         return redirect()->back()->with('success', 'Successfully changed the usergroup!');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $user = User::where('username', $request->username)->first();
+
+        if(!$user)
+        {
+            return redirect()->back()->with('error', 'User not found!');
+        }
+
+        $user = User::find($user->id);
+
+        $registeredUsername = $request->username;
+
+        $newPassword = bin2hex(random_bytes(15));
+
+        $user->password = Hash::make($newPassword);
+        $user->save();
+
+        Event::log('Resetted password for user '.$request->username);
+
+        return view('admin.addedUser')
+            ->with('registeredUsername', $registeredUsername)
+            ->with('token', $newPassword)
+            ->with('value', 'Password resetted!');
     }
 
     public function destroy(Request $request)

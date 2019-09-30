@@ -20,6 +20,7 @@ class AddedUserController extends Controller
 
         return view('admin.addeduser')
             ->with('registeredUsername', $registeredUsername)
-            ->with('token', $token);
+            ->with('token', $token)
+            ->with('value', 'Added user!');
     }
 }

@@ -39,15 +39,17 @@ Route::post('/create-spotlights', 'SpotlightsController@create')->name('admin.cr
 
 Route::post('/remove-comment', 'SpotlightsNominationVoteController@remove_comment')->name('admin.removeComment');
 
-//change password
+//password
 Route::get('/change-password', 'ChangePasswordController@index')->name('password.change');
 Route::post('/change-password', 'ChangePasswordController@changePassword')->name('password.update');
+Route::post('/reset-password', 'UserController@resetPassword')->name('password.reset');
 
 //management
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
     Route::get('/', 'ManageController@index')->name('admin.manage');
     Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
     Route::get('/added-user', 'AddedUserController@index')->name('admin.addedUser');
+    Route::get('/reset-password', 'ResetPasswordController@index')->name('admin.resetpassword');
     Route::get('/spotlist', 'SpotlightsListController@index')->name('admin.spotlist');
     Route::get('/log', 'EventLoggerController@index')->name('admin.log');
 });

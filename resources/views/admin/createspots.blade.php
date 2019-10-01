@@ -33,6 +33,22 @@
                                 <input id="description" type="text" class="form-control" name="description" required>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="deadline" class="col-md-4 col-form-label text-md-right">Deadline (YYYY-MM-DD)</label>
+
+                            <div class="col-md-6">
+                                <input id="deadline" type="text" class="form-control @error('deadline') is-invalid @enderror" name="deadline" required>
+
+                                @error('deadline')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>Deadline format is invalid!</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <div class="col-md-4 offset-md-4">
                                 <div class="form-check">

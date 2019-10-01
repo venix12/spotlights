@@ -86,6 +86,13 @@ class SpotlightsController extends Controller
 
     public function create(Request $request)
     {
+        $this->validate(request(),[
+
+            'deadline' => 'required|date_format:Y-m-d',
+
+        ]);
+
+        $deadline = $request->deadline." 23:59:59";
         
         $modes = [];
 
@@ -128,6 +135,7 @@ class SpotlightsController extends Controller
             $spotlights = new Spotlights();
             $spotlights->title = $title;
             $spotlights->description = $request->description;
+            $spotlights->deadline = $deadline;
             $spotlights->$mode = 1;
 
             $spotlights->save();
@@ -137,6 +145,7 @@ class SpotlightsController extends Controller
         {
             $spotlights = new Spotlights();
             $spotlights->title = $request->title;
+            $spotlights->deadline = $deadline;
             $spotlights->description = $request->description;
 
             $spotlights->save();

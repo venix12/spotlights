@@ -45,6 +45,10 @@
         line-height: 0.5em;
     }
 
+    form{
+        margin: 0;
+    }
+
     </style>
 </head>
 <body>

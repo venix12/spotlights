@@ -59,10 +59,10 @@ class ApiController extends Controller
         $userApi = json_decode((string) $userData->getBody(), true);
         
         $userId = $userApi['id'];
-
-        return $userId;
         
         $user = User::where('id', $userId)->first();
+
+        dd($user);
 
         if($user === null || $user->active == 0)
         {

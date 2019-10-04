@@ -67,7 +67,7 @@ class ApiController extends Controller
             return redirect('/');
         }
 
-        Auth::login($user->id);
+        Auth::login($user);
 
         return redirect(route('home'));
     }

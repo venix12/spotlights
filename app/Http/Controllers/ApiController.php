@@ -30,7 +30,6 @@ class ApiController extends Controller
 
         if(!(strlen($state) > 0 && $state === $request->state))
         {
-            return redirect('/');
         }
 
         $http = new \GuzzleHttp\Client;
@@ -64,7 +63,6 @@ class ApiController extends Controller
 
         if($user === null || $user->active == 0)
         {
-            return redirect('/');
         }
 
         Auth::login($user);

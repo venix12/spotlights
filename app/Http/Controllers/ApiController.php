@@ -31,7 +31,7 @@ class ApiController extends Controller
             InvalidArgumentException::class
         );
 
-        $http = new GuzzleHttp\Client;
+        $http = new \GuzzleHttp\Client;
 
         $response = $http->post('http://osu.ppy.sh/oauth/token', [  
             'form_params' => [

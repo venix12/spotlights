@@ -105,7 +105,7 @@ Route::get('/callback', function (Request $request) {
 
     foreach($data as $key => $item)
     {
-        $token = $item['token'];
+        $token = $item['access_token'];
     }
 
     $user = $http->request('GET', 'https://osu.ppy.sh/api/v2/me', [

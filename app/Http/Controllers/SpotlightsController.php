@@ -41,6 +41,7 @@ class SpotlightsController extends Controller
             ->with('votes', $votes);
 
     }
+
     public function nominate(Request $request, $id)
     {
         $spotlights = Spotlights::find($id);
@@ -191,5 +192,18 @@ class SpotlightsController extends Controller
         Event::log("Removed spotlights ".$spotlights->title);
 
         return redirect()->back()->with('success', 'Successfully removed the spotlights!');
+    }
+
+    public function release(Request $request)
+    {
+        $spotlights = Spotlights::find($request->spotlightsID);
+
+        $spotlights->released = 1;
+        $spotlights->released_at = now();
+        $spotlights->save();
+
+        Event::log("Released spotlights ".$spotlights->title);
+
+        return redirect()->back()->with('success', 'Successfully released the spotlights!');
     }
 }

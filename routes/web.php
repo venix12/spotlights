@@ -59,6 +59,7 @@ Route::group(['prefix' => 'spotlights'], function() {
     Route::get('/', 'SpotlightsController@index')->name('spotlights');
     Route::get('/{id}', 'SpotlightsController@show')->name('spotlights.show');
     Route::post('/{id}/nominate', 'SpotlightsController@nominate')->name('spotlights.nominate');
+    Route::post('/release', 'SpotlightsController@release')->name('spotlights.release');
     Route::post('/remove-nomination', 'SpotlightsNominationController@destroy')->name('spotlights.removeNomination');
     Route::post('/vote', 'SpotlightsNominationVoteController@index')->name('spotlights.vote');
     Route::post('/update-vote', 'SpotlightsNominationVoteController@update')->name('spotlights.updateVote');

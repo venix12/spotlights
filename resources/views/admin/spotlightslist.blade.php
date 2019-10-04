@@ -61,6 +61,9 @@
                                                 @csrf
                                                 <input type="hidden" id="spotlightsID" name="spotlightsID" value="{{$spotlight->id}}">
                                                 <input onclick="return confirm('Are you sure you want to remove {{$spotlight->title}}?')" class="btn btn-danger btn-sm" type="submit" value="Remove">
+                                                @if($spotlight->released == 0)
+                                                    &nbsp;<button onclick="return confirm('Are you sure you want to mark {{$spotlight->title}} as released?')" type="submit" formaction={{route('spotlights.release')}} class="btn btn-warning btn-sm" type="submit">Release</button>
+                                                @endif
                                             </form>
                                         @endif
                                     </div>

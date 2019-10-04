@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -26,10 +28,10 @@ class ApiController extends Controller
     {
         $state = $request->session()->pull('state');
 
-        throw_unless(
-            strlen($state) > 0 && $state === $request->state,
-            InvalidArgumentException::class
-        );
+        if(!(strlen($state) > 0 && $state === $request->state))
+        {
+            return redirect('/');
+        }
 
         $http = new \GuzzleHttp\Client;
 
@@ -47,14 +49,27 @@ class ApiController extends Controller
 
         $token = $data['access_token'];
 
-        $user = $http->request('GET', 'https://osu.ppy.sh/api/v2/me', [
+        $userData = $http->request('GET', 'https://osu.ppy.sh/api/v2/me', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer '.$token,
             ],
         ]);
+        
+        $userApi = json_decode((string) $userData->getBody(), true);
+        
+        $userId = $userApi['id'];
+        
+        $user = User::where('id', $userId)->first();
 
-        return json_decode((string) $user->getBody(), true);
+        if($user === null || $user->active == 0)
+        {
+            return redirect('/');
+        }
+
+        Auth::login($user);
+
+        return redirect(route('home'));
     }
 
 }

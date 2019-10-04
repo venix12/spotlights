@@ -101,5 +101,19 @@ Route::get('/callback', function (Request $request) {
         ],
     ]);
 
-    return json_decode((string) $response->getBody(), true);
+    $data = json_decode((string) $response->getBody(), true);
+
+    foreach($data as $key => $item)
+    {
+        $token = $item['token'];
+    }
+
+    $user = $http->request('GET', 'https://osu.ppy.sh/api/v2/me', [
+        'headers' => [
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer '.$token,
+        ],
+    ]);
+
+    return json_decode((string) $user->getBody(), true);
 });

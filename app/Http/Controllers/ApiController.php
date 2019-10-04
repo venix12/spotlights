@@ -58,18 +58,16 @@ class ApiController extends Controller
         
         $userApi = json_decode((string) $userData->getBody(), true);
         
-        $userId = $userApi['id'];
+        $osuUserId = $userApi['id'];
         
-        $user = User::where('id', $userId)->first();
-
-        dd($user);
+        $user = User::where('osu_user_id', $osuUserId)->first();
 
         if($user === null || $user->active == 0)
         {
             return redirect('/');
         }
 
-        Auth::login($user);
+        Auth::login($user->id);
 
         return redirect(route('home'));
     }

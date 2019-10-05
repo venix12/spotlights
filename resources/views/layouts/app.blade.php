@@ -36,7 +36,7 @@
         }
 
         .medium-font {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .small-font {
@@ -55,6 +55,15 @@
         .closed {
             transform: rotate(0deg);
             transition: transform 0.2s ease-out;
+        }
+
+        .icon-list {
+            padding-left: 0.6em;
+            font-size: 0.8rem;
+        }
+
+        .text-gray {
+            color: #757575;
         }
 
         form {

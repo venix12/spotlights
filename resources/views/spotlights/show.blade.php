@@ -92,7 +92,7 @@
                             @endphp
                             <td><div style="color:{{$scoreColor}}">{{$score}}</div></td>
                             <td><a href= "https://osu.ppy.sh/beatmapsets/{{$nomination->beatmap_id}}">{{$nomination->beatmap_artist}} - {{$nomination->beatmap_title}}</a></td>
-                            <td><a href="https://osu.ppy.sh/users/{{$nomination->beatmap_creator}}">{{$nomination->beatmap_creator}}</a></td>
+                            <td><a href="https://osu.ppy.sh/users/{{$nomination->beatmap_creator_osu_id}}">{{$nomination->beatmap_creator}}</a></td>
                             <td>
                                 @if(\App\User::find($nomination->user_id)->active == 1)
                                     <a href={{route('user.profile', ['id' => $nomination->user_id])}}>{{\App\User::find($nomination->user_id)->username}}</a>

@@ -61,20 +61,22 @@ class SpotlightsController extends Controller
         //get beatmap data from api
         foreach($beatmapData as $key => $item)
         {
-            $beatmapCreator = $item['creator'];
             $beatmapArtist = $item['artist'];
+            $beatmapCreator = $item['creator'];
+            $beatmapCreatorId = $item['creator_id'];
             $beatmapTitle = $item['title'];
         }
 
         //add nomination entry to database
         $nomination = new SpotlightsNomination();
+        $nomination->beatmap_artist = $beatmapArtist;
+        $nomination->beatmap_creator = $beatmapCreator;
+        $nomination->beatmap_creator_osu_id = $beatmapCreatorId;
+        $nomination->beatmap_id = $request->beatmap_id;
+        $nomination->beatmap_title = $beatmapTitle;
+        $nomination->score = 1;
         $nomination->spots_id = $id;
         $nomination->user_id = Auth::user()->id;
-        $nomination->beatmap_id = $request->beatmap_id;
-        $nomination->beatmap_artist = $beatmapArtist;
-        $nomination->beatmap_title = $beatmapTitle;
-        $nomination->beatmap_creator = $beatmapCreator;
-        $nomination->score = 1;
         $nomination->save();
         
         return redirect()->back()->with('success', 'Nominated a beatmap successfully!')->with('beatmapData', $beatmapData);

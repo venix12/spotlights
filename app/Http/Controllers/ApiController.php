@@ -45,6 +45,8 @@ class ApiController extends Controller
             ],
         ]);
 
+        return json_decode((string) $response->getBody(), true);
+
         $data = json_decode((string) $response->getBody(), true);
 
         $token = $data['access_token'];

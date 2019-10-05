@@ -136,7 +136,7 @@
                                 @endif
                             </td>
                         <tr>
-                            <td colspan="6" class="hiddenRow"><div id="details{{$nomination->id}}" class="accordian-body collapse">
+                            <td colspan="8" class="hiddenRow"><div id="details{{$nomination->id}}" class="accordian-body collapse">
                                 <div class="modal-body row">
                                     <div class="col-md-6">
                                         @if($nomination->user_id != Auth::id())

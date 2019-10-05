@@ -307,7 +307,6 @@
                         </tr>
                     </tbody>
                 @endif
-                {{$nomination->id}}
             @endforeach
         </table>
     @else

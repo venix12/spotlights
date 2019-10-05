@@ -101,7 +101,11 @@
                             @csrf
                             <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
                             <input onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')" class="btn btn-dark btn-sm" type="submit" value={{ucfirst($activeValue)}}>
-                        </form>
+                        </form><br />
+
+                        @if($user->has_logged_in != 1)
+                            <span class="text-muted medium-font">This user hasn't logged in yet!</span>
+                        @endif
                     @endif
                 </div>
             </div>

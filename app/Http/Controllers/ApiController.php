@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Event;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -72,6 +73,16 @@ class ApiController extends Controller
         }
 
         Auth::login($user);
+
+        if($user->has_logged_in == 0)
+        {
+            $user->has_logged_in = 1;
+            $user->has_logged_in_at = now();
+            
+            Event::log('Logged in for the first time');
+
+            $user->save();
+        }
 
         return redirect(route('home'));
     }

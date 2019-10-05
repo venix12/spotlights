@@ -50,6 +50,11 @@ class Handler extends ExceptionHandler
         {
             switch ($e->getStatusCode()) 
                 {
+                // bad request
+                case 400:
+                return redirect('/')->with('error', 'Seems like something went wrong...');
+                break;
+                
                 // not found
                 case 404:
                 return redirect('/');

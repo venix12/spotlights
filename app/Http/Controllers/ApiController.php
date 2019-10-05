@@ -35,17 +35,19 @@ class ApiController extends Controller
 
         $http = new \GuzzleHttp\Client;
 
-        $response = $http->post('http://osu.ppy.sh/oauth/token', [  
-            'form_params' => [
-                'grant_type' => 'authorization_code',
-                'client_id' => env('CLIENT_ID'),
-                'client_secret' => env('CLIENT_SECRET'),
-                'redirect_uri' => 'http://spotlights.team/callback',
-                'code' => $request->code,
-            ],
-        ]);
-
-        return json_decode((string) $response->getBody(), true);
+        try {
+            $response = $http->post('http://osu.ppy.sh/oauth/token', [  
+                'form_params' => [
+                    'grant_type' => 'authorization_code',
+                    'client_id' => env('CLIENT_ID'),
+                    'client_secret' => env('CLIENT_SECRET'),
+                    'redirect_uri' => 'http://spotlights.team/callback',
+                    'code' => $request->code,
+                ],
+            ]);
+        } catch (\Exception $e) {
+            return redirect('/')->with('error', 'Something went wrong...');
+        }
 
         $data = json_decode((string) $response->getBody(), true);
 

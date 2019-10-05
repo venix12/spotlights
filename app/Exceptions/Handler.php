@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +47,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof MethodNotAllowedHttpException)
+        {
+            return redirect('/');
+        }
+
         if($this->isHttpException($e))
         {
             switch ($e->getStatusCode()) 
@@ -54,14 +60,14 @@ class Handler extends ExceptionHandler
                 case 400:
                 return redirect('/')->with('error', 'Seems like something went wrong...');
                 break;
-                
+
                 // not found
                 case 404:
                 return redirect('/');
                 break;
 
                 // internal error
-                case '500':
+                case 500:
                 return redirect('/');
                 break;
 

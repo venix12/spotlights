@@ -30,7 +30,7 @@ class ApiController extends Controller
 
         if(!(strlen($state) > 0 && $state === $request->state))
         {
-            return redirect('/');
+            return redirect('/')->with('error', 'Seems like something went wrong...');
         }
 
         $http = new \GuzzleHttp\Client;
@@ -64,7 +64,7 @@ class ApiController extends Controller
 
         if($user === null || $user->active == 0)
         {
-            return redirect('/');
+            return redirect('/')->with('error', 'Seems like you are not a member of the Spotlights Team!');
         }
 
         Auth::login($user);

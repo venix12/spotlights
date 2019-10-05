@@ -47,8 +47,8 @@ Route::post('/create-spotlights', 'SpotlightsController@create')->name('admin.cr
 Route::post('/remove-comment', 'SpotlightsNominationVoteController@remove_comment')->name('admin.removeComment');
 
 //password
-Route::get('/change-password', 'ChangePasswordController@index')->name('password.change');
-Route::post('/change-password', 'ChangePasswordController@changePassword')->name('password.update');
+//Route::get('/change-password', 'ChangePasswordController@index')->name('password.change');
+//Route::post('/change-password', 'ChangePasswordController@changePassword')->name('password.update');
 Route::post('/reset-password', 'UserController@resetPassword')->name('password.reset');
 
 //management

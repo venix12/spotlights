@@ -16,9 +16,8 @@
                         </div>
                     @endif
 
-                    You are logged in! <br /><br />
-
-                    <a href={{route('password.change')}}>Change password</a>
+                    <h3>Welcome to the spotlights, {{Auth::user()->username}}</h3>
+                    there's nothing here at the moment...
                 </div>
             </div>
         </div>

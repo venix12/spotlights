@@ -14,6 +14,8 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
+        
         <style>
             html, body {
                 background-color: #fff;

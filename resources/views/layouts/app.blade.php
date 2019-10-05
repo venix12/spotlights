@@ -18,37 +18,38 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
 
     <style>
-    .scrollable{
-        height: 385px;
-        overflow-y: auto;
-        padding-right: 10px;
-    }
-    .card-text{
-        white-space: pre-wrap;
-    }
+        .scrollable{
+            height: 385px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
 
-    .margin-img {
-        margin-right: 5px;
-    }
+        .card-text{
+            white-space: pre-wrap;
+        }
 
-    .medium-font {
-        font-size: 0.8rem;
-    }
-    
-    .small-font {
-        font-size: 0.6rem;
-    }
+        .margin-img {
+            margin-right: 5px;
+        }
 
-    .list-small-distance {
-        line-height: 0.5em;
-    }
+        .medium-font {
+            font-size: 0.8rem;
+        }
 
-    form{
-        margin: 0;
-    }
+        .small-font {
+            font-size: 0.6rem;
+        }
 
+        .list-small-distance {
+            line-height: 0.5em;
+        }
+
+        form{
+            margin: 0;
+        }
     </style>
 </head>
 <body>

@@ -18,7 +18,7 @@ class UserController extends Controller
         $user->active = 1;
         $user->save();
 
-        Event::log('Activated user'. $user->username);
+        Event::log('Activated user '. $user->username);
 
         return redirect()->back()->with('success', 'Successfully activated an user!');
     }
@@ -41,7 +41,7 @@ class UserController extends Controller
             $user->active = 0;
             $user->save();
 
-            Event::log('Deactivated user'. $user->username);
+            Event::log('Deactivated user '. $user->username);
 
             return redirect()->back()->with('success', 'Successfully deactivated an user!');
         }

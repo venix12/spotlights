@@ -43,7 +43,7 @@
                             <li><a class="text-muted" href={{route('user.profile', ['id' => $inactive->id])}}>{{$inactive->username}}</a></li>
                         </ul>
                     @endforeach
-                    <p><b>Users that hasn't logged in yet:</b></p>
+                    <p><b>Users that haven't logged in yet:</b></p>
                     @foreach($usersNotLogged as $userNotLogged)
                         <ul class="list-small-distance">
                             <li><a style="color: {{\App\User::GROUP_COLOURS[$userNotLogged->group_id]}};" href={{route('user.profile', ['id' => $userNotLogged->id])}}>{{$userNotLogged->username}}</a></li>

@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/login', 'ApiController@getToken')->name('login');
 //Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');

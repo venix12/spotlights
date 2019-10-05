@@ -74,7 +74,7 @@ class ApiController extends Controller
 
         Auth::login($user);
 
-        if($user->has_logged_in == 0)
+        if($user->has_logged_in == null || $user->has_logged_in == 0)
         {
             $user->has_logged_in = 1;
             $user->has_logged_in_at = now();

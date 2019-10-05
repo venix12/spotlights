@@ -15,7 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/login', 'ApiController@getToken')->name('login');
+//Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('/register', 'Auth\RegisterController@register');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -66,5 +73,4 @@ Route::group(['prefix' => 'spotlights'], function() {
 });
 
 //oauth
-Route::get('/oauth', 'ApiController@getToken')->name('oauth');
-Route::get('/callback', 'ApiController@getUserData')->name('user.data');
+Route::get('/callback', 'ApiController@getUserData');

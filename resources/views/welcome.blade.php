@@ -72,7 +72,7 @@
                             <a href={{route('admin.manage')}}>MANAGE</a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">Login with osu! account</a>
                     @endauth
                 </div>
             @endif

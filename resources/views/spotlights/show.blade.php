@@ -47,6 +47,7 @@
         <table class="table table-striped" id="nominationsTable">
             <thead>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col">Score</th>
                     <th scope="col">Beatmap</th>
                     <th scope="col">Mapper</th>
@@ -58,10 +59,10 @@
                     @endif
                 </tr>
             </thead>
-            @foreach($nominations as $nomination)
+            @foreach($nominations->where('spots_id', $spotlights->id) as $nomination)
                 @if(count($nominations) > 0 && $spotlights->id == $nomination->spots_id)
                     <tbody>
-                        <tr data-toggle="collapse" data-target="#details{{$nomination->id}}" class="accordion-toggle">
+                        <tr>
                             @php
                                 $score = $nomination->score;
 
@@ -89,19 +90,34 @@
                                 {
                                     $scoreColor = "#12b012";
                                 }
+
+                                $onclick = 
+                                    "if(!className.includes('open')) {
+                                        if(className.includes('closed')) {
+                                            classList.replace('closed', 'open');  
+                                        } else {
+                                            classList.toggle('open');
+                                        }
+                                    } else {
+                                        classList.replace('open', 'closed');
+                                    }";
                             @endphp
-                            <td><div style="color:{{$scoreColor}}">{{$score}}</div></td>
-                            <td><a href= "https://osu.ppy.sh/beatmapsets/{{$nomination->beatmap_id}}">{{$nomination->beatmap_artist}} - {{$nomination->beatmap_title}}</a></td>
-                            <td><a href="https://osu.ppy.sh/users/{{$nomination->beatmap_creator_osu_id}}">{{$nomination->beatmap_creator}}</a></td>
                             <td>
+                                <input id="toggleId" type="hidden" value={{$nomination->id}}>
+                                <i id="toggle{{$nomination->id}}" style="font-size: 2rem" data-toggle="collapse" data-target="#details{{$nomination->id}}" class="accordion-toggle fa fa-2x fa-angle-right" onclick="{{$onclick}}"></i>
+                            </td>
+                            <td style="vertical-align: inherit"><div style="color:{{$scoreColor}}">{{$score}}</div></td>
+                            <td style="vertical-align: inherit"><a href= "https://osu.ppy.sh/beatmapsets/{{$nomination->beatmap_id}}">{{$nomination->beatmap_artist}} - {{$nomination->beatmap_title}}</a></td>
+                            <td style="vertical-align: inherit"><a href="https://osu.ppy.sh/users/{{$nomination->beatmap_creator_osu_id}}">{{$nomination->beatmap_creator}}</a></td>
+                            <td style="vertical-align: inherit">
                                 @if(\App\User::find($nomination->user_id)->active == 1)
                                     <a href={{route('user.profile', ['id' => $nomination->user_id])}}>{{\App\User::find($nomination->user_id)->username}}</a>
                                 @else
                                     <div style="color: #757575;">{{\App\User::find($nomination->user_id)->username}}</div>
                                 @endif
                             </td>
-                            <td>{{count($votes->where('nomination_id', $nomination->id))+1}}</td>
-                            <td>
+                            <td style="vertical-align: inherit">{{count($votes->where('nomination_id', $nomination->id))+1}}</td>
+                            <td style="vertical-align: inherit">
                                 @if($nomination->user_id == Auth::id())
                                     <div style="color: #03bafc">Nominated</div>
                                 @elseif(count($votes->where('user_id', Auth::id())->where('nomination_id', $nomination->id)) == 0)
@@ -110,7 +126,7 @@
                                     <div style="color: #12b012">Participated</div>
                                 @endif
                             </td>
-                            <td>
+                            <td style="vertical-align: inherit">
                                 @if(Auth::User()->isAdmin())
                                     <form action={{route('spotlights.removeNomination')}} method="POST">
                                         @csrf
@@ -291,6 +307,7 @@
                         </tr>
                     </tbody>
                 @endif
+                {{$nomination->id}}
             @endforeach
         </table>
     @else

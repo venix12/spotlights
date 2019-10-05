@@ -47,7 +47,17 @@
             line-height: 0.5em;
         }
 
-        form{
+        .open {
+            transform: rotate(90deg);
+            transition: transform 0.2s ease-out;
+        }
+
+        .closed {
+            transform: rotate(0deg);
+            transition: transform 0.2s ease-out;
+        }
+
+        form {
             margin: 0;
         }
     </style>

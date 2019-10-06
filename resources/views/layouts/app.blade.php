@@ -31,6 +31,10 @@
             white-space: pre-wrap;
         }
 
+        .bg-gray {
+            background-color: #39454f;
+        }
+
         .margin-img {
             margin-right: 5px;
         }
@@ -64,6 +68,10 @@
 
         .text-gray {
             color: #757575;
+        }
+
+        .td-align {
+            vertical-align: inherit !important;
         }
 
         form {

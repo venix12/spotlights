@@ -7,6 +7,7 @@ use App\Event;
 use App\Spotlights;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
+use App\User;
 use Illuminate\Http\Request;
 
 class SpotlightsController extends Controller
@@ -31,15 +32,18 @@ class SpotlightsController extends Controller
             return redirect('/');
         }
 
-        $nominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
+        $orderNominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
+        $nominations = $orderNominations->where('spots_id', $id);
 
-        $votes = SpotlightsNominationVote::all();
+        $users = User::all();
 
-        return view('spotlights.show')
-            ->with('spotlights', $spotlights)
+        $votes = SpotlightsNominationVote::where('spots_id', $id)->get();
+
+        return view('spotlights.show.main')
             ->with('nominations', $nominations)
+            ->with('spotlights', $spotlights)
+            ->with('users', $users)
             ->with('votes', $votes);
-
     }
 
     public function nominate(Request $request, $id)

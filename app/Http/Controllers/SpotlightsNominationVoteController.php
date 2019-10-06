@@ -11,13 +11,11 @@ class SpotlightsNominationVoteController extends Controller
 {
     public function index(Request $request)
     {
-
-        $this->validate(request(),[
-            
-            'optionsRadios' => 'required|in:voteFor,voteNeutral,voteAgainst,voteContributed',
-
-        ]);
-
+        if (!$request->optionRadios)
+        {
+            $voteValue = null;
+        }
+        
         if ($request->optionsRadios == 'voteFor')
         {
             $voteValue = 1;
@@ -65,13 +63,13 @@ class SpotlightsNominationVoteController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate(request(),[
-            
-            'optionsRadios' => 'required|in:voteFor,voteNeutral,voteAgainst,voteContributed',
-
-        ]);
 
         $vote = SpotlightsNominationVote::find($request->voteID);
+
+        if (!$request->optionRadios)
+        {
+            $voteValue = null;
+        }
 
         if ($request->optionsRadios == 'voteFor')
         {
@@ -163,9 +161,14 @@ class SpotlightsNominationVoteController extends Controller
 
         $vote = SpotlightsNominationVote::find($request->voteID);
 
-        $vote->comment = null;
+        if($vote->value === null)
+        {
+            $vote->delete();
+        } else {
+            $vote->comment = null;
 
-        $vote->save();
+            $vote->save();
+        }
 
         return redirect()->back()->with('success', 'Removed a comment successfully!');
     }

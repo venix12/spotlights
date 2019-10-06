@@ -18,8 +18,9 @@ class CreateSpotlightsNominationVotesTable extends Migration
             $table->bigInteger('spots_id')->unsigned();
             $table->bigInteger('nomination_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->integer('value'); //-1, 0, 1
+            $table->integer('value')->nullable();
             $table->string('comment')->nullable();
+            $table->timestamp('comment_updated_at')->nullable();
             $table->timestamps();
 
             $table->foreign('spots_id')

@@ -69,9 +69,17 @@
         form {
             margin: 0;
         }
+
+        #app {
+        flex: 1 0 auto;
+        }
+
+        #footer {
+        flex-shrink: none;
+        }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column">
     <div id="app">
         @include('layouts.navbar')
         
@@ -81,6 +89,7 @@
             </div>
         </main>
     </div>
+    @include('layouts.footer')
 @yield('script')
 </body>
 </html>

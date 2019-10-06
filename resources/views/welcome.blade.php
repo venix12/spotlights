@@ -15,7 +15,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
-        
+
         <style>
             html, body {
                 background-color: #fff;
@@ -68,7 +68,7 @@
             }
         </style>
     </head>
-    <body>
+    <body class="d-flex flex-column">
         @if(session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{session('error')}}
@@ -101,5 +101,6 @@
                 </div>
             </div>
         </div>
+        @include('layouts.footer')
     </body>
 </html>

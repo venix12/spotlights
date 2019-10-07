@@ -23,6 +23,23 @@ class SpotlightsController extends Controller
         return view('spotlights.index')->with('spotlights', $spotlights);
     }
 
+    public function beatmaps(Request $request, $id)
+    {
+        $spotlights = Spotlights::find($id);
+
+        $validator = $this->validate(request(),[
+            'threshold' => 'int',
+        ]);
+
+        $orderNominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
+        $nominations = $orderNominations->where('spots_id', $id)->where('score', '>=', $request->threshold);
+        
+        return view('spotlights.mapids')
+            ->with('nominations', $nominations)
+            ->with('spotlights', $spotlights)
+            ->with('threshold', $request->threshold);
+    }
+
     public function show($id)
     {
         $spotlights = Spotlights::find($id);

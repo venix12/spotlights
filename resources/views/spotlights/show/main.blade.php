@@ -111,6 +111,9 @@
                 </tbody>
             @endforeach
         </table>
+        @if(Auth::user()->isAdmin())
+            @include('spotlights.show.mapids')
+        @endif
     @else
         Seems like there aren't any nominations for this spotlights...
     @endif

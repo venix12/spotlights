@@ -85,7 +85,7 @@
                                 <div style="color: #757575;">{{$users->find($nomination->user_id)->username}}</div>
                             @endif
                         </td>
-                        <td class="td-align">{{count($votes->where('nomination_id', $nomination->id))+1}}</td>
+                        <td class="td-align">{{count($votes->where('nomination_id', $nomination->id)->where('value', '!==', null))+1}}</td>
                         <td class="td-align">
                             @if($nomination->user_id == Auth::id())
                                 <div class="text-primary">Nominated</div>

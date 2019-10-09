@@ -19,9 +19,6 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
                 height: 100vh;
                 margin: 0;
             }
@@ -68,36 +65,31 @@
             }
         </style>
     </head>
-    <body class="d-flex flex-column">
-        @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{session('error')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-        <div class="flex-center position-ref full-height">
+    <body class="d-flex flex-column bg-light">
+        @include('layouts.session')
+        <div class="flex-center position-ref full-height ">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">HOME</a>
+                        <a href="{{ url('/home') }}">Home</a>
                         @if (Auth::user()->isAdmin())
-                            <a href={{route('admin.manage')}}>MANAGE</a>
+                            <a href={{route('admin.manage')}}>Manage</a>
                         @endif
-                    @else
-                        <a href="{{ route('login') }}">Login with osu! account</a>
                     @endauth
                 </div>
             @endif
+            <div class="row justify-content-center">
+                <div class="container text-center">
+                    <h1 class="display-3">osu! Spotlights Team</h1> <br>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    osu! Spotlights Team
-                </div>
+                    <div>
+                        <a href="https://osu.spotlights.team" class="btn btn-success"><i class="fa fa-user"></i> Apply now!</a><br>
+                        <hr>
+                        <span class="text-muted" style="font-size: 0.85rem;">or if you are already a member</span> <br> 
+                        <a href={{route('login')}} class="btn" style="background-color: #ff70b8; color: white"><i class="fa fa-sign-in"></i> Login with osu! account</a>
+                    </div>
+                        
 
-                <div class="links">
-                    <a href="https://osu.spotlights.team">Click here to apply now!</a>
                 </div>
             </div>
         </div>

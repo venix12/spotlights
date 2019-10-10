@@ -17,4 +17,6 @@
             @endif
         @endforeach
     </div>
+@else
+    Seems like there are no comments for this nomination...
 @endif

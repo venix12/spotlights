@@ -74,27 +74,18 @@ class User extends Authenticatable
         'taiko' => 'boolean',
     ];
 
-    public function isMember()
+    public function isMember() : bool
     {
-        if (Auth::user()->group_id == 0)
-        {
-            return true;
-        }
+        return $this->group_id === 0;
     }
 
-    public function isAdmin()
+    public function isAdmin() : bool
     {
-        if (Auth::user()->group_id == 1 || Auth::user()->group_id == 2) 
-        {
-           return true;
-        }
+        return $this->group_id === 1 || $this->group_id === 2;
     }
 
-    public function isManager()
+    public function isManager() : bool
     {
-       if (Auth::user()->group_id == 3)
-       {
-           return true;
-       }
+        return $this->group_id === 3;
     }
 }

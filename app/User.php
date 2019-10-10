@@ -66,14 +66,6 @@ class User extends Authenticatable
      * @var array
      */
 
-    public function isActive()
-    {
-        if (Auth::user()->active == 1)
-        {
-            return true;
-        }
-    }
-
     public function isMember()
     {
         if (Auth::user()->group_id == 0)

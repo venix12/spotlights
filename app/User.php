@@ -65,6 +65,14 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $casts = [
+        'active' => 'boolean',
+        'catch' => 'boolean',
+        'has_logged_in' => 'boolean',
+        'mania' => 'boolean',
+        'osu' => 'boolean',
+        'taiko' => 'boolean',
+    ];
 
     public function isMember()
     {

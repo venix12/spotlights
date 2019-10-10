@@ -63,6 +63,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .osu-button {
+                background-color: #ff70b8; 
+                color: white !important;
+            }
         </style>
     </head>
     <body class="d-flex flex-column bg-light">
@@ -85,8 +90,12 @@
                     <div>
                         <a href="https://osu.spotlights.team" class="btn btn-success"><i class="fa fa-user"></i> Apply now!</a><br>
                         <hr>
-                        <span class="text-muted" style="font-size: 0.85rem;">or if you are already a member</span> <br> 
-                        <a href={{route('login')}} class="btn" style="background-color: #ff70b8; color: white"><i class="fa fa-sign-in"></i> Login with osu! account</a>
+                        @auth
+                            <span class="text-muted">you are already logged in!</span>
+                        @else
+                            <span class="text-muted" style="font-size: 0.85rem;">or if you are already a member</span> <br> 
+                            <a href={{route('login')}} class="btn osu-button"><i class="fa fa-sign-in"></i> Login with osu! account</a>
+                        @endauth
                     </div>
                         
 

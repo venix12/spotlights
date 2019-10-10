@@ -14,7 +14,7 @@ class AddHasLoggedInToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('has_logged_in')->nullable()->deafault(0);
+            $table->boolean('has_logged_in')->nullable()->default(0);
             $table->timestamp('has_logged_in_at')->nullable();
         });
     }

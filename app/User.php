@@ -11,10 +11,6 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $attributes = [
-        'has_logged_in' => 0,
-    ];
-
     const GROUPS = [
         0 => 'Member',
         1 => 'Administrator',

@@ -52,7 +52,7 @@
     @foreach($votes as $vote)
         @if($vote->value === 2)
             @if($vote->nomination_id === $nomination->id)
-                @if($users->find($vote->user_id)->active === 1)
+                @if($users->find($vote->user_id)->active == 1)
                     <a href={{route('user.profile', ['id' => $vote->user_id])}}>{{$users->find($vote->user_id)->username}}</a>, &nbsp;
                 @else
                     <div class="text-gray">{{$users->find($nomination->user_id)->username}},</div>

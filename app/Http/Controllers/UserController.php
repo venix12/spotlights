@@ -15,7 +15,7 @@ class UserController extends Controller
     public function activate(Request $request)
     {
         $user = User::find($request->userID);
-        $user->active = 1;
+        $user->active = true;
         $user->save();
 
         Event::log('Activated user '. $user->username);
@@ -38,7 +38,7 @@ class UserController extends Controller
             {
                 $user->group_id = 0;
             }
-            $user->active = 0;
+            $user->active = false;
             $user->save();
 
             Event::log('Deactivated user '. $user->username);
@@ -55,11 +55,7 @@ class UserController extends Controller
     {
         $user = User::find($request->userID);
 
-        if($user->active == 0)
-        {
-            $user->active = 1;
-        }
-
+        $user->active = true;
         $user->group_id = $request->group_id;
 
         $user->save();

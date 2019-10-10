@@ -16,13 +16,14 @@ class UserListController extends Controller
         }
 
         $users = User::orderBy('username')->get();
-        
-        $admins = $users->where('group_id', 1)->where('active', 1);
-        $inactives = $users->where('active', 0);
-        $leaders = $users->where('group_id', 2)->where('active', 1);
-        $managers = $users->where('group_id', 3)->where('active', 1);
-        $members = $users->where('group_id', 0)->where('active', 1);
-        $usersNotLogged = $users->where('has_logged_in', '!=', 1)->where('active', 1);
+
+        $activeUsers = $users->where('active', true);
+        $inactives = $users->where('active', false);
+        $admins = $activeUsers->where('group_id', 1);
+        $leaders = $activeUsers->where('group_id', 2);
+        $managers = $activeUsers->where('group_id', 3);
+        $members = $activeUsers->where('group_id', 0);
+        $usersNotLogged = $activeUsers->where('has_logged_in', false);
 
         return view('user.userlist')
             ->with('admins', $admins)

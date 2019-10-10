@@ -19,7 +19,7 @@
                     <img src="https://a.ppy.sh/{{$user->osu_user_id}}" width="100" height="100" class="float-left margin-img">
                     <div style="line-height: 0.5em;">
                         <br /><br /><br /><br />
-                        @if($user->active == 1)
+                        @if($user->active)
                             <h4><div style="color: {{\App\User::GROUP_COLOURS[$user->group_id]}};">{{$user->username}}</div></h4>
                         @else
                             <h4><div style="color: #a6a6a6;">{{$user->username}}</div></h4>
@@ -88,13 +88,7 @@
                     @if(Auth::user()->isAdmin() || Auth::user()->isManager())
 
                         @php
-                            if ($user->active == 1)
-                            {
-                                $activeValue = "deactivate";
-                            } else {
-                                $activeValue = "activate";
-                            }
-
+                            $activeValue = $user->active ? 'deactivate' : 'activate';
                         @endphp
 
                         <form action={{route('admin.'.$activeValue.'User')}} method="POST">
@@ -103,7 +97,7 @@
                             <input onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')" class="btn btn-dark btn-sm" type="submit" value={{ucfirst($activeValue)}}>
                         </form><br />
 
-                        @if($user->has_logged_in != 1)
+                        @if (!$user->has_logged_in)
                             <span class="text-muted medium-font">This user hasn't logged in yet!</span>
                         @endif
                     @endif

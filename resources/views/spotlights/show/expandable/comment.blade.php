@@ -22,7 +22,7 @@
         <div class="card-header">
     @endif
         <div class="row">
-            @if($users->find($vote->user_id)->active == 1)
+            @if($users->find($vote->user_id)->active)
                 <a style="margin-left: 5px;" href={{route('user.profile', ['id' => $vote->user_id])}}>{{$users->find($vote->user_id)->username}}</a>
             @else
                 <span style="margin-left: 5px; color: #757575;">{{\App\User::find($vote->user_id)->username}}</span>

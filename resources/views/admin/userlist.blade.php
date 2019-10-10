@@ -44,14 +44,7 @@
                                 <td>
                                     <div class="row">
                                         @php
-
-                                            if ($user->active == 1)
-                                            {
-                                                $activeValue = "deactivate";
-                                            } else {
-                                                $activeValue = "activate";
-                                            }
-
+                                            $activeValue = $user->active ? 'deactivate' : 'activate';
                                         @endphp
                                         <form action={{route('admin.'.$activeValue.'User')}} method="POST">
                                             @csrf

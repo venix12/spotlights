@@ -26,12 +26,9 @@ class LoginController extends Controller
     {
         $user = User::where('username', $request->username)->first();
 
-        if($user != null)
+        if ($user !== null && !$user->active)
         {
-            if($user->active == 0)
-            {
-                return $this->sendFailedLoginResponse($request);
-            }
+            return $this->sendFailedLoginResponse($request);
         }
 
         $this->validateLogin($request);

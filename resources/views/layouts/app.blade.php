@@ -20,6 +20,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
 
+    <!-- Characters counter -->
+    <script>
+        function countChars(obj, length) {
+            document.getElementById(obj + '-counter').innerHTML = length;
+        }
+    </script>
+
     <style>
         .scrollable{
             height: 385px;

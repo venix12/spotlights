@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDefaultToSpotlightModes extends Migration
+class AddDefaultToBooleans extends Migration
 {
     /**
      * Run the migrations.
@@ -18,6 +18,10 @@ class AddDefaultToSpotlightModes extends Migration
             $table->boolean('taiko')->default(0)->change();
             $table->boolean('catch')->default(0)->change();
             $table->boolean('mania')->default(0)->change();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('has_logged_in')->nullable()->default(0)->change();
         });
     }
 
@@ -33,6 +37,10 @@ class AddDefaultToSpotlightModes extends Migration
             $table->boolean('taiko')->change();
             $table->boolean('catch')->change();
             $table->boolean('mania')->change();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('has_logged_in')->nullable()->change();
         });
     }
 }

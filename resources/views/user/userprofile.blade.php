@@ -97,7 +97,7 @@
                             <input onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')" class="btn btn-dark btn-sm" type="submit" value={{ucfirst($activeValue)}}>
                         </form><br />
 
-                        @if (!$user->has_logged_in)
+                        @if(!$user->has_logged_in)
                             <span class="text-muted medium-font">This user hasn't logged in yet!</span>
                         @endif
                     @endif

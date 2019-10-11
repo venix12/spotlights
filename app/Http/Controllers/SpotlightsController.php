@@ -76,7 +76,7 @@ class SpotlightsController extends Controller
 
         if($beatmapData == null)
         {
-            return redirect()->back()->with('error', 'No beatmapset found!');
+            return redirect()->back()->with('error', 'No beatmapset found, make sure you put numbers only!');
         }
 
         //get beatmap data from api

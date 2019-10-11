@@ -79,7 +79,7 @@
                         <td class="td-align"><a href= "https://osu.ppy.sh/beatmapsets/{{$nomination->beatmap_id}}">{{$nomination->beatmap_artist}} - {{$nomination->beatmap_title}}</a></td>
                         <td class="td-align"><a href="https://osu.ppy.sh/users/{{$nomination->beatmap_creator_osu_id}}">{{$nomination->beatmap_creator}}</a></td>
                         <td class="td-align">
-                            @if($users->find($nomination->user_id)->active == 1)
+                            @if($users->find($nomination->user_id)->active)
                                 <a href={{route('user.profile', ['id' => $nomination->user_id])}}>{{$users->find($nomination->user_id)->username}}</a>
                             @else
                                 <div style="color: #757575;">{{$users->find($nomination->user_id)->username}}</div>

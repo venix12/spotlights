@@ -61,36 +61,27 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $casts = [
+        'active' => 'boolean',
+        'catch' => 'boolean',
+        'has_logged_in' => 'boolean',
+        'mania' => 'boolean',
+        'osu' => 'boolean',
+        'taiko' => 'boolean',
+    ];
 
-    public function isActive()
+    public function isMember() : bool
     {
-        if (Auth::user()->active == 1)
-        {
-            return true;
-        }
+        return $this->group_id === 0;
     }
 
-    public function isMember()
+    public function isAdmin() : bool
     {
-        if (Auth::user()->group_id == 0)
-        {
-            return true;
-        }
+        return $this->group_id === 1 || $this->group_id === 2;
     }
 
-    public function isAdmin()
+    public function isManager() : bool
     {
-        if (Auth::user()->group_id == 1 || Auth::user()->group_id == 2) 
-        {
-           return true;
-        }
-    }
-
-    public function isManager()
-    {
-       if (Auth::user()->group_id == 3)
-       {
-           return true;
-       }
+        return $this->group_id === 3;
     }
 }

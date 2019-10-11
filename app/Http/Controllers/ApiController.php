@@ -67,16 +67,16 @@ class ApiController extends Controller
         
         $user = User::where('osu_user_id', $osuUserId)->first();
 
-        if($user === null || $user->active == 0)
+        if ($user === null || !$user->active)
         {
             return redirect('/')->with('error', 'Seems like you are not a member of the Spotlights Team!');
         }
 
         Auth::login($user);
 
-        if($user->has_logged_in == null || $user->has_logged_in == 0)
+        if (!$user->has_logged_in)
         {
-            $user->has_logged_in = 1;
+            $user->has_logged_in = true;
             $user->has_logged_in_at = now();
             
             Event::log('Logged in for the first time');

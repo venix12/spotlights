@@ -21,7 +21,7 @@ class UserProfileController extends Controller
             return redirect('/');
         }
 
-        if($user->active == 0 && !(Auth::user()->isAdmin() || Auth::user()->isManager()))
+        if (!$user->active && !(Auth::user()->isAdmin() || Auth::user()->isManager()))
         {
             return redirect('/');
         }

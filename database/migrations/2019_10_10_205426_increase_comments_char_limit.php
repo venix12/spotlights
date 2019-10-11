@@ -25,6 +25,8 @@ class IncreaseCommentsCharLimit extends Migration
      */
     public function down()
     {
-        $table->string('comment')->nullable()->change();
+        Schema::table('spotlights_nomination_votes', function (Blueprint $table) {
+            $table->string('comment')->nullable()->change();
+        });
     }
 }

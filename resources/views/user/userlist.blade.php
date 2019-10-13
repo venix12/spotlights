@@ -1,6 +1,6 @@
-<title>Users list | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Users list'
+])
 
 @section('content')
 <div class="row justify-content-center">

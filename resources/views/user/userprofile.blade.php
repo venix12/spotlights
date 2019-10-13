@@ -1,6 +1,6 @@
-<title>{{$user->username}}'s profile  | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => $user->username."'s profile"
+])
 
 @section('content')
 <div class="row justify-content-center">

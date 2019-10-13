@@ -1,6 +1,6 @@
-<title>Nominated Beatmaps | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Nominated Beatmaps'
+])
 
 @section('content')
 <div class="row justify-content-center">

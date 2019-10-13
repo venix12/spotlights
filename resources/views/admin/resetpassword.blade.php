@@ -1,6 +1,6 @@
-<title>Reset password | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Reset password'
+])
 
 @section('content')
     <div class="container">

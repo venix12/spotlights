@@ -1,6 +1,6 @@
-<title>Manage | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Manage'
+])
 
 @section('content')
 <div class="container">

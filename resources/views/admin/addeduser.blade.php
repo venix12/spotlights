@@ -1,6 +1,6 @@
-<title>Added user | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Added user'
+])
 
 @section('content')
 <div class="container">

@@ -1,6 +1,6 @@
-<title>Home | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Home'
+])
 
 @section('content')
 <div class="container">

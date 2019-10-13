@@ -1,6 +1,6 @@
-<title>{{$spotlights->title}} | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => $spotlights->title
+])
 
 @section('content')
     @include('layouts.session')

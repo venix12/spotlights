@@ -1,6 +1,6 @@
-<title>Create spotlights | osu! Spotlights Team</title>
-
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Create spotlights'
+])
 
 @section('content')
     @if(session('success'))

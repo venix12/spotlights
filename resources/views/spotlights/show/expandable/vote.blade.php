@@ -10,10 +10,13 @@
     <form action={{route('spotlights.updateVote')}} method="POST">
         @csrf
         <label for="comment{{$nomination->id}}">Put your comment here!</label>
-        <textarea class="form-control" id="comment{{$nomination->id}}" name="commentField" rows="4" maxlength="2000" oninput="countChars(this.id, this.value.length);">{{$votes->where('nomination_id', $nomination->id)->where('user_id', Auth::id())->first()->comment}}</textarea>
-        <div class="float-right text-muted">
-            <span id="comment{{$nomination->id}}-counter">0</span> / 2000
+        <div class="textarea-border">
+            <textarea id="comment{{$nomination->id}}" name="commentField" rows="4" maxlength="2000" oninput="countChars(this.id, this.value.length);">{{$votes->where('nomination_id', $nomination->id)->where('user_id', Auth::id())->first()->comment}}</textarea>
+            <div class="text-muted" style="text-align: right">
+                <span id="comment{{$nomination->id}}-counter">0</span> / 2000
+            </div>
         </div>
+        <br>
 @endif
 
 @if($nomination->user_id != Auth::id())

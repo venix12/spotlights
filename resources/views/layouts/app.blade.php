@@ -19,6 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset ('css/styles.css')}}" rel="stylesheet">
 
     <!-- Characters counter -->
     <script>
@@ -26,78 +27,6 @@
             document.getElementById(obj + '-counter').innerHTML = length;
         }
     </script>
-
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-
-        .scrollable{
-            height: 385px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .card-text{
-            white-space: pre-wrap;
-        }
-
-        .bg-gray {
-            background-color: #39454f;
-        }
-
-        .margin-img {
-            margin-right: 5px;
-        }
-
-        .medium-font {
-            font-size: 0.85rem;
-        }
-
-        .small-font {
-            font-size: 0.6rem;
-        }
-
-        .list-small-distance {
-            line-height: 0.5em;
-        }
-
-        .open {
-            transform: rotate(90deg);
-            transition: transform 0.2s ease-out;
-        }
-
-        .closed {
-            transform: rotate(0deg);
-            transition: transform 0.2s ease-out;
-        }
-
-        .icon-list {
-            padding-left: 0.6em;
-            font-size: 0.8rem;
-        }
-
-        .text-gray {
-            color: #757575;
-        }
-
-        .td-align {
-            vertical-align: inherit !important;
-        }
-
-        form {
-            margin: 0;
-        }
-
-        #app {
-        flex: 1 0 auto;
-        }
-
-        #footer {
-        flex-shrink: none;
-        }
-    </style>
 </head>
 <body class="d-flex flex-column">
     <div id="app">

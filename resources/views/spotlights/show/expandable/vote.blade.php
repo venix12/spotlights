@@ -18,12 +18,11 @@
                 <span id="comment{{$nomination->id}}-counter">0</span> / 2000
             </div>
         </div>
-        <br>
 @endif
 
 @if($nomination->user_id != Auth::id())
-
-    @include('spotlights.show.expandable.voteoptions')
+    
+    <br> @include('spotlights.show.expandable.voteoptions')
 
 @else
     <br>

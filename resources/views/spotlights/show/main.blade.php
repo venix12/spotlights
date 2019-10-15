@@ -7,7 +7,6 @@
         'size' => 12,
         'sections' => ['Home', 'Spotlights', $spotlights->title]
     ])
-        @include('layouts.session')
 
         <h1>{{$spotlights->title}}</h1>
         <div class="medium-font">{{$spotlights->description}}</div>

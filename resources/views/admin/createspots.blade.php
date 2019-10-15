@@ -6,7 +6,6 @@
     @component('components.card', [
         'sections' => ['Home', 'Manage', 'Create new spotlights']
     ])
-        @include('layouts.session')
         <form action={{route('admin.createSpotlights')}} method="POST">
             @csrf
             <div class="form-group row">

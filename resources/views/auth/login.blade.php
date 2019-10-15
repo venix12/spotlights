@@ -6,7 +6,6 @@
     @component('components.card', [
         'sections' => ['Login']
     ])
-        @include('layouts.session')
         <form method="POST" action="{{ route('login') }}">
             @csrf
 

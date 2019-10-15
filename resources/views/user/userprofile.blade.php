@@ -6,14 +6,6 @@
     @component('components.card', [
         'sections' => ['Home', 'Users', $user->username]
     ])
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{session('success')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
         <img src="https://a.ppy.sh/{{$user->osu_user_id}}" width="100" height="100" class="float-left margin-img">
         <div style="line-height: 0.5em;">
             <br /><br /><br /><br />

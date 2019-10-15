@@ -6,7 +6,6 @@
     @component('components.card', [
         'sections' => ['Home', 'Change password']
     ])
-        @include('layouts.session')
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
 

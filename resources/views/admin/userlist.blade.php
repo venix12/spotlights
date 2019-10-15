@@ -6,7 +6,6 @@
     @component('components.card', [
         'sections' => ['Home', 'Manage', 'Manage users']
     ])
-        @include('layouts.session')
         <table class="table table-striped">
         <thead>
             <tr>

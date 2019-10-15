@@ -1,14 +1,14 @@
 html, body {
     height: 100%;
     margin: 0;
-    /* background-image: url(https://osu.ppy.sh/images/backgrounds/page-dark.png);
-    background-repeat: repeat; */
 }
 .textarea-border {
     background-color: #f5f5f5;
     border: 1px solid #5bc0de;
     border-radius: 1em;
     padding: 1em;
+    background-image: url('/images/triangles.png');
+    background-repeat: fixed;
 }
 
 textarea {

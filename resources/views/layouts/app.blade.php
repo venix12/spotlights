@@ -21,11 +21,27 @@
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset ('css/styles.css')}}" rel="stylesheet">
 
-    <!-- Characters counter -->
+    <!-- Scripts -->
     <script>
         function countChars(obj, length) {
             document.getElementById(obj + '-counter').innerHTML = length;
         }
+
+        function openOrClose(id) {
+        
+            var element = document.getElementById(id);
+
+            if(!element.className.includes('open')) {
+                if(element.className.includes('closed')) {
+                    element.classList.replace('closed', 'open');  
+                } else {
+                    element.classList.toggle('open');
+                }
+            } else {
+                element.classList.replace('open', 'closed');
+            }
+        }
+
     </script>
 </head>
 <body class="d-flex flex-column">

@@ -4,6 +4,27 @@ html, body {
     background-image: url('/images/triangles.png');
     background-repeat: fixed;
 }
+  
+.badge {
+    border-radius: 0.5em;
+    color: #fefefe;
+    font-size: 100%;
+}
+
+.section-badge {
+    display: inline-block;
+    padding: .25em .4em;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    background: #fafafa;
+}
+
+.col-score {
+    min-width: 5%;
+}
+
 .textarea-border {
     background-color: #f5f5f5;
     border: 1px solid #5bc0de;

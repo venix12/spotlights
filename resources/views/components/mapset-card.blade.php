@@ -1,7 +1,10 @@
-<div class="card bg-test" style="background-image: url('https://assets.ppy.sh/beatmaps/{{$beatmap_id}}/covers/cover.jpg'); background-position: -5%;">
+<div class="card bg-test" style="
+    background-image: url('public/images/triangle-card.png'), url('https://assets.ppy.sh/beatmaps/{{$beatmap_id}}/covers/cover.jpg');
+    background-position: -45%, 110%;
+    background-repeat: no-repeat;">
     <div class="container row no-gutters align-items-center" style="padding: 0.5em">
         <div class="col-score" style="font-size: 2rem; margin-right: 10px">
-            <i class="fa fa-w fa-chevron-circle-right accordion-toggle" id="collapse{{$id}}" data-target="#details{{$id}}" data-toggle="collapse" onclick="openOrClose(this.id)"></i>
+            <i class="fa fa-w fa-chevron-circle-right accordion-toggle text-white" id="collapse{{$id}}" data-target="#details{{$id}}" data-toggle="collapse" onclick="openOrClose(this.id)"></i>
 
             <span class="badge" style="background: {{$scoreColor}}">{{$score}}</span>
         </div>

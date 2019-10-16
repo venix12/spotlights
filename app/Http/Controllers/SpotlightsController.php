@@ -65,8 +65,13 @@ class SpotlightsController extends Controller
 
     public function nominate(Request $request, $id)
     {
-        $spotlights = Spotlights::find($id);
+        $nominations = SpotlightsNomination::where('spots_id', $id)->get();
         
+        if(count($nominations->where('beatmap_id', $request->beatmap_id)) > 0)
+        {
+            return redirect()->back()->with('error', 'This map has already been nominated!');
+        }
+
         //get api string
         $key = env('OSU_API_KEY');
         $url = 'osu.ppy.sh/api/get_beatmaps?k='.$key.'&s='.$request->beatmap_id;

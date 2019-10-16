@@ -1,6 +1,6 @@
 <div class="card bg-test" style="
-    background-image: url('/public/images/triangle-card.png'), url('https://assets.ppy.sh/beatmaps/{{$beatmap_id}}/covers/cover.jpg');
-    background-position: -45%, 110%;
+    background-image: url('{{ asset('images/triangle-card.png') }}'), url('https://assets.ppy.sh/beatmaps/{{$beatmap_id}}/covers/cover.jpg');
+    background-position: -40%, 150%;
     background-repeat: no-repeat;">
     <div class="container row no-gutters align-items-center" style="padding: 0.5em">
         <div class="col-score" style="font-size: 2rem; margin-right: 10px">

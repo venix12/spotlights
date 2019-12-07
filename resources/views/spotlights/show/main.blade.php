@@ -85,14 +85,22 @@
                 <br>
 
                 @include('spotlights.show.expandable.main')
-                
+
             @endforeach
 
             @if(Auth::user()->isAdmin())
                 @include('spotlights.show.mapids')
             @endif
+
         @else
             Seems like there aren't any nominations for this spotlights...
         @endif
+
+        @if(Auth::user()->isAdmin() || Auth::user()->isManager())
+            @foreach ($users->where($spotlights->gamemode(), true) as $user)
+                {{ $user->username }}: {{ count($votes->where('spots_id', $spotlights->id)->where('user_id', $user->id)) }} / {{ count($nominations) }} <br>
+            @endforeach
+        @endif
+
     @endcomponent
 @endsection

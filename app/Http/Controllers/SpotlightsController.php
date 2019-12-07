@@ -11,7 +11,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 class SpotlightsController extends Controller
-{   
+{
     public function index()
     {
         if(!Auth::check())
@@ -20,6 +20,7 @@ class SpotlightsController extends Controller
         }
 
         $spotlights = Spotlights::all();
+
         return view('spotlights.index')->with('spotlights', $spotlights);
     }
 
@@ -33,7 +34,7 @@ class SpotlightsController extends Controller
 
         $orderNominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
         $nominations = $orderNominations->where('spots_id', $id)->where('score', '>=', $request->threshold);
-        
+
         return view('spotlights.mapids')
             ->with('nominations', $nominations)
             ->with('spotlights', $spotlights)
@@ -52,7 +53,7 @@ class SpotlightsController extends Controller
         $orderNominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
         $nominations = $orderNominations->where('spots_id', $id);
 
-        $users = User::all();
+        $users = User::orderBy('username')->get();
 
         $votes = SpotlightsNominationVote::where('spots_id', $id)->get();
 
@@ -66,7 +67,7 @@ class SpotlightsController extends Controller
     public function nominate(Request $request, $id)
     {
         $nominations = SpotlightsNomination::where('spots_id', $id)->get();
-        
+
         if(count($nominations->where('beatmap_id', $request->beatmap_id)) > 0)
         {
             return redirect()->back()->with('error', 'This map has already been nominated!');
@@ -104,7 +105,7 @@ class SpotlightsController extends Controller
         $nomination->spots_id = $id;
         $nomination->user_id = Auth::user()->id;
         $nomination->save();
-        
+
         return redirect()->back()->with('success', 'Nominated a beatmap successfully!')->with('beatmapData', $beatmapData);
     }
 
@@ -122,7 +123,7 @@ class SpotlightsController extends Controller
         ]);
 
         $deadline = $request->deadline." 23:59:59";
-        
+
         $modes = [];
 
         if($request->osu == true){

@@ -94,6 +94,11 @@ class SpotlightsController extends Controller
             $beatmapTitle = $item['title'];
         }
 
+        if($beatmapCreatorId === Auth::user()->osu_user_id)
+        {
+            return redirect()->back()->with('error', "You can't nominate your own maps!");
+        }
+
         //add nomination entry to database
         $nomination = new SpotlightsNomination();
         $nomination->beatmap_artist = $beatmapArtist;

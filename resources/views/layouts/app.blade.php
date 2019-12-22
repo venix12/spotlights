@@ -10,16 +10,17 @@
     <title>{{ $title }} | osu! Spotlights Team</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset ('css/styles.css')}}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -28,12 +29,12 @@
         }
 
         function openOrClose(id) {
-        
+
             var element = document.getElementById(id);
 
             if(!element.className.includes('open')) {
                 if(element.className.includes('closed')) {
-                    element.classList.replace('closed', 'open');  
+                    element.classList.replace('closed', 'open');
                 } else {
                     element.classList.toggle('open');
                 }
@@ -44,17 +45,25 @@
 
     </script>
 </head>
+
 <body class="d-flex flex-column">
     <div id="app">
         @include('layouts.navbar')
-        
+
         <main class="py-4">
             <div class="container">
                 @yield('content')
             </div>
         </main>
     </div>
+
     @include('layouts.footer')
-@yield('script')
+    @yield('script')
+
+    <script>
+        $(function () {
+            $('[title]').tooltip()
+        })
+    </script>
 </body>
 </html>

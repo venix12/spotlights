@@ -16,3 +16,8 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+
+# JavaScript
+public/css/app.css
+public/js/app.js
+public/mix-manifest.json

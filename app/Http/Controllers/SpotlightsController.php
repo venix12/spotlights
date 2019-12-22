@@ -41,6 +41,15 @@ class SpotlightsController extends Controller
             ->with('threshold', $request->threshold);
     }
 
+    public function setThreshold(Request $request) {
+        $spotlights = Spotlights::find($request->SpotlightsId);
+
+        $spotlights->threshold = $request->threshold;
+        $spotlights->save();
+
+        return redirect()->back()->with('success', 'Successfully set the threshold!');
+    }
+
     public function show($id)
     {
         $spotlights = Spotlights::find($id);

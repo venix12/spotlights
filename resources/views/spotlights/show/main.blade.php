@@ -19,33 +19,6 @@
             @foreach($nominations as $nomination)
 
                 @php
-                    $score = $nomination->score;
-
-                    if($score == 0 || $score < 3)
-                    {
-                        $scoreColor = "#757575";
-                    }
-
-                    if($score < -4)
-                    {
-                        $scoreColor = "#ff0000";
-                    }
-
-                    if($score < 0 && $score > -5)
-                    {
-                        $scoreColor = "#ff7373";
-                    }
-
-                    if($score > 2 && $score < 5)
-                    {
-                        $scoreColor = "#577557";
-                    }
-
-                    if($score > 4)
-                    {
-                        $scoreColor = "#12b012";
-                    }
-
                     if($nomination->user_id === Auth::id())
                     {
                         $state = 'NOMINATED';
@@ -74,9 +47,10 @@
                     'metadata' => $nomination->beatmap_artist.' - '.$nomination->beatmap_title,
                     'nominator' => $users->find($nomination->user_id)->username,
                     'nominator_id' => $nomination->user_id,
-                    'participants' => count($votes->where('nomination_id', $nomination->id))+1,
+                    'participants' => count($votes->where('nomination_id', $nomination->id)) + 1,
                     'score' => $nomination->score,
-                    'scoreColor' => $scoreColor,
+                    'scoreColor' => $nomination->getScoreColor(),
+                    'spotlighted' => $spotlights->threshold ? $nomination->score >= $spotlights->threshold : false,
                     'state' => $state,
                     'stateColor' => $stateColor,
                     'supporters' => count($votes->where('nomination_id', $nomination->id)->where('value', '===', 1)),
@@ -90,6 +64,7 @@
 
             @if(Auth::user()->isAdmin())
                 @include('spotlights.show.mapids')
+                @include('spotlights.show.threshold')
             @endif
 
         @else

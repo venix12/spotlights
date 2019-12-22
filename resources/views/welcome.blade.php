@@ -6,6 +6,9 @@
 
         <title>osu! Spotlights Team</title>
 
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -20,6 +23,7 @@
                 background-color: #fff;
                 height: 100vh;
                 margin: 0;
+                font-family: 'Nunito';
             }
 
             .full-height {

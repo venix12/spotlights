@@ -51,17 +51,15 @@ Route::post('/remove-comment', 'SpotlightsNominationVoteController@remove_commen
 //Route::post('/change-password', 'ChangePasswordController@changePassword')->name('password.update');
 Route::post('/reset-password', 'UserController@resetPassword')->name('password.reset');
 
-//management
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
     Route::get('/', 'ManageController@index')->name('admin.manage');
-    Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
     Route::get('/added-user', 'AddedUserController@index')->name('admin.addedUser');
+    Route::get('/log', 'EventLoggerController@index')->name('admin.log');
     Route::get('/reset-password', 'ResetPasswordController@index')->name('admin.resetpassword');
     Route::get('/spotlist', 'SpotlightsListController@index')->name('admin.spotlist');
-    Route::get('/log', 'EventLoggerController@index')->name('admin.log');
+    Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
 });
 
-//spotlights
 Route::group(['prefix' => 'spotlights'], function() {
     Route::get('/', 'SpotlightsController@index')->name('spotlights');
     Route::get('/{id}', 'SpotlightsController@show')->name('spotlights.show');
@@ -69,6 +67,7 @@ Route::group(['prefix' => 'spotlights'], function() {
     Route::post('/{id}/nominate', 'SpotlightsController@nominate')->name('spotlights.nominate');
     Route::post('/release', 'SpotlightsController@release')->name('spotlights.release');
     Route::post('/remove-nomination', 'SpotlightsNominationController@destroy')->name('spotlights.removeNomination');
+    Route::post('/set-threshold', 'SpotlightsController@setThreshold')->name('spotlights.setThreshold');
     Route::post('/vote', 'SpotlightsNominationVoteController@index')->name('spotlights.vote');
     Route::post('/update-vote', 'SpotlightsNominationVoteController@update')->name('spotlights.updateVote');
 });

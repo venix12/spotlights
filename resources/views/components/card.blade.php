@@ -9,7 +9,6 @@
         $size = 8;
     }
 
-    $dark ? $cardClass = 'border-dark' : $cardClass = '';
     $dark ? $headerClass = 'bg-dark text-white' : $headerClass = '';
     $dark ? $bodyClass = 'bg-gray text-white' : $bodyClass = '';
 @endphp
@@ -17,19 +16,19 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-{{$size}}">
-            <div class="card {{$cardClass}}">
+            <div class="card">
                 <div class="card-header {{$headerClass}}">
-                    <div class="container row">
+                    <div class="sections-header">
                         @foreach($sections as $section)
-
-                            {{$section}} {{ $loop->last ? '' : ' ≫ ' }}
-
+                            <span class="sections-header__el">
+                                {{$section}} {!! $loop->last ? '' : '<span class="sections-header__arrow"></span>' !!}
+                            </span>
                         @endforeach
                     </div>
                 </div>
                 <div class="card-body {{$bodyClass}}">
                     @include('layouts.session')
-                    
+
                     {{$slot}}
                 </div>
             </div>

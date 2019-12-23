@@ -1,3 +1,8 @@
+$dark-1: #39454f;
+$dark-2: #343a40;
+$gray: #757575;
+$lightgray: #e3e3e3;
+
 html, body {
     height: 100%;
     margin: 0;
@@ -101,6 +106,24 @@ textarea {
     vertical-align: baseline;
     border-radius: .25rem;
     background: #fafafa;
+}
+
+.sections-header {
+    display: inline-block;
+    font-size: .85rem;
+
+    &__arrow {
+        margin: 8px;
+        font-family: 'FontAwesome';
+
+        &::before {
+            content: '\f105';
+        }
+    }
+
+    &__el {
+        text-transform: lowercase;
+    }
 }
 
 .small-font {

@@ -9,8 +9,13 @@
     ])
 
         <h1>{{$spotlights->title}}</h1>
-        <div class="medium-font">{{$spotlights->description}}</div>
 
+        <div class="space-between">
+            <div class="medium-font">{{$spotlights->description}}</div>
+            @if($spotlights->threshold)
+                <div class="medium-font">Threshold: {{$spotlights->threshold}}</div>
+            @endif
+        </div>
         <hr>
         @include('spotlights.show.nominate')
 

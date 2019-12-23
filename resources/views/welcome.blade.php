@@ -81,9 +81,10 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                         @if (Auth::user()->isAdmin())
-                            <a href={{route('admin.manage')}}>Manage</a>
+                            <a href={{ route('admin.manage') }}>Manage</a>
                         @endif
                     @endauth
+                    <a href={{ route('spotlights-results') }}>Spotlights Results</a>
                 </div>
             @endif
             <div class="row justify-content-center">
@@ -97,7 +98,7 @@
                             <span class="text-muted">you are already logged in!</span>
                         @else
                             <span class="text-muted" style="font-size: 0.85rem;">or if you are already a member</span> <br>
-                            <a href={{route('login')}} class="btn osu-button"><i class="fa fa-sign-in"></i> Login with osu! account</a>
+                            <a href={{ route('login') }} class="btn osu-button"><i class="fa fa-sign-in"></i> Login with osu! account</a>
                         @endauth
                     </div>
                 </div>

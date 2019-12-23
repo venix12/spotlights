@@ -1,5 +1,5 @@
 <div
-    class="card bg-test {{ $spotlighted === true ? 'card-spotlight' : '' }}"
+    class="card card-mapset bg-test {{ $spotlighted === true ? 'card-spotlight' : '' }}"
     style="
         background-image: url('{{ asset('images/triangle-card.png') }}'), url('https://assets.ppy.sh/beatmaps/{{$beatmap_id}}/covers/cover.jpg');
         background-position: -40%, 150%;

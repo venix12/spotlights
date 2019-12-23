@@ -72,5 +72,10 @@ Route::group(['prefix' => 'spotlights'], function() {
     Route::post('/update-vote', 'SpotlightsNominationVoteController@update')->name('spotlights.updateVote');
 });
 
+Route::group(['prefix' => 'spotlights-results'], function() {
+    Route::get('/', 'SpotlightsResultsController@index')->name('spotlights-results');
+    Route::get('/{id}', 'SpotlightsResultsController@show')->name('spotlights-results.show');
+});
+
 //oauth
 Route::get('/callback', 'ApiController@getUserData');

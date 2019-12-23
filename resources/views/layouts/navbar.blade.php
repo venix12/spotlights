@@ -8,14 +8,18 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <!-- Right Side Of Navbar -->
-            @if(!Auth::guest())
-                <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
+                @auth
                     <li class="nav-item">
                         <a class="nav-link" href={{route('home')}}>{{ __('Home') }}</a>
                     </li>
+                @endauth
 
+                <li class="nav-item">
+                    <a class="nav-link" href={{ route('spotlights-results') }}>Spotlights Results</a>
+                </li>
+
+                @auth
                     <li class="nav-item">
                         <a class="nav-link" href={{route('spotlights')}}>{{ __('Spotlights') }}</a>
                     </li>
@@ -49,8 +53,8 @@
                             </form>
                         </div>
                     </li>
-                </ul>
-            @endif
+                @endauth
+            </ul>
         </div>
     </div>
 </nav>

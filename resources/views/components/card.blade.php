@@ -9,14 +9,15 @@
         $size = 8;
     }
 
-    $dark ? $headerClass = 'bg-dark text-white' : $headerClass = '';
     $dark ? $bodyClass = 'bg-gray text-white' : $bodyClass = '';
+    $dark ? $borderStyle = 'border: none' : $borderStyle = '';
+    $dark ? $headerClass = 'bg-dark text-white' : $headerClass = '';
 @endphp
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-{{$size}}">
-            <div class="card">
+            <div class="card" style="{{$borderStyle}}">
                 <div class="card-header {{$headerClass}}">
                     <div class="sections-header">
                         @foreach($sections as $section)

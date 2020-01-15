@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\GuzzleServiceProvider::class,
+        App\Providers\OsuApiServiceProvider::class,
+
     ],
 
     /*
@@ -190,6 +193,9 @@ return [
 
     'aliases' => [
 
+        /*
+        * Built-in laravel aliases
+        */
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -226,6 +232,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+        * Application facades
+        */
+        'Guzzle' => App\Facades\GuzzleFacade::class,
+        'OsuApi' => App\Facades\OsuApiFacade::class,
     ],
 
 ];

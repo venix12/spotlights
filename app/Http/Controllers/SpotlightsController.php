@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Event;
 use App\Spotlights;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
+use OsuApi;
 
 class SpotlightsController extends Controller
 {
@@ -73,56 +74,6 @@ class SpotlightsController extends Controller
             ->with('votes', $votes);
     }
 
-    public function nominate(Request $request, $id)
-    {
-        $nominations = SpotlightsNomination::where('spots_id', $id)->get();
-
-        if(count($nominations->where('beatmap_id', $request->beatmap_id)) > 0)
-        {
-            return redirect()->back()->with('error', 'This map has already been nominated!');
-        }
-
-        //get api string
-        $key = env('OSU_API_KEY');
-        $url = 'osu.ppy.sh/api/get_beatmaps?k='.$key.'&s='.$request->beatmap_id;
-        $client = new \GuzzleHttp\Client();
-        $response = $client->get($url);
-        $beatmapData = json_decode((string) $response->getBody(), true);
-
-        if($beatmapData == null)
-        {
-            return redirect()->back()->with('error', 'No beatmapset found, make sure you put numbers only!');
-        }
-
-        //get beatmap data from api
-        foreach($beatmapData as $key => $item)
-        {
-            $beatmapArtist = $item['artist'];
-            $beatmapCreator = $item['creator'];
-            $beatmapCreatorId = $item['creator_id'];
-            $beatmapTitle = $item['title'];
-        }
-
-        if($beatmapCreatorId === Auth::user()->osu_user_id)
-        {
-            return redirect()->back()->with('error', "You can't nominate your own maps!");
-        }
-
-        //add nomination entry to database
-        $nomination = new SpotlightsNomination();
-        $nomination->beatmap_artist = $beatmapArtist;
-        $nomination->beatmap_creator = $beatmapCreator;
-        $nomination->beatmap_creator_osu_id = $beatmapCreatorId;
-        $nomination->beatmap_id = $request->beatmap_id;
-        $nomination->beatmap_title = $beatmapTitle;
-        $nomination->score = 1;
-        $nomination->spots_id = $id;
-        $nomination->user_id = Auth::user()->id;
-        $nomination->save();
-
-        return redirect()->back()->with('success', 'Nominated a beatmap successfully!')->with('beatmapData', $beatmapData);
-    }
-
     public function new()
     {
         return view('admin.createspots');
@@ -130,13 +81,13 @@ class SpotlightsController extends Controller
 
     public function create(Request $request)
     {
-        $this->validate(request(),[
+        $this->validate($request, [
 
             'deadline' => 'required|date_format:Y-m-d',
 
         ]);
 
-        $deadline = $request->deadline." 23:59:59";
+        $deadline = "{$request->deadline} 23:59:59";
 
         $modes = [];
 
@@ -158,23 +109,22 @@ class SpotlightsController extends Controller
 
         foreach($modes as $mode)
         {
-            if ($mode == 'osu'){
-                $titlePart = 'osu!';
+            switch ($mode) {
+                case 'osu':
+                    $modeIndicator = 'osu!';
+                    break;
+                case 'taiko':
+                    $modeIndicator = 'osu!taiko';
+                    break;
+                case 'catch':
+                    $modeIndicator = 'osu!catch';
+                    break;
+                case 'mania':
+                    $modeIndicator = 'mania';
+                    break;
             }
 
-            if ($mode == 'taiko'){
-                $titlePart = 'osu!taiko';
-            }
-
-            if($mode == 'catch'){
-                $titlePart = 'osu!catch';
-            }
-
-            if($mode == 'mania'){
-                $titlePart = 'osu!mania';
-            }
-
-            $title = $request->title." ($titlePart)";
+            $title = "$request->title ({$modeIndicator})";
 
             $spotlights = new Spotlights();
             $spotlights->title = $title;
@@ -195,7 +145,7 @@ class SpotlightsController extends Controller
             $spotlights->save();
         }
 
-        Event::log("Created new spotlights ".$request->title);
+        Event::log("Created new spotlights {$request->title}");
 
         return redirect()->back()->with('success', 'Created new spotlights!');
     }

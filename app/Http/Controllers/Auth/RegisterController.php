@@ -11,34 +11,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use OsuApi;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = '/admin/added-user';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
 
     public function showRegistrationForm()
     {
@@ -49,12 +28,6 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -72,37 +45,28 @@ class RegisterController extends Controller
                         ?: redirect($this->redirectPath());
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    
     protected function create(array $data)
     {
         $user_id = $data['osu_user_id'];
 
-        //get api string
-        $key = env('OSU_API_KEY');
-        $url = 'osu.ppy.sh/api/get_user?k='.$key.'&u='.$user_id;
-        $client = new \GuzzleHttp\Client();
-        $response = $client->get($url);
-        $userData = json_decode((string) $response->getBody(), true);
+        $response = OsuApi::getUser($user_id);
 
-        //get user data from api
-        foreach($userData as $key => $item)
+        if ($response === [])
         {
-            $username = $item['username'];
+            return redirect()->back()
+                ->with('error', 'no username found!');
         }
 
-        Event::log("Added new user ".$username);
+        $username = $response[0]['username'];
+
+        Event::log("Added new user {$username}");
 
         session(['registeredUsername' => $username]);
+
         return User::create([
-            'username' => $username,
-            'password' => Hash::make(session('passwordToken')),
             'osu_user_id' => $user_id,
+            'password' => Hash::make(session('passwordToken')),
+            'username' => $username,
             $data['mode'] => true,
         ]);
     }

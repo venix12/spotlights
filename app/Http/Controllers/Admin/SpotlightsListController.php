@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class SpotlightsListController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('is_admin_or_manager');
+    }
+
     public function index()
     {
-    if(!Auth::check() || !(Auth::user()->isAdmin() || Auth::user()->isManager()))
-        {
-            return redirect('/');
-        }
+        $spotlights = Spotlights::all();
 
-    $spotlights = Spotlights::all();
-
-    return view('admin.spotlightslist')->with('spotlights', $spotlights);
+        return view('admin.spotlightslist')->with('spotlights', $spotlights);
     }
 }

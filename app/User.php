@@ -25,6 +25,8 @@ class User extends Authenticatable
         3 => '#f56e20'
     ];
 
+    const INACTIVE_COLOUR = '#747474';
+
     const MODES = [
         'osu',
         'catch',
@@ -38,29 +40,16 @@ class User extends Authenticatable
         'catch' => 'osu!catch',
         'mania' => 'osu!mania'
     ];
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'osu_user_id', 'password', 'user_group', 'username', 'osu', 'taiko', 'catch', 'mania',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'active' => 'boolean',
         'catch' => 'boolean',
@@ -70,6 +59,19 @@ class User extends Authenticatable
         'taiko' => 'boolean',
     ];
 
+    public function getUserModes()
+    {
+        $modes = [];
+
+        foreach (self::MODES as $mode) {
+            if ($this->$mode === true) {
+                $modes[] = self::MODES_NAMES[$mode];
+            }
+        }
+
+        return $modes;
+    }
+
     public function isMember() : bool
     {
         return $this->group_id === 0;
@@ -78,6 +80,11 @@ class User extends Authenticatable
     public function isAdmin() : bool
     {
         return $this->group_id === 1 || $this->group_id === 2;
+    }
+
+    public function isAdminOrManager() : bool
+    {
+        return $this->group_id === 1 || $this->group_id === 2 || $this->group_id === 3;
     }
 
     public function isManager() : bool

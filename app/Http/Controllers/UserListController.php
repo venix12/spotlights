@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 
 class UserListController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        if(!Auth::check())
-        {
-            return redirect('/');
-        }
-
+        // TODO: move to model?
         $users = User::orderBy('username')->get();
 
         $activeUsers = $users->where('active', true);
@@ -25,12 +26,39 @@ class UserListController extends Controller
         $members = $activeUsers->where('group_id', 0);
         $usersNotLogged = $activeUsers->where('has_logged_in', false);
 
+        $membersArray = [
+            'admins' => [
+                'colour' => User::GROUP_COLOURS[1],
+                'users' => $admins->merge($leaders),
+                'title' => 'Administrators',
+            ],
+            'managers' => [
+                'colour' => User::GROUP_COLOURS[3],
+                'users' => $managers,
+                'title' => 'Managers',
+            ],
+            'members' => [
+                'colour' => User::GROUP_COLOURS[0],
+                'users' => $members,
+                'title' => 'Members',
+            ]
+        ];
+
+        $moderationArray = [
+            'inactives' => [
+                'colour' => User::INACTIVE_COLOUR,
+                'users' => $inactives,
+                'title' => 'Inactive users',
+            ],
+            'users_not_logged' => [
+                'colour' => '',
+                'users' => $usersNotLogged,
+                'title' => 'Users that haven\'t logged in yet',
+            ]
+            ];
+
         return view('user.userlist')
-            ->with('admins', $admins)
-            ->with('inactives', $inactives)
-            ->with('leaders', $leaders)
-            ->with('managers', $managers)
-            ->with('members', $members)
-            ->with('usersNotLogged', $usersNotLogged);
+            ->with('membersArray', $membersArray)
+            ->with('moderationArray', $moderationArray);
     }
 }

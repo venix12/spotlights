@@ -10,8 +10,7 @@
 
                 <span class="text-muted">
                     @foreach($member->getUserModes() as $mode)
-                        {{$mode}}
-                        {{$loop->last ? '' : ', '}}
+                        <span>{{$loop->first ? '(' : ''}}{{$mode}}{{$loop->last ? ')' : ', ' }}</span>
                     @endforeach
                 </span>
             </li>

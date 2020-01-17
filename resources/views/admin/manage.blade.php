@@ -4,15 +4,19 @@
 
 @section('content')
     @component('components.card', [
+        'dark' => true,
         'sections' => ['Home', 'Manage']
     ])
         @if(Auth::user()->isAdmin())
-            <label class="col-form-label text-md-right"><a href="{{route('register')}}">Add user</a></label> <br />
-            <label class="col-form-label text-md-right"><a href="{{route('admin.newSpotlights')}}">Create new spotlights</a></label> <br />
-            <label class="col-form-label text-md-right"><a href="{{route('admin.resetpassword')}}">Reset password</a></label> <br />
+            @foreach($adminSections as $section)
+                <a href="{{ route($section['route']) }}">{{$section['title']}}</a> <br>
+            @endforeach
+
+            <hr>
         @endif
-        <label class="col-form-label text-md-right"><a href="{{route('admin.spotlist')}}">Manage spotlights</a></label> <br />
-        <label class="col-form-label text-md-right"><a href="{{route('admin.userlist')}}">Registered Users</a></label> <br />
-        <label class="col-form-label text-md-right"><a href="{{route('admin.log')}}">Log</a></label>
+
+        @foreach($sections as $section)
+            <a href="{{ route($section['route']) }}">{{$section['title']}}</a> <br>
+        @endforeach
     @endcomponent
 @endsection

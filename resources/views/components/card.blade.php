@@ -14,6 +14,14 @@
     $dark ? $headerClass = 'bg-dark text-white' : $headerClass = '';
 @endphp
 
+@if($dark === true)
+    <style>
+    a, a:hover, a:focus {
+        color: white;
+    }
+    </style>
+@endif
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-{{$size}}">

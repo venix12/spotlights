@@ -18,9 +18,6 @@
         <div class="title-section__header">{{$spotlights->title}}</div>
         <div class="space-between">
             <div class="medium-font">{{$spotlights->description}}</div>
-            @if($spotlights->threshold)
-
-            @endif
         </div>
 
         <hr style="border-color: white">

@@ -8,17 +8,20 @@
         'size' => 11,
         'sections' => ['home', 'spotlights results', $spotlights->title],
     ])
-        <a href="{{ route('spotlights-results') }}" class="title-section__previous">go to spotlights results listing</a> <br>
-
-        <div class="space-between">
-            <div class="title-section__info">Threshold: {{$spotlights->threshold}}</div>
-            <div class="title-section__info">Released at {{ substr($spotlights->released_at, 0, -9) }}</div>
-        </div>
-
-        <div class="title-section__header">{{$spotlights->title}}</div>
-        <div class="space-between">
-            <div class="medium-font">{{$spotlights->description}}</div>
-        </div>
+        @include('components._header', [
+            'title' => $spotlights->title,
+            'modifiers' => [
+                'marker',
+                'previous' => [
+                    'route' => 'spotlights-results',
+                    'section' => 'spotlights results listing',
+                ],
+                'tags' => [
+                    "Threshold: {$spotlights->threshold}",
+                    'Released at ' . format_date($spotlights->released_at),
+                ],
+            ]
+        ])
 
         <hr style="border-color: white">
 

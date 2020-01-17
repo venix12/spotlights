@@ -260,19 +260,22 @@ textarea {
 
 .title-section {
     &__header {
-        position: relative;
-        left: 12px;
         font-size: 2rem;
 
-        &::before {
-            position: absolute;
-            left: -12px;
-            top: 15px;
-            content: '';
-            width: 4px;
-            height: 40%;
-            border-radius: 10px;
-            background-color: greenyellow;
+        &--marker {
+            position: relative;
+            left: 12px;
+
+            &::before {
+                position: absolute;
+                left: -12px;
+                top: 15px;
+                content: '';
+                width: 4px;
+                height: 40%;
+                border-radius: 10px;
+                background-color: greenyellow;
+            }
         }
     }
 
@@ -306,7 +309,7 @@ textarea {
 
         &:hover {
             color: white;
-            transform: translateX(5px);
+            transform: translateX(-5px);
         }
     }
 }

@@ -10,6 +10,7 @@
     ])
         @include('components._header', [
             'title' => $spotlights->title,
+            'description' => $spotlights->description,
             'modifiers' => [
                 'marker',
                 'previous' => [

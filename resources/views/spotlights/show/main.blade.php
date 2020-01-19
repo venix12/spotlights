@@ -76,10 +76,14 @@
             Seems like there aren't any nominations for this spotlights...
         @endif
 
-        @if(Auth::user()->isAdmin() || Auth::user()->isManager())
-            @foreach ($users->where($spotlights->gamemode(), true) as $user)
-                {{ $user->username }}: {{ count($votes->where('spots_id', $spotlights->id)->where('user_id', $user->id)) }} / {{ count($nominations) }} <br>
-            @endforeach
+        @if(Auth::user()->isAdminOrManager())
+            <div class="expandable" data-target="#activity" data-toggle="collapse">Activity</div>
+
+            <div id="activity" class="collapse">
+                @foreach ($users->where($spotlights->gamemode(), true) as $user)
+                    {{ $user->username }}: {{ count($votes->where('spots_id', $spotlights->id)->where('user_id', $user->id)) }} / {{ count($nominations) }} <br>
+                @endforeach
+            </div>
         @endif
 
     @endcomponent

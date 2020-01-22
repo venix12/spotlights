@@ -4,20 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\UserGroup;
-use Auth;
 
 class RegisteredUsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('is_admin_or_manager');
+    }
+
     public function index()
     {
-    if(!Auth::check() || !(Auth::user()->isAdmin() || Auth::user()->isManager()))
-        {
-            return redirect('/');
-        }
+        $users = User::all();
 
-    $users = User::all();
-
-    return view('admin.userlist')->with('users', $users);
+        return view('admin.userlist')->with('users', $users);
     }
 }

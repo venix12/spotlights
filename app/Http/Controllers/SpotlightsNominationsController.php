@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class SpotlightsNominationsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('is_admin')->only('destroy');
+    }
+
     public function destroy(Request $request)
     {
         // remove nomination votes so there's no database conflict

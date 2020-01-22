@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Auth;
 use App\Spotlights;
 use Illuminate\Http\Request;
 

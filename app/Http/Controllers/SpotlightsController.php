@@ -7,19 +7,21 @@ use App\Spotlights;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
 use App\User;
-use Auth;
 use Illuminate\Http\Request;
-use OsuApi;
 
 class SpotlightsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('is_admin')->only([
+            'activate', 'create', 'deactivate', 'destroy', 'new',  'release', 'setThreshold'
+        ]);
+    }
+
     public function index()
     {
-        if(!Auth::check())
-        {
-            return redirect('/');
-        }
-
         $spotlights = Spotlights::all();
 
         return view('spotlights.index')->with('spotlights', $spotlights);
@@ -29,7 +31,7 @@ class SpotlightsController extends Controller
     {
         $spotlights = Spotlights::find($id);
 
-        $validator = $this->validate(request(),[
+        $this->validate($request, [
             'threshold' => 'int',
         ]);
 
@@ -55,7 +57,7 @@ class SpotlightsController extends Controller
     {
         $spotlights = Spotlights::find($id);
 
-        if(!Auth::check() || !$spotlights)
+        if (!$spotlights)
         {
             return redirect('/');
         }
@@ -156,7 +158,7 @@ class SpotlightsController extends Controller
         $spotlights->active = 1;
         $spotlights->save();
 
-        Event::log("Activated spotlights ".$spotlights->title);
+        Event::log("Activated spotlights {$spotlights->title}");
 
         return redirect()->back()->with('success', 'Successfully activated the spotlights!');
     }
@@ -182,7 +184,7 @@ class SpotlightsController extends Controller
         $nomination->delete();
         $spotlights->delete();
 
-        Event::log("Removed spotlights ".$spotlights->title);
+        Event::log("Removed spotlights {$spotlights->title}");
 
         return redirect()->back()->with('success', 'Successfully removed the spotlights!');
     }
@@ -195,7 +197,7 @@ class SpotlightsController extends Controller
         $spotlights->released_at = now();
         $spotlights->save();
 
-        Event::log("Released spotlights ".$spotlights->title);
+        Event::log("Released spotlights {$spotlights->title}");
 
         return redirect()->back()->with('success', 'Successfully released the spotlights!');
     }

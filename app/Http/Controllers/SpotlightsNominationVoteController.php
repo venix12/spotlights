@@ -9,48 +9,51 @@ use Auth;
 
 class SpotlightsNominationVoteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('is_admin')->only('remove_comment');
+    }
+
     public function index(Request $request)
     {
-        if (!$request->optionRadios)
+        switch ($request->optionsRadios)
         {
-            $voteValue = null;
-        }
-        
-        if ($request->optionsRadios == 'voteFor')
-        {
-            $voteValue = 1;
+            case 'voteFor':
+                $voteValue = 1;
+                break;
+
+            case 'voteNeutral':
+                $voteValue = 0;
+                break;
+
+            case 'voteAgainst':
+                $voteValue = -1;
+                break;
+
+            case 'voteContributed':
+                $voteValue = 2;
+                break;
+
+            default:
+                $voteValue = null;
+                break;
         }
 
-        if ($request->optionsRadios == 'voteNeutral')
-        {
-            $voteValue = 0;
-        }
-
-        if($request->optionsRadios == 'voteAgainst')
-        {
-            $voteValue = -1;
-        }
-
-        if($request->optionsRadios == 'voteContributed')
-        {
-            $voteValue = 2;
-        }
-        
-        //check if user voted already
-
-        //create vote
         $vote = new SpotlightsNominationVote();
         $vote->value = $voteValue;
         $vote->user_id = Auth::user()->id;
         $vote->spots_id = $request->spotlightsID;
         $vote->nomination_id = $request->nominationID;
+
         if (strlen($request->commentField) > 0)
         {
             $vote->comment = $request->commentField;
         }
+
         $vote->save();
 
-        //change score of nomination
+        // 2 is contribution so it doesn't affect the score
         if($voteValue < 2)
         {
             $nomination = SpotlightsNomination::find($request->nominationID);
@@ -73,26 +76,27 @@ class SpotlightsNominationVoteController extends Controller
 
         if ($request->optionsRadios == 'voteFor')
         {
-            if($vote->value == -1)
-            {
+            if($vote->value == -1) {
                 $scoreAdd = 2;
             } else {
                 $scoreAdd = 1;
             }
-            
+
             $voteValue = 1;
         }
 
         if ($request->optionsRadios == 'voteNeutral')
         {
-            if($vote->value == -1)
+            if ($vote->value == -1)
             {
                 $scoreAdd = 1;
-            } 
-            elseif($vote->value == 1) 
+            }
+
+            else if ($vote->value == 1)
             {
                 $scoreAdd = -1;
             }
+
             else
             {
                 $scoreAdd = 0;
@@ -119,7 +123,7 @@ class SpotlightsNominationVoteController extends Controller
             if($vote->value == -1)
             {
                 $scoreAdd = 1;
-            } 
+            }
             elseif($vote->value == 1)
             {
                 $scoreAdd = -1;
@@ -131,25 +135,25 @@ class SpotlightsNominationVoteController extends Controller
 
             $voteValue = 2;
         }
-        
 
-        //change score of nomination
         if($vote->value != $voteValue)
         {
             $nomination = SpotlightsNomination::find($request->nominationID);
             $nomination->score += $scoreAdd;
             $nomination->save();
-        } 
+        }
 
         $vote->value = $voteValue;
         $vote->user_id = Auth::user()->id;
         $vote->spots_id = $request->spotlightsID;
         $vote->nomination_id = $request->nominationID;
+
         if ($vote->comment != $request->commentField)
         {
             $vote->comment = $request->commentField;
             $vote->comment_updated_at = now();
         }
+
         $vote->save();
 
         return redirect()->back()->with('success', 'Vote updated successfully!');
@@ -161,8 +165,7 @@ class SpotlightsNominationVoteController extends Controller
 
         $vote = SpotlightsNominationVote::find($request->voteID);
 
-        if($vote->value === null)
-        {
+        if($vote->value === null) {
             $vote->delete();
         } else {
             $vote->comment = null;

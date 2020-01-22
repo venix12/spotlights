@@ -10,6 +10,11 @@ use App\User;
 
 class ChangePasswordController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('is_admin');
+    }
+
     public function index()
     {
         return view('auth.changepassword');
@@ -38,10 +43,5 @@ class ChangePasswordController extends Controller
         {
             return redirect()->back()->with('error', 'Current password is invaild!');
         }
-    }
-
-    public function __construct()
-    {
-        $this->middleware('auth');
     }
 }

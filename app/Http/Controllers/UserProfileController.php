@@ -11,23 +11,28 @@ use Auth;
 
 
 class UserProfileController extends Controller
-{   
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index($id)
     {
         $user = User::find($id);
 
-        if(!Auth::check() || !$user)
+        if(!$user)
         {
             return redirect('/');
         }
 
-        if (!$user->active && !(Auth::user()->isAdmin() || Auth::user()->isManager()))
+        if (!$user->active && !Auth::user()->isAdminOrManager())
         {
             return redirect('/');
         }
-        
+
         $nominations = SpotlightsNomination::all();
-        
+
         $spotlights = Spotlights::all();
 
         $userSpotlights = $nominations->where('user_id', $id);

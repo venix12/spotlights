@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Auth;
-use App\User;
 
 class AddedUserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('is_admin');
+    }
+
     public function index()
     {
-        if(!Auth::check() || !Auth::user()->isAdmin())
-        {
-           return redirect('/'); 
-        }
-        
         $registeredUsername = session('registeredUsername');
         $token = session('passwordToken');
 

@@ -19,12 +19,13 @@ class RegisterController extends Controller
 
     protected $redirectTo = '/admin/added-user';
 
+    public function __construct()
+    {
+        $this->middleware('is_admin');
+    }
+
     public function showRegistrationForm()
     {
-        if(!Auth::check() || !Auth::user()->isAdmin())
-        {
-            return redirect('/');
-        }
         return view('auth.register');
     }
 

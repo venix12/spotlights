@@ -52,7 +52,7 @@
                     'metadata' => $nomination->beatmap_artist.' - '.$nomination->beatmap_title,
                     'nominator' => $users->find($nomination->user_id)->username,
                     'nominator_id' => $nomination->user_id,
-                    'participants' => count($votes->where('nomination_id', $nomination->id)) + 1,
+                    'participants' => count($votes->where('nomination_id', $nomination->id)->where('user_id', '!==', $nomination->user_id)) + 1,
                     'score' => $nomination->score,
                     'scoreColor' => $nomination->getScoreColor(),
                     'spotlighted' => $spotlights->threshold ? $nomination->score >= $spotlights->threshold : false,

@@ -49,7 +49,7 @@
                     'creator_id' => $nomination->beatmap_creator_osu_id,
                     'criticizers' => count($votes->where('nomination_id', $nomination->id)->where('value', '===', -1)),
                     'id' => $nomination->id,
-                    'metadata' => $nomination->beatmap_artist.' - '.$nomination->beatmap_title,
+                    'metadata' => $nomination->getMetadata(),
                     'nominator' => $users->find($nomination->user_id)->username,
                     'nominator_id' => $nomination->user_id,
                     'participants' => count($votes->where('nomination_id', $nomination->id)->where('user_id', '!==', $nomination->user_id)) + 1,

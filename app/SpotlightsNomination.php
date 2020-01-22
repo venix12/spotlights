@@ -81,6 +81,11 @@ class SpotlightsNomination extends Model
         return $entry;
     }
 
+    public function getMetadata()
+    {
+        return "{$this->beatmap_artist} - {$this->beatmap_title}";
+    }
+
     public function scopeCurrentUserSpots($query, $user_id, $spotlights_id)
     {
         return $query->where('user_id', $user_id)->where('spots_id', $spotlights_id);

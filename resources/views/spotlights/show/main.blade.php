@@ -81,7 +81,7 @@
 
             <div id="activity" class="collapse">
                 @foreach ($users->where($spotlights->gamemode(), true) as $user)
-                    {{ $user->username }}: {{ count($votes->where('spots_id', $spotlights->id)->where('user_id', $user->id)) }} / {{ count($nominations) }} <br>
+                    {{ $user->username }}: {{ $user->getSpotlightActivity($spotlights->id) }} / {{ count($nominations) }} <br>
                 @endforeach
             </div>
         @endif

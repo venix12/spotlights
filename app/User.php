@@ -3,6 +3,8 @@
 namespace App;
 
 use Auth;
+use App\SpotlightsNomination;
+use App\SpotlightsNominationVote;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,6 +60,16 @@ class User extends Authenticatable
         'osu' => 'boolean',
         'taiko' => 'boolean',
     ];
+
+    public function getSpotlightActivity(int $spotlights_id)
+    {
+        $nominations = SpotlightsNomination::currentUserSpots($this->id, $spotlights_id)->get();
+        $votes = SpotlightsNominationVote::currentUserSpots($this->id, $spotlights_id)->get();
+
+        $activity = count($nominations) + count($votes);
+
+        return $activity;
+    }
 
     public function getUserModes()
     {

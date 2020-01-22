@@ -81,6 +81,11 @@ class SpotlightsNomination extends Model
         return $entry;
     }
 
+    public function scopeCurrentUserSpots($query, $user_id, $spotlights_id)
+    {
+        return $query->where('user_id', $user_id)->where('spots_id', $spotlights_id);
+    }
+
     public function spotlights()
     {
         return $this->belongsTo('Spotlights');

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\SpotlightsNominationVote;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use OsuApi;
@@ -18,6 +19,22 @@ class SpotlightsNomination extends Model
         'spots_id',
         'user_id',
     ];
+
+    public function getScoreAttribute()
+    {
+        $votes = SpotlightsNominationVote::where('nomination_id', $this->id)->get();
+
+        $score = 1;
+
+        foreach ($votes as $vote) {
+            // 2 = contributor
+            if ($vote->value !== 2) {
+                $score += $vote->value;
+            }
+        }
+
+        return $score;
+    }
 
     public function getScoreColor()
     {

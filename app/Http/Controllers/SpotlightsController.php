@@ -62,7 +62,7 @@ class SpotlightsController extends Controller
             return redirect('/');
         }
 
-        $orderNominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
+        $orderNominations = SpotlightsNomination::all()->sortByDesc('score');
         $nominations = $orderNominations->where('spots_id', $id);
 
         $users = User::orderBy('username')->get();
@@ -115,12 +115,15 @@ class SpotlightsController extends Controller
                 case 'osu':
                     $modeIndicator = 'osu!';
                     break;
+
                 case 'taiko':
                     $modeIndicator = 'osu!taiko';
                     break;
+
                 case 'catch':
                     $modeIndicator = 'osu!catch';
                     break;
+
                 case 'mania':
                     $modeIndicator = 'mania';
                     break;

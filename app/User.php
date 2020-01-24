@@ -84,6 +84,30 @@ class User extends Authenticatable
         return $modes;
     }
 
+    public function groupIds()
+    {
+        return $this->userGroups->pluck('group_id')->toArray();
+    }
+
+    public function groups()
+    {
+        $groupIds = $this->groupIds();
+
+        $userGroups = Group::whereIn('id', $groupIds)->get();
+
+        return $userGroups->sortBy('hierarchy');
+    }
+
+    public function hasPermSet($permission) : bool
+    {
+        return count($this->groups()->where('perm_set', $permission)) > 0;
+    }
+
+    public function highestGroup()
+    {
+        return $this->groups()->first();
+    }
+
     public function isMember() : bool
     {
         return $this->group_id === 0;
@@ -102,5 +126,10 @@ class User extends Authenticatable
     public function isManager() : bool
     {
         return $this->group_id === 3;
+    }
+
+    public function userGroups()
+    {
+        return $this->hasMany(UserGroup::class);
     }
 }

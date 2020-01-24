@@ -126,6 +126,10 @@ class User extends Authenticatable
         return $this->groups()->first();
     }
 
+    /**
+     * Checks
+     */
+
     public function isMember() : bool
     {
         return $this->group_id === 0;
@@ -145,6 +149,24 @@ class User extends Authenticatable
     {
         return $this->group_id === 3;
     }
+
+    /**
+     * Scopes
+     */
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('active', false);
+    }
+
+    /**
+     * Relations
+     */
 
     public function userGroups()
     {

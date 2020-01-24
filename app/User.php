@@ -61,6 +61,24 @@ class User extends Authenticatable
         'taiko' => 'boolean',
     ];
 
+    /**
+     * Attributes
+     */
+
+    public function getColorAttribute()
+    {
+        return $this->highestGroup()->group_color ?? '#000000';
+    }
+
+    public function getTitleAttribute()
+    {
+        return $this->highestGroup()->title;
+    }
+
+    /**
+     * Methods
+     */
+
     public function getSpotlightActivity(int $spotlights_id)
     {
         $nominations = SpotlightsNomination::currentUserSpots($this->id, $spotlights_id)->get();

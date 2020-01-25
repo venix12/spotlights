@@ -90,7 +90,6 @@ class SpotlightsNomination extends Model
             'beatmap_creator_osu_id' => $beatmapData['creator_id'],
             'beatmap_id' => $beatmapData['beatmapset_id'],
             'beatmap_title' => $beatmapData['title'],
-            'score' => 1,
             'spots_id' => $spotlights_id,
             'user_id' => Auth::user()->id,
         ]);

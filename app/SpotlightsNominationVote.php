@@ -13,6 +13,6 @@ class SpotlightsNominationVote extends Model
 
     public function vote()
     {
-        return $this->belongsTo('SpotlightsNomination');
+        return $this->belongsTo(SpotlightsNomination::class, 'nomination_id');
     }
 }

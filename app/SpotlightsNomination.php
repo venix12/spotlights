@@ -20,9 +20,13 @@ class SpotlightsNomination extends Model
         'user_id',
     ];
 
+    /**
+     * Attributes
+     */
+
     public function getScoreAttribute()
     {
-        $votes = SpotlightsNominationVote::where('nomination_id', $this->id)->get();
+        $votes = $this->votes;
 
         $score = 1;
 
@@ -35,6 +39,10 @@ class SpotlightsNomination extends Model
 
         return $score;
     }
+
+    /**
+     * Methods
+     */
 
     public function getScoreColor()
     {
@@ -102,18 +110,26 @@ class SpotlightsNomination extends Model
         return "{$this->beatmap_artist} - {$this->beatmap_title}";
     }
 
+    /**
+     * Scopes
+     */
+
     public function scopeCurrentUserSpots($query, $user_id, $spotlights_id)
     {
         return $query->where('user_id', $user_id)->where('spots_id', $spotlights_id);
     }
 
+    /**
+     * Relations
+     */
+
     public function spotlights()
     {
-        return $this->belongsTo('Spotlights');
+        return $this->belongsTo(Spotlights::class, 'spots_id');
     }
 
     public function votes()
     {
-        return $this->hasMany('SpotlightsNominationVote');
+        return $this->hasMany(SpotlightsNominationVote::class, 'nomination_id');
     }
 }

@@ -10,22 +10,27 @@ class Group extends Model
         'hidden' => 'boolean',
     ];
 
+    /**
+     * Attributes
+     */
+
     public function getGroupColorAttribute()
     {
         return "#{$this->color}";
     }
 
-    public function members()
-    {
-        $userIds = $this->userIds();
-
-        return User::whereIn('id', $userIds)->get();
-    }
+    /**
+     * Methods
+     */
 
     public function membersCount()
     {
-        return count($this->userIds());
+        return count($this->members);
     }
+
+    /**
+     * Scopes
+     */
 
     public function scopeByIdentifier($query, $identifier)
     {
@@ -37,13 +42,12 @@ class Group extends Model
         return $query->where('hidden', false);
     }
 
-    public function userIds()
-    {
-        return $this->userGroups->pluck('user_id');
-    }
+    /**
+     * Relationships
+     */
 
-    public function userGroups()
+    public function members()
     {
-        return $this->hasMany(UserGroup::class, 'group_id');
+        return $this->belongsToMany(User::class, 'user_groups');
     }
 }

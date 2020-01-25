@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->highestGroup()->group_color ?? '#000000';
     }
 
+    public function getGroupsAttribute()
+    {
+        return $this->groups()->orderBy('hierarchy')->get();
+    }
+
     public function getTitleAttribute()
     {
         return $this->highestGroup()->title;
@@ -102,28 +107,14 @@ class User extends Authenticatable
         return $modes;
     }
 
-    public function groupIds()
-    {
-        return $this->userGroups->pluck('group_id')->toArray();
-    }
-
-    public function groups()
-    {
-        $groupIds = $this->groupIds();
-
-        $userGroups = Group::whereIn('id', $groupIds)->get();
-
-        return $userGroups->sortBy('hierarchy');
-    }
-
     public function hasPermSet($permission) : bool
     {
-        return count($this->groups()->where('perm_set', $permission)) > 0;
+        return count($this->groups->where('perm_set', $permission)) > 0;
     }
 
     public function highestGroup()
     {
-        return $this->groups()->first();
+        return $this->groups->first();
     }
 
     /**
@@ -165,11 +156,12 @@ class User extends Authenticatable
     }
 
     /**
-     * Relations
+     * Relationships
      */
 
-    public function userGroups()
+    public function groups()
     {
-        return $this->hasMany(UserGroup::class);
+        return $this->belongsToMany(Group::class, 'user_groups');
     }
+
 }

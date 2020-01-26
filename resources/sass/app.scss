@@ -48,6 +48,13 @@ textarea {
     background-color: #39454f;
 }
 
+.button-invisible {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: white;
+}
+
 .card-header {
     background-color: #f5f5f5;
 }
@@ -102,10 +109,6 @@ textarea {
 }
 
 .dark-form {
-    &__label {
-        align-self: center;
-    }
-
     &__button {
         display: inline-block;
         font-weight: 600;
@@ -121,9 +124,17 @@ textarea {
         }
     }
 
+    &__el {
+        display: block;
+        margin-bottom: 10px;
+
+        &--offset {
+            margin-left: 110px;
+        }
+    }
+
     &__input {
-        display: flex;
-        width: 100%;
+        display: inline-block;
         padding: 5px;
         font-size: .85rem;
         outline: none;
@@ -136,6 +147,24 @@ textarea {
         &:focus {
             border-color: white;
         }
+
+        &--col {
+            display: flex;
+            width: 100%;
+        }
+    }
+
+    &__label {
+        display: inline-block;
+        text-align: right;
+        align-self: center;
+        width: 100px;
+        margin-right: 5px;
+    }
+
+    &__label-simple {
+        display: inline-block;
+        align-self: center;
     }
 }
 

@@ -3,10 +3,10 @@
         @csrf
         <div class="col-md-6">
             <div class="form-group row">
-                <div class="dark-form__label">beatmapset id</div>
+                <div class="dark-form__label-simple">beatmapset id</div>
 
                 <div class="col-md-4">
-                    <input id="beatmap_id" type="text" class="dark-form__input" name="beatmap_id" autocomplete="off" required>
+                    <input id="beatmap_id" type="text" class="dark-form__input dark-form__input--col" name="beatmap_id" autocomplete="off" required>
                 </div>
 
                 <button onclick="return confirm('Are you sure?')" type="submit" class="dark-form__button">

@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function getGroupsAttribute()
     {
-        return $this->groups()->orderBy('hierarchy')->get();
+        return $this->groups()->orderByRaw('-hierarchy DESC')->get();
     }
 
     public function getTitleAttribute()

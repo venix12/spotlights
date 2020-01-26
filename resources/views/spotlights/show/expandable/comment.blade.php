@@ -1,61 +1,60 @@
-<div class="card">
+@php
+    switch($vote->value) {
+        case -1:
+            $color = '#fa3703';
+            break;
 
-    @php
-        if($vote->value == -1)
-        {
-            $color = "#fa3703";
-        }
-        elseif($vote->value == 1)
-        {
-            $vote->value = "+1";
-            $color = "#6eac0a";
-        }
-        else
-        {
-            $color = "#000000";
-        }
-    @endphp
+        case 1:
+            $vote->value = '+1';
+            $color = '#6eac0a';
+            break;
 
-    @if($vote->user_id === $nomination->user_id)
-        <div class="card-header bg-dark text-white">
-    @else
-        <div class="card-header">
-    @endif
-        <div class="row">
-            @if($users->find($vote->user_id)->active)
-                <a style="margin-left: 5px;" href={{route('user.profile', ['id' => $vote->user_id])}}>{{$users->find($vote->user_id)->username}}</a>
+        default:
+            $color = '#ffffff';
+            break;
+    }
+@endphp
+
+<div class="comment-card {{$vote->user_id === $nomination->user_id ? 'comment-card--gold' : ''}}">
+    <div class="comment-card__header">
+        <a href="{{ route('user.profile', ['id' => $vote->user_id]) }}">
+            {{$vote->user->username}}
+        </a>
+
+        @if($vote->user_id !== $nomination->user_id)
+            @if($vote->value < 2)
+                <span style="color: {{$color}}"> ({{$vote->value}})</span>
             @else
-                <span style="margin-left: 5px; color: #757575;">{{\App\User::find($vote->user_id)->username}}</span>
+                <span> (contributor)</span>
             @endif
-                
-            @if($vote->user_id != $nomination->user_id)
-                @if($vote->value < 2)
-                    &nbsp;(<div style="color:{{$color}}">{{$vote->value}}</div>)
-                @else
-                    &nbsp;(contributor)
-                @endif
-            @else
-                &nbsp;(nominator)
-            @endif
-        </div>
+        @else
+            <span> (nominator)</span>
+        @endif
     </div>
 
-    @if($vote->user_id === $nomination->user_id)
-        <div class="card-body bg-gray text-white">
-    @else
-        <div class="card-body">
-    @endif
-        <p class="card-text">{{$vote->comment}}</p>
-        <div style="text-gray" class="small-font">{{$vote->created_at}}</div>
-        @if($vote->comment_updated_at)
-            <div style="text-gray" class="small-font float-left">(edited on {{$vote->updated_at}})</div>
-        @endif
-        @if(Auth::user()->isAdmin())
-            <form action={{route('admin.removeComment')}} method="POST">
-                @csrf
-                <input type="hidden" id="voteID" name="voteID" value="{{$vote->id}}">
-                <input onclick="return confirm('Are you sure you want to remove this comment?')" class="btn btn-danger btn-sm float-right" type="submit" value="Remove">
-            </form>
-        @endif
+    <div class="comment-card__body">
+        {{$vote->comment}}
+
+        <div class="space-between">
+            <div class="comment-card__body__info">
+                <div>created at {{ format_date($vote->created_at, true) }}</div>
+
+                @if($vote->updated_at)
+                    <div>updated at {{ format_date($vote->updated_at, true) }}</div>
+                @endif
+            </div>
+
+            @if(Auth::user()->isAdmin())
+                <form action={{ route('admin.removeComment') }} method="POST">
+                    @csrf
+
+                    <input type="hidden" id="voteID" name="voteID" value="{{ $vote->id }}">
+
+                    <button onclick="return confirm('Are you sure you want to remove this comment?')" class="dark-form__button" type="submit">
+                        <i class="fa fa-trash"></i> Remove
+                    </button>
+                </form>
+            @endif
+        </div>
     </div>
 </div>

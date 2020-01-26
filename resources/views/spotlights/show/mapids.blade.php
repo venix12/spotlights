@@ -2,13 +2,12 @@
 @csrf
     <div class="col-md-6">
         <div class="form-group row">
-
             <div class="col-md-2">
-                <input id="threshold" autocomplete="off" type="text" class="form-control @error('threshold') is-invalid @enderror" name="threshold" required>
+                <input id="threshold" autocomplete="off" type="text" class="dark-form__input @error('threshold') is-invalid @enderror" name="threshold" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">
-                    {{ __('Get beatmaps!') }}
+            <button type="submit" class="dark-form__button">
+                    Get beatmaps!
             </button>
         </div>
     </div>

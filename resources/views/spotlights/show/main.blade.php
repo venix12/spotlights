@@ -4,19 +4,21 @@
 
 @section('content')
     @component('components.card', [
+        'dark' => true,
         'size' => 11,
         'sections' => ['Home', 'Spotlights', $spotlights->title]
     ])
 
-        <h1>{{$spotlights->title}}</h1>
+        @include('components._header', [
+            'title' => $spotlights->title,
+            'description' => $spotlights->description,
+            'modifiers' => [$spotlights->active ? 'marker' : 'marker-red', 'tags' => [
+                'deadline: ' . format_date($spotlights->deadline),
+                $spotlights->threshold ? "threshold: {$spotlights->threshold}" : null,
+                ]
+            ]
+        ])
 
-        <div class="space-between">
-            <div class="medium-font">{{$spotlights->description}}</div>
-            @if($spotlights->threshold)
-                <div class="medium-font">Threshold: {{$spotlights->threshold}}</div>
-            @endif
-        </div>
-        <hr>
         @include('spotlights.show.nominate')
 
         @if(count($nominations) > 0)
@@ -77,9 +79,8 @@
         @endif
 
         @if(Auth::user()->isAdminOrManager())
-            <div class="expandable" data-target="#activity" data-toggle="collapse">Activity</div>
-
-            <div id="activity" class="collapse">
+            <h5>Activity</h5>
+            <div class="card-body bg-dark">
                 @foreach ($users->where($spotlights->gamemode(), true) as $user)
                     {{ $user->username }}: {{ $user->getSpotlightActivity($spotlights->id) }} / {{ count($nominations) }} <br>
                 @endforeach

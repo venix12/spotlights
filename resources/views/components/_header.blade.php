@@ -11,6 +11,10 @@
     if (in_array('marker', $modifiers)) {
         $headerClass .= ' title-section__header--marker';
     }
+
+    if (in_array('marker-red', $modifiers)) {
+        $headerClass .= ' title-section__header--marker title-section__header--marker--red';
+    }
 @endphp
 
 @if(array_key_exists('previous', $modifiers))
@@ -27,7 +31,9 @@
 @if(array_key_exists('tags', $modifiers))
     <div class="space-between">
         @foreach($modifiers['tags'] as $tag)
-            <div class="title-section__info">{{ $tag }}</div>
+            @if($tag)
+                <div class="title-section__info">{{ $tag }}</div>
+            @endif
         @endforeach
     </div>
 @endif
@@ -37,3 +43,5 @@
 @if(isset($description))
     <div class="medium-font">{{ $description }}</div>
 @endif
+
+<hr style="border-color: white">

@@ -12,7 +12,7 @@
         @foreach($votes->where('nomination_id', '===', $nomination->id)->where('user_id', '!==', $nomination->user_id)->where('comment', '!==', null) as $vote)
 
                 @include('spotlights.show.expandable.comment')
-                
+
                 {!!$loop->last ? '' : '<br>'!!}
 
         @endforeach

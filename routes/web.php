@@ -51,13 +51,23 @@ Route::post('/remove-comment', 'SpotlightsNominationVoteController@remove_commen
 //Route::post('/change-password', 'ChangePasswordController@changePassword')->name('password.update');
 Route::post('/reset-password', 'UserController@resetPassword')->name('password.reset');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'ManageController@index')->name('admin.manage');
     Route::get('/added-user', 'AddedUserController@index')->name('admin.addedUser');
     Route::get('/log', 'EventLoggerController@index')->name('admin.log');
     Route::get('/reset-password', 'ResetPasswordController@index')->name('admin.resetpassword');
     Route::get('/spotlist', 'SpotlightsListController@index')->name('admin.spotlist');
     Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
+
+    Route::group(['prefix' => 'user-groups'], function () {
+        Route::get('/', 'UserGroupsController@index')->name('admin.user-groups');
+        Route::get('/create', 'UserGroupsController@create')->name('admin.user-groups.create');
+        Route::get('/{id}', 'UserGroupsController@show')->name('admin.user-groups.show');
+
+        Route::post('/create-group', 'UserGroupsController@store')->name('admin.user-groups.store');
+        Route::post('/{id}/add-member', 'UserGroupsController@addMember')->name('admin.user-groups.add-member');
+        Route::post('/{id}/remove-member', 'UserGroupsController@removeMember')->name('admin.user-groups.remove-member');
+    });
 });
 
 Route::group(['prefix' => 'spotlights'], function() {

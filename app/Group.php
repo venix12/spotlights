@@ -10,6 +10,10 @@ class Group extends Model
         'hidden' => 'boolean',
     ];
 
+    protected $fillable = [
+        'color', 'hidden', 'hierarchy', 'identifier', 'name', 'perm_set', 'shortcut', 'title'
+    ];
+
     /**
      * Attributes
      */

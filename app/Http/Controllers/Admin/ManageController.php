@@ -22,7 +22,11 @@ class ManageController extends Controller
             ],
             [
                 'title' => 'Create new spotlights',
-                'route' => 'admin.newSpotlights'
+                'route' => 'admin.newSpotlights',
+            ],
+            [
+                'title' => 'Manage usergroups',
+                'route' => 'admin.user-groups',
             ],
             [
                 'title' => 'Reset password',

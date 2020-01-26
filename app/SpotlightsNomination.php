@@ -119,8 +119,13 @@ class SpotlightsNomination extends Model
         return $query->where('user_id', $user_id)->where('spots_id', $spotlights_id);
     }
 
+    public function scopeSortByScore($query)
+    {
+        return $query->all()->sortByDesc('score');
+    }
+
     /**
-     * Relations
+     * Relationships
      */
 
     public function spotlights()

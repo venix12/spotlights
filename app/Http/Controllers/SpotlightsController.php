@@ -35,7 +35,7 @@ class SpotlightsController extends Controller
             'threshold' => 'int',
         ]);
 
-        $orderNominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
+        $orderNominations = SpotlightsNomination::sortByScore();
         $nominations = $orderNominations->where('spots_id', $id)->where('score', '>=', $request->threshold);
 
         return view('spotlights.mapids')
@@ -62,7 +62,7 @@ class SpotlightsController extends Controller
             return redirect('/');
         }
 
-        $orderNominations = SpotlightsNomination::all()->sortByDesc('score');
+        $orderNominations = SpotlightsNomination::sortByScore();
         $nominations = $orderNominations->where('spots_id', $id);
 
         $users = User::orderBy('username')->get();

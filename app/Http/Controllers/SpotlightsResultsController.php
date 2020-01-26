@@ -27,7 +27,7 @@ class SpotlightsResultsController extends Controller
             return redirect('/');
         }
 
-        $orderNominations = SpotlightsNomination::orderBy('score', 'DESC')->get();
+        $orderNominations = SpotlightsNomination::sortByScore();
         $nominations = $orderNominations->where('spots_id', $id);
 
         $users = User::orderBy('username')->get();

@@ -121,7 +121,7 @@ class SpotlightsNomination extends Model
 
     public function scopeSortByScore($query)
     {
-        return $query->all()->sortByDesc('score');
+        return $query->get()->sortByDesc('score');
     }
 
     /**

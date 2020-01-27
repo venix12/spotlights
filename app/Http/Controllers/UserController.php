@@ -17,7 +17,7 @@ class UserController extends Controller
         $this->middleware('auth');
 
         $this->middleware('is_admin')->only([
-            'change_usergroup', 'destroy', 'resetPassword'
+            'destroy', 'resetPassword'
         ]);
 
         $this->middleware('is_admin_or_manager')->only([
@@ -57,20 +57,6 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('error', "You can't deactivate yourself!");
-    }
-
-    public function change_usergroup(Request $request)
-    {
-        $user = User::find($request->userID);
-
-        $user->active = true;
-        $user->group_id = $request->group_id;
-
-        $user->save();
-
-        Event::log("Moved {$user->username} to " . User::GROUPS[$request->group_id] . "s");
-
-        return redirect()->back()->with('success', 'Successfully changed the usergroup!');
     }
 
     public function resetPassword(Request $request)

@@ -4,6 +4,7 @@
 
 @section('content')
     @component('components.card', [
+        'dark' => true,
         'sections' => ['Home']
     ])
 

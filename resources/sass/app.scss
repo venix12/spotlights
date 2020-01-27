@@ -30,6 +30,10 @@ textarea {
     width: 100%;
 }
 
+ul {
+    margin-bottom: 0;
+}
+
 #app {
     flex: 1 0 auto;
 }
@@ -376,6 +380,10 @@ textarea {
     color: #757575;
 }
 
+.text-lightgray {
+    color: $dark-lightgray;
+}
+
 .title-section {
     &__header {
         font-size: 2rem;
@@ -433,5 +441,32 @@ textarea {
             color: white;
             transform: translateX(-5px);
         }
+    }
+}
+
+.user-profile {
+    &__avatar {
+        display: flex;
+        object-fit: contain;
+        align-self: flex-start;
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-right: 5px;
+
+        &--border {
+            border: 3px solid;
+        }
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    &__username-section {
+        line-height: 5px;
     }
 }

@@ -5,9 +5,9 @@
         <ul class="list">
             @foreach ($group['users'] as $member)
                 <li>
-                    <a href="{{ route('user.profile', ['id' => $member->id]) }}" style="color: {{$member->color}}">
-                        {{$member->username}}
-                    </a>
+                    <a href="{{ route('user.profile', ['id' => $member->id]) }}" style="color: {{$member->color}}">{{
+                        $member->username
+                    }}</a>
 
                     <span class="text-lightgray">
                         @foreach($member->getUserModes() as $mode)

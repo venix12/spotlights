@@ -4,6 +4,7 @@
 
 @section('content')
     @component('components.card', [
+        'dark' => true,
         'sections' => ['Home', 'Users', 'List']
     ])
         @include('components._userlist', ['membersArray' => $membersArray])

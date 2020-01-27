@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -14,30 +15,24 @@ class UserListController extends Controller
 
     public function index()
     {
-        // TODO: move to model?
-        $users = User::orderBy('username')->get();
-
-        $activeUsers = $users->where('active', true);
-        $inactives = $users->where('active', false);
-        $admins = $activeUsers->where('group_id', 1);
-        $leaders = $activeUsers->where('group_id', 2);
-        $managers = $activeUsers->where('group_id', 3);
-        $members = $activeUsers->where('group_id', 0);
+        $activeUsers = User::active()->get();
+        $inactives = User::inactive()->get();
         $usersNotLogged = $activeUsers->where('has_logged_in', false);
+
+        $admins = Group::byIdentifier('admin')->members;
+        $managers = Group::byIdentifier('manager')->members;
+        $members = Group::byIdentifier('member')->members;
 
         $membersArray = [
             'admins' => [
-                'colour' => User::GROUP_COLOURS[1],
-                'users' => $admins->merge($leaders),
+                'users' => $admins,
                 'title' => 'Administrators',
             ],
             'managers' => [
-                'colour' => User::GROUP_COLOURS[3],
                 'users' => $managers,
                 'title' => 'Managers',
             ],
             'members' => [
-                'colour' => User::GROUP_COLOURS[0],
                 'users' => $members,
                 'title' => 'Members',
             ]

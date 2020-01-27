@@ -53,11 +53,11 @@ class User extends Authenticatable
 
     public function getColorAttribute()
     {
-        $highestColor = $this->highestGroup()->group_color;
-
-        if ($this->inactive === true) {
+        if ($this->active === false) {
             return self::INACTIVE_COLOUR;
         }
+
+        $highestColor = $this->highestGroup()->group_color;
 
         if ($highestColor === '#') {
             return;

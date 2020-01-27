@@ -34,11 +34,9 @@ class UserProfileController extends Controller
         $nominations = SpotlightsNomination::all();
 
         $spotlights = Spotlights::all();
-
         $userSpotlights = $nominations->where('user_id', $id);
 
         $votes = SpotlightsNominationVote::all();
-
         $userVotes = $votes->where('user_id', $id);
 
         $spotlightsParticipated = [];

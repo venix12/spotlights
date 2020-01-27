@@ -39,8 +39,8 @@
             <div class="comment-card__body__info">
                 <div>created at {{ format_date($vote->created_at, true) }}</div>
 
-                @if($vote->updated_at)
-                    <div>updated at {{ format_date($vote->updated_at, true) }}</div>
+                @if($vote->comment_updated_at)
+                    <div>updated at {{ format_date($vote->comment_updated_at, true) }}</div>
                 @endif
             </div>
 

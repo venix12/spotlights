@@ -24,7 +24,18 @@
                         <div class="space-between">
                             <div class="title-section__info">
                                 Deadline: {{ format_date($spotlight->deadline) }}
-                                ({{ $spotlight->deadline > now() ? '' : '-' . now()->diffInDays($spotlight->deadline) }} days remaining)
+
+                                @if($spotlight->active === true)
+                                    @if($spotlight->deadlineLate())
+                                        <span class="text-danger">
+                                            &nbsp;({{ $spotlight->deadlineInDays() }} days remaining)
+                                        </span>
+                                    @else
+                                        ({{ $spotlight->deadlineInDays() }} days remaining)
+                                    @endif
+                                @else
+                                    - &nbsp;<div class="text-success">finished</div>
+                                @endif
                             </div>
 
                             <div class="title-section__info">Created on {{ format_date($spotlight->created_at) }}</div>

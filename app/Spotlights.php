@@ -18,6 +18,20 @@ class Spotlights extends Model
         'taiko' => 'boolean'
     ];
 
+    public function deadlineInDays()
+    {
+        $days = $this->deadlineLate()
+            ? '-' . now()->diffInDays($this->deadline)
+            : now()->diffInDays($this->deadline);
+
+        return $days;
+    }
+
+    public function deadlineLate()
+    {
+        return $this->deadline < now();
+    }
+
     public function gamemode()
     {
         foreach (self::GAME_MODES as $gamemode) {

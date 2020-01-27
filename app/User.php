@@ -13,20 +13,6 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    const GROUPS = [
-        0 => 'Member',
-        1 => 'Administrator',
-        2 => 'Project Leader',
-        3 => 'Manager'
-    ];
-
-    const GROUP_COLOURS = [
-        0 => '',
-        1 => '#ff0000',
-        2 => '#ff0000',
-        3 => '#f56e20'
-    ];
-
     const INACTIVE_COLOUR = '#747474';
 
     const MODES = [
@@ -67,7 +53,17 @@ class User extends Authenticatable
 
     public function getColorAttribute()
     {
-        return $this->highestGroup()->group_color ?? '#000000';
+        $highestColor = $this->highestGroup()->group_color;
+
+        if ($this->inactive === true) {
+            return self::INACTIVE_COLOUR;
+        }
+
+        if ($highestColor === '#') {
+            return;
+        }
+
+        return $highestColor;
     }
 
     public function getGroupsAttribute()
@@ -77,7 +73,7 @@ class User extends Authenticatable
 
     public function getTitleAttribute()
     {
-        return $this->highestGroup()->title;
+        return $this->highestGroup()->title ?? null;
     }
 
     /**
@@ -107,7 +103,7 @@ class User extends Authenticatable
         return $modes;
     }
 
-    public function hasPermSet($permission) : bool
+    public function hasPermSet(string $permission) : bool
     {
         return count($this->groups->where('perm_set', $permission)) > 0;
     }
@@ -121,24 +117,24 @@ class User extends Authenticatable
      * Checks
      */
 
-    public function isMember() : bool
+    public function isMember()
     {
-        return $this->group_id === 0;
+        return $this->hasPermSet('member');
     }
 
-    public function isAdmin() : bool
+    public function isAdmin()
     {
-        return $this->group_id === 1 || $this->group_id === 2;
+        return $this->hasPermSet('admin');
     }
 
-    public function isAdminOrManager() : bool
+    public function isAdminOrManager()
     {
-        return $this->group_id === 1 || $this->group_id === 2 || $this->group_id === 3;
+        return $this->isAdmin() || $this->isManager();
     }
 
-    public function isManager() : bool
+    public function isManager()
     {
-        return $this->group_id === 3;
+        return $this->hasPermSet('manager');
     }
 
     /**

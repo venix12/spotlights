@@ -14,4 +14,9 @@ class Event extends Model
         $event->user_id = Auth::id();
         $event->save();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

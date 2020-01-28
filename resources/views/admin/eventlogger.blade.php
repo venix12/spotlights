@@ -4,21 +4,31 @@
 
 @section('content')
     @component('components.card', [
+        'dark' => true,
         'sections' => ['Home', 'Manage', 'Log']
     ])
-        <table class="table table-sm" style="overflow: auto;">
-            <thead>
+
+        @include('components._header', [
+            'title' => 'Log',
+        ])
+
+        <table class="table table-dark table-sm">
+            <thead class="thead-light">
                 <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Action</th>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($events as $event)
                     <tr id={{$event->id}}>
-                        <td class="medium-font">{{$event->created_at}}</td>
-                        <td class="medium-font"><a href={{route('user.profile', ['id' => $event->user_id])}} style="color: {{\App\User::GROUP_COLOURS[$users->find($event->user_id)->group_id]}};">{{$users->find($event->user_id)->username}}</a></td>
+                        <td class="medium-font">{{ format_date($event->created_at, true) }}</td>
+                        <td class="medium-font">
+                            <a href={{route('user.profile', ['id' => $event->user_id])}} style="color: {{ $event->user->color }}">
+                                {{$users->find($event->user_id)->username}}
+                            </a>
+                        </td>
                         <td class="medium-font">{{$event->action}}</td>
                     </tr>
                 @endforeach

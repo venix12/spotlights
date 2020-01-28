@@ -26,10 +26,10 @@
                         <td class="medium-font">{{ format_date($event->created_at, true) }}</td>
                         <td class="medium-font">
                             <a href={{route('user.profile', ['id' => $event->user_id])}} style="color: {{ $event->user->color }}">
-                                {{$users->find($event->user_id)->username}}
+                                {{ $event->user->username }}
                             </a>
                         </td>
-                        <td class="medium-font">{{$event->action}}</td>
+                        <td class="medium-font">{{ $event->action }}</td>
                     </tr>
                 @endforeach
             </tbody>

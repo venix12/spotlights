@@ -15,11 +15,9 @@ class EventLoggerController extends Controller
 
     public function index()
     {
-        $events = Event::orderBy('id', 'DESC')->get();
-        $users = User::all();
+        $events = Event::with('user')->orderBy('id', 'DESC')->get();
 
-        return view('admin.eventlogger')
-            ->with('events', $events)
-            ->with('users', $users);
+        return view('admin.log')
+            ->with('events', $events);
     }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use App\SpotlightsNominationVote;
 use Auth;
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 use OsuApi;
 
@@ -26,18 +27,25 @@ class SpotlightsNomination extends Model
 
     public function getScoreAttribute()
     {
-        $votes = $this->votes;
+        $key = "score_{$this->id}";
 
-        $score = 1;
+        if (!Cache::get($key))
+        {
+            $votes = $this->votes;
 
-        foreach ($votes as $vote) {
-            // 2 = contributor
-            if ($vote->value !== 2) {
-                $score += $vote->value;
+            $score = 1;
+
+            foreach ($votes as $vote) {
+                // 2 = contributor
+                if ($vote->value !== 2) {
+                    $score += $vote->value;
+                }
             }
+
+            Cache::forever($key, $score);
         }
 
-        return $score;
+        return Cache::get($key);
     }
 
     /**

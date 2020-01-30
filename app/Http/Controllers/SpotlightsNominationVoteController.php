@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
 use Auth;
+use Cache;
+use Illuminate\Http\Request;
 
 class SpotlightsNominationVoteController extends Controller
 {
@@ -28,6 +28,8 @@ class SpotlightsNominationVoteController extends Controller
         }
 
         $vote->save();
+
+        Cache::forget("score_{$request->nomination_id}");
 
         return redirect()->back()
             ->with('success', 'Vote updated successfully!');
@@ -58,6 +60,8 @@ class SpotlightsNominationVoteController extends Controller
             'spots_id' => $request->spotlights_id,
             'value' => $request->vote_value,
         ]);
+
+        Cache::forget("score_{$request->nomination_id}");
 
         return redirect()->back()
             ->with('success', 'Vote casted successfully!');

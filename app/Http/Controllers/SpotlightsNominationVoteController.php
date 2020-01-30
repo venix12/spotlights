@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\SpotlightsNominationVote;
 use App\SpotlightsNomination;
+use App\SpotlightsNominationVote;
 use Auth;
 
 class SpotlightsNominationVoteController extends Controller
@@ -15,80 +15,15 @@ class SpotlightsNominationVoteController extends Controller
         $this->middleware('is_admin')->only('remove_comment');
     }
 
-    public function index(Request $request)
-    {
-        switch ($request->optionsRadios)
-        {
-            case 'voteFor':
-                $voteValue = 1;
-                break;
-
-            case 'voteNeutral':
-                $voteValue = 0;
-                break;
-
-            case 'voteAgainst':
-                $voteValue = -1;
-                break;
-
-            case 'voteContributed':
-                $voteValue = 2;
-                break;
-
-            default:
-                $voteValue = null;
-                break;
-        }
-
-        $vote = new SpotlightsNominationVote();
-        $vote->value = $voteValue;
-        $vote->user_id = Auth::user()->id;
-        $vote->spots_id = $request->spotlightsID;
-        $vote->nomination_id = $request->nominationID;
-
-        if (strlen($request->commentField) > 0)
-        {
-            $vote->comment = $request->commentField;
-        }
-
-        $vote->save();
-
-        return redirect()->back()->with('success', 'Vote casted successfully!');
-    }
-
     public function update(Request $request)
     {
+        $vote = SpotlightsNominationVote::find($request->vote_id);
 
-        $vote = SpotlightsNominationVote::find($request->voteID);
+        $vote->value = $request->vote_value;
 
-        if (!$request->optionRadios)
+        if ($vote->comment !== $request->comment)
         {
-            $voteValue = null;
-        }
-
-        switch ($request->optionsRadios) {
-            case 'voteFor':
-                $voteValue = 1;
-                break;
-
-            case 'voteNeutral':
-                $voteValue = 0;
-                break;
-
-            case 'voteAgainst':
-                $voteValue = -1;
-                break;
-
-            case 'voteContributed':
-                $voteValue = 2;
-                break;
-        }
-
-        $vote->value = $voteValue;
-
-        if ($vote->comment !== $request->commentField)
-        {
-            $vote->comment = $request->commentField;
+            $vote->comment = $request->comment;
             $vote->comment_updated_at = now();
         }
 
@@ -99,19 +34,32 @@ class SpotlightsNominationVoteController extends Controller
 
     }
 
-    public function remove_comment(Request $request)
+    public function removeComment(Request $request)
     {
-
         $vote = SpotlightsNominationVote::find($request->voteID);
 
         if ($vote->value === null) {
             $vote->delete();
         } else {
             $vote->comment = null;
-
             $vote->save();
         }
 
-        return redirect()->back()->with('success', 'Removed a comment successfully!');
+        return redirect()->back()
+            ->with('success', 'Removed a comment successfully!');
+    }
+
+    public function store(Request $request)
+    {
+        SpotlightsNominationVote::create([
+            'comment' => $request->comment,
+            'nomination_id' => $request->nomination_id,
+            'user_id' => Auth::user()->id,
+            'spots_id' => $request->spotlights_id,
+            'value' => $request->vote_value,
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Vote casted successfully!');
     }
 }

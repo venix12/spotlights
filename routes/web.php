@@ -43,7 +43,7 @@ Route::post('/remove-spots', 'SpotlightsController@destroy')->name('admin.remove
 Route::get('/new-spotlights', 'SpotlightsController@new')->name('admin.newSpotlights');
 Route::post('/create-spotlights', 'SpotlightsController@create')->name('admin.createSpotlights');
 
-Route::post('/remove-comment', 'SpotlightsNominationVoteController@remove_comment')->name('admin.removeComment');
+Route::post('/remove-comment', 'SpotlightsNominationVoteController@removeComment')->name('admin.removeComment');
 
 //password
 //Route::get('/change-password', 'ChangePasswordController@index')->name('password.change');
@@ -77,7 +77,7 @@ Route::group(['prefix' => 'spotlights'], function() {
     Route::post('/release', 'SpotlightsController@release')->name('spotlights.release');
     Route::post('/remove-nomination', 'SpotlightsNominationsController@destroy')->name('spotlights.removeNomination');
     Route::post('/set-threshold', 'SpotlightsController@setThreshold')->name('spotlights.setThreshold');
-    Route::post('/vote', 'SpotlightsNominationVoteController@index')->name('spotlights.vote');
+    Route::post('/vote', 'SpotlightsNominationVoteController@store')->name('spotlights.vote');
     Route::post('/update-vote', 'SpotlightsNominationVoteController@update')->name('spotlights.updateVote');
 });
 

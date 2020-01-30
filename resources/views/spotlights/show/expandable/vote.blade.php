@@ -17,8 +17,8 @@
         @csrf
         <label for="comment{{$nomination->id}}">Put your comment here!</label>
         <div class="textarea-border">
-            <textarea id="comment{{$nomination->id}}" name="commentField" rows="4" maxlength="2000" oninput="countChars(this.id, this.value.length);">{{
-                $votes->where('nomination_id', $nomination->id)->where('user_id', Auth::id())->first()->comment
+            <textarea id="comment{{$nomination->id}}" name="comment" rows="4" maxlength="2000" oninput="countChars(this.id, this.value.length);">{{
+                $nomination->votes->where('user_id', Auth::id())->first()->comment
             }}</textarea>
 
             <div class="d-flex justify-content-end">
@@ -37,15 +37,15 @@
 @else
     <br>
 @endif
-    <input type="hidden" id="nominationID" name="nominationID" value="{{$nomination->id}}">
-    <input type="hidden" id="spotlightsID" name="spotlightsID" value="{{$spotlights->id}}">
+    <input type="hidden" name="nomination_id" value="{{$nomination->id}}">
+    <input type="hidden" name="spotlights_id" value="{{$spotlights->id}}">
 
-    @if(count($votes->where('nomination_id', $nomination->id)->where('user_id', Auth::id())) === 0)
+    @if(count($nomination->votes->where('user_id', Auth::id())) === 0)
         <button class="dark-form__button" type="submit">
             <i class="fa fa-check"></i> Vote!
         </button>
     @else
-        <input type="hidden" id="voteID" name="voteID" value={{$votes->where('nomination_id', $nomination->id)->where('user_id', Auth::id())->first()->id}}>
+        <input type="hidden" name="vote_id" value={{$nomination->votes->where('user_id', Auth::id())->first()->id}}>
         <button class="dark-form__button" type="submit">
             <i class="fa fa-pencil"></i> Update!
         </button>

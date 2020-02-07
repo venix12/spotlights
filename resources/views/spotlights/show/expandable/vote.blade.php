@@ -3,7 +3,7 @@
         @csrf
         <label for="comment{{$nomination->id}}">Put your comment here!</label>
         <div class="textarea-border">
-            <textarea id="comment{{$nomination->id}}" name="commentField" rows="4" maxlength="2000" oninput="countChars(this.id, this.value.length);"></textarea>
+            <textarea id="comment{{$nomination->id}}" name="comment" rows="4" maxlength="2000" oninput="countChars(this.id, this.value.length);"></textarea>
 
             <div class="d-flex justify-content-end">
                 <div class="title-section__info">

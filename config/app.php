@@ -178,6 +178,7 @@ return [
         App\Providers\GuzzleServiceProvider::class,
         App\Providers\OsuApiServiceProvider::class,
 
+		Lord\Laroute\LarouteServiceProvider::class,
     ],
 
     /*

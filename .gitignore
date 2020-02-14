@@ -21,3 +21,5 @@ Homestead.json
 public/css/app.css
 public/js/app.js
 public/mix-manifest.json
+resources/js/laroute.js
+public/js/dependencies.js

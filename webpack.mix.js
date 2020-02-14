@@ -15,6 +15,7 @@ const mix = require('laravel-mix');
 mix
    .react('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
+   .scripts(['resources/js/laroute.js'], 'public/js/dependencies.js')
    .webpackConfig({
     module: {
       rules: [

@@ -1,9 +1,9 @@
 <?php
 
 use App\Serializers\ApiSerializer;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 
 function format_date(string $date, bool $hour = false) : string
 {
@@ -12,15 +12,23 @@ function format_date(string $date, bool $hour = false) : string
     return $formatted;
 }
 
-function fractal_transform(EloquentCollection $entries, string $transformer) : array
+function fractal_transform($entries, string $transformer, array $includes = null, bool $item = false) : array
 {
     $fractal = new Manager;
     $fractal->setSerializer(new ApiSerializer);
 
+    if ($includes) {
+        $fractal->parseIncludes($includes);
+    }
+
     $transformer = 'App\\Transformers\\' . $transformer;
     $transformer = new $transformer;
 
-    $collection = new Collection($entries, $transformer);
+    if ($item) {
+        $collection = new Item($entries, $transformer);
+    } else {
+        $collection = new Collection($entries, $transformer);
+    }
 
     return $fractal->createData($collection)->toArray();
 }

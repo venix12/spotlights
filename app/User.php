@@ -80,6 +80,13 @@ class User extends Authenticatable
      * Methods
      */
 
+    public function authUserResponse()
+    {
+        $userItem = fractal_transform($this, 'UserTransformer', ['is_admin'], true);
+
+        return $userItem;
+    }
+
     public function getSpotlightActivity(int $spotlights_id)
     {
         $nominations = SpotlightsNomination::currentUserSpots($this->id, $spotlights_id)->get();

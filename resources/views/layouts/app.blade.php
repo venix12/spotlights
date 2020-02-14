@@ -43,7 +43,6 @@
                 element.classList.replace('open', 'closed');
             }
         }
-
     </script>
 </head>
 
@@ -65,6 +64,10 @@
         $(function () {
             $('[title]').tooltip()
         })
+    </script>
+
+    <script>
+        var authUser = {!! Auth::check() ? json_encode(Auth::user()->authUserResponse()) : '{}' !!}
     </script>
 </body>
 </html>

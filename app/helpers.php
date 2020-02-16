@@ -32,3 +32,12 @@ function fractal_transform($entries, string $transformer, array $includes = null
 
     return $fractal->createData($collection)->toArray();
 }
+
+function gamemode(string $abbreviation) : string
+{
+    $abbreviation === 'osu'
+        ? $name = 'osu!'
+        : $name = "osu!{$abbreviation}";
+
+    return $name;
+}

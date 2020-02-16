@@ -7,6 +7,17 @@ use App\Application;
 
 class AppEvaluationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('is_admin')->only([
+            'approveFeedback',
+            'createCycle',
+            'storeCycle',
+        ]);
+
+        $this->middleware('is_admin_or_manager');
+    }
+
     public function approveFeedback($id)
     {
         $app = Application::find($id);

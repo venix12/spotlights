@@ -25,6 +25,10 @@ class ManageController extends Controller
                 'route' => 'admin.newSpotlights',
             ],
             [
+                'title' => 'Manage app',
+                'route' => 'admin.app',
+            ],
+            [
                 'title' => 'Manage usergroups',
                 'route' => 'admin.user-groups',
             ],

@@ -6,6 +6,7 @@ use App\Application;
 use App\AppAnswer;
 use App\AppCycle;
 use App\AppQuestion;
+use App\Event;
 
 class ApplicationController extends Controller
 {
@@ -41,6 +42,8 @@ class ApplicationController extends Controller
                 ]);
             }
         }
+
+        Event::log('Applied for gamemode ' . gamemode($fields['gamemode']));
 
         return redirect()->back()
             ->with('success', 'Successfully submitted an application!');

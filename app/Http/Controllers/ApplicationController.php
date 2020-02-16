@@ -9,6 +9,11 @@ use App\AppQuestion;
 
 class ApplicationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $questions = AppQuestion::active()->get();

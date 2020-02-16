@@ -161,8 +161,6 @@ class AppCard extends React.Component<Props, State> {
         );
     }
 
-
-
     renderVerdictInfoField() {
         const { feedback } = this.state;
 

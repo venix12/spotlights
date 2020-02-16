@@ -24,6 +24,11 @@ class ApplicationController extends Controller
 
     public function store()
     {
+        if (!AppCycle::isActive())
+        {
+            return redirect()->back();
+        }
+
         $fields = request()->all();
 
         $app = Application::create([

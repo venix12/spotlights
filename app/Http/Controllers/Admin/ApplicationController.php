@@ -31,7 +31,7 @@ class ApplicationController extends Controller
             'required' => request()->required ? true : false,
         ]);
 
-        Event::log('Created a new question' . request()->question);
+        Event::log('Created a new question ' . request()->question);
 
         return redirect()->back()
             ->with('success', 'Successfully added a question!');

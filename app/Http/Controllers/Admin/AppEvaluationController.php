@@ -69,7 +69,7 @@ class AppEvaluationController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        Event::log('Created app cycle' . request()->name);
+        Event::log('Created app cycle ' . request()->name);
 
         return redirect(route('admin.app-eval'))
             ->with('success', 'Successfully created an app cycle!');

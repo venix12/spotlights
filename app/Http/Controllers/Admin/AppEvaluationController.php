@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\AppCycle;
 use App\Application;
+use App\Event;
 
 class AppEvaluationController extends Controller
 {
@@ -23,6 +24,8 @@ class AppEvaluationController extends Controller
         $app = Application::find($id);
 
         $app->update(['approved' => true]);
+
+        Event::log("Approved feedback for {$app->user->username}");
 
         return;
     }
@@ -66,6 +69,8 @@ class AppEvaluationController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
+        Event::log('Created app cycle' . request()->name);
+
         return redirect(route('admin.app-eval'))
             ->with('success', 'Successfully created an app cycle!');
     }
@@ -79,6 +84,8 @@ class AppEvaluationController extends Controller
             'feedback_author_id' => auth()->user()->id,
             'verdict' => request()->verdict,
         ]);
+
+        Event::log("Submitted a feedback for {$app->user->username}");
 
         return fractal_transform($app, 'ApplicationTransformer', null, true);
     }

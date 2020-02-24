@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/login', 'ApiController@getToken')->name('login');
+Route::get('/login', 'OsuOauthController@getOauthRedirect')->name('login');
 //Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 
@@ -87,4 +87,4 @@ Route::group(['prefix' => 'spotlights-results'], function() {
 });
 
 //oauth
-Route::get('/callback', 'ApiController@getUserData');
+Route::get('/callback', 'OsuOauthController@handleCallback');

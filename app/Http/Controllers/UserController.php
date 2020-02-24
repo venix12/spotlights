@@ -14,14 +14,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('is_admin_or_manager');
 
         $this->middleware('is_admin')->only([
             'destroy', 'resetPassword'
-        ]);
-
-        $this->middleware('is_admin_or_manager')->only([
-            'activate', 'deactivate'
         ]);
     }
 

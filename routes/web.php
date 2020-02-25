@@ -16,13 +16,9 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/login', 'OsuOauthController@getOauthRedirect')->name('login');
-//Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -45,18 +41,18 @@ Route::post('/create-spotlights', 'SpotlightsController@create')->name('admin.cr
 
 Route::post('/remove-comment', 'SpotlightsNominationVoteController@removeComment')->name('admin.removeComment');
 
-//password
-//Route::get('/change-password', 'ChangePasswordController@index')->name('password.change');
-//Route::post('/change-password', 'ChangePasswordController@changePassword')->name('password.update');
 Route::post('/reset-password', 'UserController@resetPassword')->name('password.reset');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'ManageController@index')->name('admin.manage');
-    Route::get('/added-user', 'AddedUserController@index')->name('admin.addedUser');
     Route::get('/log', 'EventLoggerController@index')->name('admin.log');
-    Route::get('/reset-password', 'ResetPasswordController@index')->name('admin.resetpassword');
     Route::get('/spotlist', 'SpotlightsListController@index')->name('admin.spotlist');
     Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
+
+    Route::group(['prefix' => 'add-member'], function () {
+        Route::get('/', 'AddMemberController@create')->name('admin.add-member');
+        Route::post('/', 'AddMemberController@store')->name('admin.add-member.store');
+    });
 
     Route::group(['prefix' => 'user-groups'], function () {
         Route::get('/', 'UserGroupsController@index')->name('admin.user-groups');

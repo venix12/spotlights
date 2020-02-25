@@ -55,32 +55,6 @@ class UserController extends Controller
         return redirect()->back()->with('error', "You can't deactivate yourself!");
     }
 
-    public function resetPassword(Request $request)
-    {
-        $user = User::where('username', $request->username)->first();
-
-        if(!$user)
-        {
-            return redirect()->back()->with('error', 'User not found!');
-        }
-
-        $user = User::find($user->id);
-
-        $registeredUsername = $request->username;
-
-        $newPassword = bin2hex(random_bytes(15));
-
-        $user->password = Hash::make($newPassword);
-        $user->save();
-
-        Event::log('Resetted password for user '.$request->username);
-
-        return view('admin.addedUser')
-            ->with('registeredUsername', $registeredUsername)
-            ->with('token', $newPassword)
-            ->with('value', 'Password resetted!');
-    }
-
     public function destroy(Request $request)
     {
         //TODO: remove all votes of deleted nomination

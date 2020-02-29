@@ -40,11 +40,20 @@ class ApplicationController extends Controller
         foreach ($fields as $key => $value)
         {
             if ($key !== '_token' && $key !== 'gamemode') {
-                AppAnswer::create([
-                    'answer' => $value,
-                    'app_id' => $app->id,
-                    'question_id' => $key,
-                ]);
+                $question = AppQuestion::find($key);
+
+                if ($question->required === true && $value === null) {
+                    return redirect()->back()
+                        ->with('error', 'You have to fill all of the required fields!');
+                }
+
+                if ($value !== null) {
+                    AppAnswer::create([
+                        'answer' => $value,
+                        'app_id' => $app->id,
+                        'question_id' => $key,
+                    ]);
+                }
             }
         }
 

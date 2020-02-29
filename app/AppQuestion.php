@@ -3,6 +3,7 @@
 /**
  * bool $active
  * bool $required
+ * enum $type ['checkbox', 'input', 'textarea']
  * int $char_limit
  * string $question
  */
@@ -22,6 +23,7 @@ class AppQuestion extends Model
         'char_limit',
         'question',
         'required',
+        'type',
     ];
 
     public function scopeActive($query)

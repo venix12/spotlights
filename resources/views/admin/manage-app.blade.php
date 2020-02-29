@@ -22,6 +22,15 @@
                     <input name="char_limit" type="text" class="dark-form__input dark-form__input--short" autocomplete="off" required>
                 </div>
 
+                <div class="dark-form__el">
+                    <div class="dark-form__label">type</div>
+                    <select name="type" class="dark-form__select">
+                        <option>textarea</option>
+                        <option>checkbox</option>
+                        <option>input</option>
+                    </select>
+                </div>
+
                 <div class="dark-form__el dark-form__el--offset">
                     <input type="checkbox" name="required"> required?
                 </div>
@@ -40,6 +49,12 @@
                 {{$question->question}}
 
                 <ul>
+                    <li>
+                        <span class="text-lightgray">
+                            type: {{$question->type}}
+                        </span>
+                    </li>
+
                     <li>
                         <span class="text-lightgray">
                             required: {{ $question->required ? 'true' : 'false' }}

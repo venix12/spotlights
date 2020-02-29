@@ -29,6 +29,7 @@ class ApplicationController extends Controller
             'char_limit' => request()->char_limit,
             'question' => request()->question,
             'required' => request()->required ? true : false,
+            'type' => request()->type,
         ]);
 
         Event::log('Created a new question ' . request()->question);

@@ -19,6 +19,7 @@ class CreateAppQuestionsTable extends Migration
             $table->bigInteger('char_limit')->default(1000);
             $table->boolean('active')->default(1);
             $table->boolean('required')->default(0);
+            $table->enum('type', ['checkbox', 'input', 'textarea'])->default('textarea');
             $table->timestamps();
         });
     }

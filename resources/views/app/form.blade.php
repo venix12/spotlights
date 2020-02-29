@@ -71,16 +71,19 @@
 
                 <div class="text-center">
                     @if(Auth::check() && !Auth::user()->isMember())
-                        gamemode <select name="gamemode" class="dark-form__select">
-                            <option value="osu">osu!</option>
-                            <option value="taiko">osu!taiko</option>
-                            <option value="mania">osu!mania</option>
-                            <option value="catch">osu!catch</option>
-                        </select> <br>
+                        @if (count($availableModes) > 0)
+                            gamemode <select name="gamemode" class="dark-form__select">
+                                @foreach ($availableModes as $mode)
+                                    <option value="{{ $mode }}">{{ gamemode($mode) }}</option>
+                                @endforeach
+                            </select> <br>
 
-                        <button type="submit" class="dark-form__button dark-form__button--top-rem flex-centre">
-                            <i class="fa fa-user"></i> Apply now!
-                        </button>
+                            <button type="submit" class="dark-form__button dark-form__button--top-rem flex-centre">
+                                <i class="fa fa-user"></i> Apply now!
+                            </button>
+                        @else
+                            <span class="text-muted">you have applied for all gamemodes already...</span>
+                        @endif
                     @else
                         <span class="text-muted">you are already a member!</span>
                     @endif <br>

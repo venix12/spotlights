@@ -7,19 +7,26 @@ use App\AppAnswer;
 use App\AppCycle;
 use App\AppQuestion;
 use App\Event;
+use App\Group;
+use App\UserGroup;
 
 class ApplicationController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function index()
+    public function create()
     {
         $questions = AppQuestion::active()->get();
 
-        return view('app.form', compact('questions'));
+        $availableModes = auth()->user()->availableAppModes();
+
+        return view('app.form')
+            ->with('questions', $questions)
+            ->with('availableModes', $availableModes);
     }
 
     public function store()
@@ -30,6 +37,12 @@ class ApplicationController extends Controller
         }
 
         $fields = request()->all();
+
+        if (auth()->user()->isApplying($fields['gamemode']))
+        {
+            return redirect()->back()
+                ->with('error', 'You\'ve applied for this gamemode in this cycle already!');
+        }
 
         $app = Application::create([
             'cycle_id' => AppCycle::current()->id,
@@ -56,6 +69,11 @@ class ApplicationController extends Controller
                 }
             }
         }
+
+        UserGroup::create([
+            'group_id' => Group::byIdentifier("applicant_{$fields['gamemode']}")->id,
+            'user_id' => auth()->id(),
+        ]);
 
         Event::log('Applied for gamemode ' . gamemode($fields['gamemode']));
 

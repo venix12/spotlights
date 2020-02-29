@@ -63,6 +63,11 @@ class AppEvaluationController extends Controller
 
     public function storeCycle()
     {
+        if (AppCycle::isActive())
+        {
+            AppCycle::query()->update(['active' => false]);
+        }
+
         AppCycle::create([
             'deadline' => request()->deadline . ' 23:59:59',
             'name' => request()->name,

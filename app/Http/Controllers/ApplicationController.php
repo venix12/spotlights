@@ -49,9 +49,11 @@ class ApplicationController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
+        $questionIds = AppQuestion::active()->pluck('id');
+
         foreach ($fields as $key => $value)
         {
-            if ($key !== '_token' && $key !== 'gamemode') {
+            if (in_array($key, $questionIds)) {
                 $question = AppQuestion::find($key);
 
                 if ($question->required === true && $value === null) {

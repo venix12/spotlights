@@ -82,10 +82,10 @@
                                 <i class="fa fa-user"></i> Apply now!
                             </button>
                         @else
-                            <span class="text-muted">you have applied for all gamemodes already...</span>
+                            <span class="text-lightgray">you have applied for all gamemodes already...</span>
                         @endif
                     @else
-                        <span class="text-muted">you are already a member!</span>
+                        <span class="text-lightgray">you are already a member!</span>
                     @endif <br>
                 </div>
             </form>

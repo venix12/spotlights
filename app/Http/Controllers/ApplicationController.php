@@ -12,7 +12,6 @@ use App\UserGroup;
 
 class ApplicationController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');

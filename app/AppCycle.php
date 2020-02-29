@@ -27,9 +27,9 @@ class AppCycle extends Model
      * Scopes
      */
 
-    public function scopeCurrent($query)
+    public static function current()
     {
-        return $query->where('active', true)->first();
+        return static::where('active', true)->first();
     }
 
     /**
@@ -38,7 +38,7 @@ class AppCycle extends Model
 
     public static function isActive()
     {
-        return count(static::where('active', true)->get()) > 0;
+        return static::where('active', true)->exists();
     }
 
     /**

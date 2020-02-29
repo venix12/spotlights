@@ -85,7 +85,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 });
 
 Route::group(['prefix' => 'app'], function () {
-    Route::get('/', 'ApplicationController@index')->name('aop-form');
+    Route::get('/', 'ApplicationController@create')->name('app-form');
     Route::post('/submit', 'ApplicationController@store')->name('app.store');
 });
 

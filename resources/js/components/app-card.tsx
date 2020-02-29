@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from './modal';
 import Axios from 'axios';
+import AppResultsMessage from './app-results-message';
 
 interface Props {
     application: Application,
@@ -11,6 +12,7 @@ interface State {
     feedback?: string,
     feedback_author?: User,
     modal: boolean,
+    showFeedbackPm: boolean,
     verdict?: 'fail' | 'pass',
 }
 
@@ -20,6 +22,7 @@ class AppCard extends React.Component<Props, State> {
         feedback: this.props.application.feedback,
         feedback_author: this.props.application.feedback_author,
         modal: false,
+        showFeedbackPm: false,
         verdict: this.props.application.verdict,
     }
 
@@ -41,6 +44,14 @@ class AppCard extends React.Component<Props, State> {
         this.setState({
             approved: true,
         });
+    }
+
+    collapseFeedbackPm = () => {
+        const { showFeedbackPm } = this.state;
+
+        this.setState({
+            showFeedbackPm: showFeedbackPm ? false : true,
+        })
     }
 
     render() {
@@ -162,7 +173,8 @@ class AppCard extends React.Component<Props, State> {
     }
 
     renderVerdictInfoField() {
-        const { feedback } = this.state;
+        const { feedback, showFeedbackPm, verdict } = this.state;
+        const show = showFeedbackPm ? 'show' : '';
 
         return (
             <div>
@@ -171,7 +183,22 @@ class AppCard extends React.Component<Props, State> {
                     {feedback}
                 </div>
 
-                {this.renderStatus()}
+                {this.renderStatus()} <hr />
+
+                <a
+                    href="#"
+                    className="text-lightgray"
+                    onClick={() => this.collapseFeedbackPm()}
+                >
+                    click to load feedback pm
+                </a>
+
+                <div id="feedbackMessage" className={`dark-section collapse ${show}`}>
+                    <AppResultsMessage
+                        feedback={feedback ?? ''}
+                        verdict={verdict ?? 'fail'}
+                    />
+                </div>
             </div>
         );
     }

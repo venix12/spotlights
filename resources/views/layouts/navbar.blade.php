@@ -18,7 +18,7 @@
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{$route}}">{{ $section }}</a>
+                            <a class="nav-link" href="{{ route($route) }}">{{ $section }}</a>
                         </li>
                     @endif
                 @endforeach

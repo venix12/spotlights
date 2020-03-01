@@ -28,6 +28,10 @@ textarea {
     outline: none;
     padding: 0;
     width: 100%;
+
+    &::placeholder {
+        color: $dark-2;
+    }
 }
 
 ul {
@@ -40,6 +44,34 @@ ul {
 
 #footer {
     flex-shrink: none;
+}
+
+.app-cards {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, 242px);
+    justify-content: center;
+}
+
+.app-card {
+    width: 100%;
+    background-color: $dark-1;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $dark-gray;
+    }
+
+    &__name {
+        font-size: 1.25rem;
+    }
+
+    &__info {
+        font-size: .75rem;
+        color: $dark-lightgray;
+    }
 }
 
 .badge {
@@ -126,6 +158,18 @@ ul {
         &:not(:first-of-type) {
             margin-left: 10px;
         }
+
+        &--left {
+            margin-left: 10px;
+        }
+
+        &--top {
+            margin-top: 10px;
+        }
+
+        &--top-rem {
+            margin-top: 1rem;
+        }
     }
 
     &__el {
@@ -156,6 +200,14 @@ ul {
             display: flex;
             width: 100%;
         }
+
+        &--long {
+            width: 300px;
+        }
+
+        &--short {
+            width: 100px;
+        }
     }
 
     &__label {
@@ -169,6 +221,37 @@ ul {
     &__label-simple {
         display: inline-block;
         align-self: center;
+    }
+
+    &__select {
+        background-color: $dark-2;
+        color: white;
+        outline: none;
+    }
+}
+
+.dark-section {
+    padding: 1.25rem;
+    background-color: $dark-2;
+    margin-bottom: 10px;
+}
+
+.editable {
+    text-decoration: none;
+
+    &::after {
+        font-size: .85rem;
+        font-family: 'FontAwesome';
+        content: ' \f040';
+        opacity: 0;
+    }
+
+    &:hover {
+        text-decoration: none;
+
+        &::after {
+            opacity: 100;
+        }
     }
 }
 
@@ -186,9 +269,25 @@ ul {
     }
 }
 
+.form--top {
+    margin-top: 10px;
+}
+
 .icon-list {
     padding-left: 0.6em;
     font-size: 0.8rem;
+}
+
+.info-badge {
+    display: inline-flex;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 600;
+    color: $dark-1;
+    background-color: white;
+    padding: 2px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
 }
 
 .list-small-distance {
@@ -257,19 +356,81 @@ ul {
     }
 }
 
-.mapset-cards {
-    display: grid;
-    gap: 8px;
-    grid-template-columns: repeat(auto-fill, 450px);
-    justify-content: center;
-}
-
 .margin-img {
     margin-right: 5px;
 }
 
 .medium-font {
     font-size: 0.85rem;
+}
+
+.modal {
+    &__backdrop{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0,0,0,.6);
+    }
+
+    &__card {
+        position: fixed;
+        width: 40rem;
+        background-color: $dark-1;
+        box-shadow: 0 2px 8px black;
+        top: 8vh;
+        left: calc((100% - 40rem) / 2);
+        border-radius: 10px;
+        color: white;
+        overflow: hidden;
+        max-height: calc(100% - 16vh);
+    }
+
+    &__content {
+        padding: 1.25rem;
+        height: auto;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+
+    &__header {
+        padding: 10px 20px;
+        background-color: $dark-gray;
+        display: flex;
+        justify-content: space-between;
+
+        &__close {
+            cursor: pointer;
+        }
+
+        &__title {
+            font-size: 2rem;
+        }
+    }
+}
+
+.navigation {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+    &__el {
+        padding: 2px 5px;
+        cursor: pointer;
+
+        &:not(:first-of-type) {
+            margin-left: 10px;
+        }
+
+        &--current {
+            font-weight: 600;
+            border-radius: 5px;
+            background-color: white;
+            color: $dark-1;
+        }
+    }
 }
 
 .open {
@@ -376,12 +537,22 @@ ul {
     }
 }
 
-.text-gray {
-    color: #757575;
-}
+.text {
+    &-gray, &-gray:focus, &-gray:hover {
+        color: $dark-gray;
+    }
 
-.text-lightgray {
-    color: $dark-lightgray;
+    &-green, &-green:focus, &-green:hover {
+        color: greenyellow;
+    }
+
+    &-lightgray, &-lightgray:focus, &-lightgray:hover {
+        color: $dark-lightgray;
+    }
+
+    &-red, &-red:focus, &-red:hover {
+        color: #f53e1d;
+    }
 }
 
 .title-section {

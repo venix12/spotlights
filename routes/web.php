@@ -52,6 +52,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('/', 'AddMemberController@store')->name('admin.add-member.store');
     });
 
+    Route::group(['prefix' => 'app'], function () {
+        Route::get('/', 'ApplicationController@index')->name('admin.app');
+        Route::post('/store-question', 'ApplicationController@storeQuestion')->name('admin.app.store-question');
+    });
+
+    Route::group(['prefix' => 'app-eval'], function () {
+        Route::get('/', 'AppEvaluationController@index')->name('admin.app-eval');
+        Route::get('/create-cycle', 'AppEvaluationController@createCycle')->name('admin.app-eval.create-cycle');
+        Route::get('/{id}', 'AppEvaluationController@show')->name('admin.app-eval.show');
+
+        Route::post('/create-cycle', 'AppEvaluationController@storeCycle')->name('admin.app-eval.store');
+        Route::post('/{id}/approve-feedback', 'AppEvaluationController@approveFeedback')->name('admin.app-eval.approve-feedback');
+        Route::post('/{id}/store-feedback', 'AppEvaluationController@storeFeedback')->name('admin.app-eval.store-feedback');
+    });
+
     Route::group(['prefix' => 'user-groups'], function () {
         Route::get('/', 'UserGroupsController@index')->name('admin.user-groups');
         Route::get('/create', 'UserGroupsController@create')->name('admin.user-groups.create');
@@ -61,6 +76,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('/{id}/add-member', 'UserGroupsController@addMember')->name('admin.user-groups.add-member');
         Route::post('/{id}/remove-member', 'UserGroupsController@removeMember')->name('admin.user-groups.remove-member');
     });
+});
+
+Route::group(['prefix' => 'app'], function () {
+    Route::get('/', 'ApplicationController@create')->name('app-form');
+    Route::post('/submit', 'ApplicationController@store')->name('app.store');
 });
 
 Route::group(['prefix' => 'spotlights'], function() {

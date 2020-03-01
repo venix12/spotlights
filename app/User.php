@@ -87,6 +87,20 @@ class User extends Authenticatable
         return $userItem;
     }
 
+    public function availableAppModes()
+    {
+        $availableModes = [];
+
+        foreach (self::MODES as $mode)
+        {
+            if (!$this->isApplying($mode)) {
+                $availableModes[] = $mode;
+            }
+        }
+
+        return $availableModes;
+    }
+
     public static function createFromApi(array $response) {
         $user = static::create([
             'osu_user_id' => $response['id'],
@@ -133,14 +147,19 @@ class User extends Authenticatable
      * Checks
      */
 
-    public function isMember()
-    {
-        return $this->hasPermSet('member');
-    }
-
     public function isAdmin()
     {
         return $this->hasPermSet('admin');
+    }
+
+    public function isApplicant()
+    {
+        return $this->hasPermSet('applicant');
+    }
+
+    public function isApplying($mode)
+    {
+        return count($this->groups->where('identifier', "applicant_{$mode}")) > 0;
     }
 
     public function isAdminOrManager()
@@ -151,6 +170,11 @@ class User extends Authenticatable
     public function isManager()
     {
         return $this->hasPermSet('manager');
+    }
+
+    public function isMember()
+    {
+        return $this->hasPermSet('member');
     }
 
     /**

@@ -30,7 +30,15 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'osu_user_id', 'user_group', 'username', 'osu', 'taiko', 'catch', 'mania',
+        'catch',
+        'has_logged_in',
+        'has_logged_in_at',
+        'mania',
+        'osu',
+        'osu_user_id',
+        'taiko',
+        'user_group',
+        'username',
     ];
 
 

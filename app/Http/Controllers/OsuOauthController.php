@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Group;
 use App\User;
+use App\UserGroup;
 
 class OsuOauthController extends Controller
 {
@@ -22,6 +24,11 @@ class OsuOauthController extends Controller
         if ($user === null)
         {
             $user = User::createFromApi($userData);
+
+            UserGroup::create([
+                'group_id' => Group::byIdentifier('default')->id,
+                'user_id' => $user->id,
+            ]);
         }
 
         auth()->login($user);

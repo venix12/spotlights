@@ -36,6 +36,10 @@ class ManageController extends Controller
 
         $sections = [
             [
+                'title' => 'Application evaluations',
+                'route' => 'admin.app-eval',
+            ],
+            [
                 'title' => 'Manage Spotlights',
                 'route' => 'admin.spotlist',
             ],

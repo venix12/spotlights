@@ -62,7 +62,7 @@ class AppEval extends React.Component<Props, State> {
             <div className="dark-section">
                 <div className="app-cards">
                     {apps.map(app => {
-                        return <AppCard application={app} />
+                        return <AppCard application={app} key={app.id}/>
                     })}
                 </div>
             </div>

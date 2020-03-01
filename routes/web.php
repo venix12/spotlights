@@ -56,7 +56,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/', 'AddMemberController@create')->name('admin.add-member');
         Route::post('/', 'AddMemberController@store')->name('admin.add-member.store');
     });
-  
+
     Route::group(['prefix' => 'app-eval'], function () {
         Route::get('/', 'AppEvaluationController@index')->name('admin.app-eval');
         Route::get('/create-cycle', 'AppEvaluationController@createCycle')->name('admin.app-eval.create-cycle');

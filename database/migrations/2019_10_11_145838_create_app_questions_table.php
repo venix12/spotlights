@@ -16,7 +16,7 @@ class CreateAppQuestionsTable extends Migration
         Schema::create('app_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('question');
-            $table->bigInteger('char_limit')->default(1000);
+            $table->integer('char_limit')->default(1000);
             $table->boolean('active')->default(1);
             $table->boolean('required')->default(0);
             $table->enum('type', ['checkbox', 'input', 'textarea'])->default('textarea');

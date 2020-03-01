@@ -29,11 +29,6 @@ class AppCard extends React.Component<Props, State> {
     approveFeedback = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        console.log(laroute.route(
-            'admin.app-eval.approve-feedback',
-            { id: this.props.application.id }
-        ));
-
         Axios.post(
             laroute.route(
                 'admin.app-eval.approve-feedback',
@@ -100,13 +95,13 @@ class AppCard extends React.Component<Props, State> {
 
         return (
             <div>
-                {application.answers.map(answer => {
-                    return <>
+                {application.answers.map((answer, index) => {
+                    return <span key={index}>
                         <h5>{answer.question}</h5>
                         <div className="dark-section">
                             {answer.answer}
                         </div>
-                    </>
+                    </span>
                 })}
 
                 <hr />
@@ -148,7 +143,7 @@ class AppCard extends React.Component<Props, State> {
             <>
                 <form onSubmit={this.storeFeedback}>
                     <div className="textarea-border">
-                        <textarea id="feedback" placeholder="write feedback here...">{feedback}</textarea>
+                        <textarea id="feedback" placeholder="write feedback here..." defaultValue={feedback} />
                     </div>
 
                     <div className="form--top space-between">
@@ -190,7 +185,7 @@ class AppCard extends React.Component<Props, State> {
                     className="text-lightgray"
                     onClick={() => this.collapseFeedbackPm()}
                 >
-                    click to load feedback pm
+                    click to {showFeedbackPm ? 'hide' : 'show'} feedback pm
                 </a>
 
                 <div id="feedbackMessage" className={`dark-section collapse ${show}`}>

@@ -9,7 +9,5 @@ export const parseJson = (id: string) => {
     const el = document.getElementById(id) as HTMLScriptElement;
     const json = JSON.parse(el.text) ?? null;
 
-    console.log(json);
-
     return json;
 }

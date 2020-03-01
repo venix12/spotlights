@@ -13,7 +13,7 @@ class SpotlightsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('is_member');
 
         $this->middleware('is_admin')->only([
             'activate', 'create', 'deactivate', 'destroy', 'new',  'release', 'setThreshold'

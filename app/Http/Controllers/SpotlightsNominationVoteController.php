@@ -11,7 +11,7 @@ class SpotlightsNominationVoteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('is_member');
         $this->middleware('is_admin')->only('remove_comment');
     }
 

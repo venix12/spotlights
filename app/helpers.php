@@ -42,7 +42,7 @@ function gamemode(string $abbreviation) : string
     return $name;
 }
 
-function navbar_permission_check(array $route) : string
+function navbar_permission_check(array $route) : bool
 {
     $permission = $route['permission'];
 

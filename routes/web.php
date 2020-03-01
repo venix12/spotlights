@@ -41,8 +41,6 @@ Route::post('/create-spotlights', 'SpotlightsController@create')->name('admin.cr
 
 Route::post('/remove-comment', 'SpotlightsNominationVoteController@removeComment')->name('admin.removeComment');
 
-Route::post('/reset-password', 'UserController@resetPassword')->name('password.reset');
-
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'ManageController@index')->name('admin.manage');
     Route::get('/log', 'EventLoggerController@index')->name('admin.log');

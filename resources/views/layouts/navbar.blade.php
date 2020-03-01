@@ -9,24 +9,21 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                @foreach (navbar_sections() as $section => $route)
+                    @if (is_array($route) && array_key_exists('permission', $route))
+                        @if (navbar_permission_check($route))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ $route['route'] }}">{{ $section }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{$route}}">{{ $section }}</a>
+                        </li>
+                    @endif
+                @endforeach
+
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href={{route('home')}}>{{ __('Home') }}</a>
-                    </li>
-                @endauth
-
-                <li class="nav-item">
-                    <a class="nav-link" href={{ route('spotlights-results') }}>Spotlights Results</a>
-                </li>
-
-                @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href={{route('spotlights')}}>{{ __('Spotlights') }}</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href={{route('user.list')}}>{{ __('Users List') }}</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->username }} <span class="caret"></span>
@@ -42,10 +39,12 @@
                                 </a>
                             @endif
 
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                            <a
+                                class="dropdown-item"
+                                href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                            >
+                                Logout
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -54,6 +53,19 @@
                         </div>
                     </li>
                 @endauth
+
+                <li class="nav-item">
+
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

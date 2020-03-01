@@ -59,21 +59,17 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
-
-                        @if (Auth::user()->isAdminOrManager())
-                            <a href={{ route('admin.manage') }}>Manage</a>
-                        @endif
+                        @foreach (navbar_welcome_sections() as $section => $route)
+                            <a href="{{ route($route) }}">{{ $section }}</a>
+                        @endforeach
                     @endauth
-
-                    <a href={{ route('spotlights-results') }}>Spotlights Results</a>
                 </div>
             @endif
 
             <h1 class="display-3">osu! Spotlights Team</h1> <br>
 
             <div>
-                <a href="https://osu.spotlights.team" class="dark-form__button">
+                <a href="{{ route('app-form') }}" class="dark-form__button">
                     <i class="fa fa-user"></i> Apply now!
                 </a>
 

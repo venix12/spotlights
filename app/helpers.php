@@ -41,3 +41,32 @@ function gamemode(string $abbreviation) : string
 
     return $name;
 }
+
+function navbar_permission_check(array $route) : string
+{
+    $permission = $route['permission'];
+
+    return auth()->user()->$permission();
+}
+
+function navbar_sections() : array
+{
+    $sections = [
+        'Home' => 'home',
+        'Spotlights' => ['route' => 'spotlights', 'permission' => 'isMember'],
+        'Spotligts Results' => 'spotlights-results',
+        'User List' => 'user.list',
+    ];
+
+    return $sections;
+}
+
+function navbar_welcome_sections() : array
+{
+    $sections = [
+        'Home' => 'home',
+        'Spotlights Results' => 'spotlights-results',
+    ];
+
+    return $sections;
+}

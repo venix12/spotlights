@@ -174,7 +174,7 @@ class User extends Authenticatable
 
     public function isMember()
     {
-        return $this->hasPermSet('member');
+        return $this->hasPermSet('member') || $this->isAdminOrManager();
     }
 
     /**

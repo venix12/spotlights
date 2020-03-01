@@ -15,8 +15,8 @@ class CreateAppAnswersTable extends Migration
     {
         Schema::create('app_answers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('app_id')->unsigned();
-            $table->bigInteger('question_id')->unsigned();
+            $table->integer('app_id')->unsigned();
+            $table->integer('question_id')->unsigned();
             $table->string('answer', 3000);
             $table->timestamps();
 

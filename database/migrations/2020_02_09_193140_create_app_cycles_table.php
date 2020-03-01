@@ -14,7 +14,7 @@ class CreateAppCyclesTable extends Migration
     public function up()
     {
         Schema::create('app_cycles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->boolean('active');
             $table->bigInteger('user_id')->unsigned();
             $table->date('deadline');

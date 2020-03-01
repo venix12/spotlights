@@ -14,7 +14,7 @@ class CreateAppQuestionsTable extends Migration
     public function up()
     {
         Schema::create('app_questions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('question');
             $table->bigInteger('char_limit')->default(1000);
             $table->boolean('active')->default(1);

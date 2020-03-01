@@ -21,7 +21,7 @@ class UserProfileController extends Controller
     {
         $user = User::find($id);
 
-        if(!$user)
+        if(!$user || !$user->isMember())
         {
             return redirect('/');
         }

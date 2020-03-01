@@ -30,12 +30,12 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'osu_user_id', 'password', 'user_group', 'username', 'osu', 'taiko', 'catch', 'mania',
+        'osu_user_id', 'user_group', 'username', 'osu', 'taiko', 'catch', 'mania',
     ];
 
 
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
 
     protected $casts = [
@@ -99,6 +99,15 @@ class User extends Authenticatable
         }
 
         return $availableModes;
+    }
+
+    public static function createFromApi(array $response) {
+        $user = static::create([
+            'osu_user_id' => $response['id'],
+            'username' => $response['username'],
+        ]);
+
+        return $user;
     }
 
     public function getSpotlightActivity(int $spotlights_id)

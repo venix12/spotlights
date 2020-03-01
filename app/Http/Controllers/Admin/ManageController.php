@@ -17,8 +17,8 @@ class ManageController extends Controller
     {
         $adminSections = [
             [
-                'title' => 'Add user',
-                'route' => 'register',
+                'title' => 'Add new member',
+                'route' => 'admin.add-member',
             ],
             [
                 'title' => 'Create new spotlights',
@@ -32,10 +32,6 @@ class ManageController extends Controller
                 'title' => 'Manage usergroups',
                 'route' => 'admin.user-groups',
             ],
-            [
-                'title' => 'Reset password',
-                'route' => 'admin.resetpassword',
-            ]
         ];
 
         $sections = [

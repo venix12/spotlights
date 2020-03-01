@@ -14,14 +14,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('is_admin_or_manager');
 
         $this->middleware('is_admin')->only([
             'destroy', 'resetPassword'
-        ]);
-
-        $this->middleware('is_admin_or_manager')->only([
-            'activate', 'deactivate'
         ]);
     }
 
@@ -57,32 +53,6 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('error', "You can't deactivate yourself!");
-    }
-
-    public function resetPassword(Request $request)
-    {
-        $user = User::where('username', $request->username)->first();
-
-        if(!$user)
-        {
-            return redirect()->back()->with('error', 'User not found!');
-        }
-
-        $user = User::find($user->id);
-
-        $registeredUsername = $request->username;
-
-        $newPassword = bin2hex(random_bytes(15));
-
-        $user->password = Hash::make($newPassword);
-        $user->save();
-
-        Event::log('Resetted password for user '.$request->username);
-
-        return view('admin.addedUser')
-            ->with('registeredUsername', $registeredUsername)
-            ->with('token', $newPassword)
-            ->with('value', 'Password resetted!');
     }
 
     public function destroy(Request $request)

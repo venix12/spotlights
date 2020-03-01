@@ -47,14 +47,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/spotlist', 'SpotlightsListController@index')->name('admin.spotlist');
     Route::get('/userlist', 'RegisteredUsersController@index')->name('admin.userlist');
 
-    Route::group(['prefix' => 'app'], function () {
-        Route::get('/', 'ApplicationController@index')->name('admin.app');
-        Route::post('/store-question', 'ApplicationController@storeQuestion')->name('admin.app.store-question');
-    });
-
     Route::group(['prefix' => 'add-member'], function () {
         Route::get('/', 'AddMemberController@create')->name('admin.add-member');
         Route::post('/', 'AddMemberController@store')->name('admin.add-member.store');
+    });
+
+    Route::group(['prefix' => 'app'], function () {
+        Route::get('/', 'ApplicationController@index')->name('admin.app');
+        Route::post('/store-question', 'ApplicationController@storeQuestion')->name('admin.app.store-question');
     });
 
     Route::group(['prefix' => 'app-eval'], function () {

@@ -13,6 +13,7 @@ class AppEvaluationController extends Controller
         $this->middleware('is_admin')->only([
             'approveFeedback',
             'createCycle',
+            'deactivateCurrentCycle',
             'storeCycle',
         ]);
 
@@ -33,6 +34,16 @@ class AppEvaluationController extends Controller
     public function createCycle()
     {
         return view('admin.app-eval.create-cycle');
+    }
+
+    public function deactivateCurrentCycle()
+    {
+        $cycle = AppCycle::current();
+
+        $cycle->update(['active' => false]);
+
+        return redirect()->back()
+            ->with('success', 'Successfully deactivated the current cycle!');
     }
 
     public function index()

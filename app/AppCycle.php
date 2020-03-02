@@ -18,6 +18,7 @@ class AppCycle extends Model
     ];
 
     protected $fillable = [
+        'active',
         'deadline',
         'name',
         'user_id',

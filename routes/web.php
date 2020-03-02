@@ -60,6 +60,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::group(['prefix' => 'app-eval'], function () {
         Route::get('/', 'AppEvaluationController@index')->name('admin.app-eval');
         Route::get('/create-cycle', 'AppEvaluationController@createCycle')->name('admin.app-eval.create-cycle');
+        Route::get('/deactivate-cycle', 'AppEvaluationController@deactivateCurrentCycle')->name('admin.app-eval.deactivate-current-cycle');
         Route::get('/{id}', 'AppEvaluationController@show')->name('admin.app-eval.show');
 
         Route::post('/create-cycle', 'AppEvaluationController@storeCycle')->name('admin.app-eval.store');

@@ -24,23 +24,21 @@
             ]
         ])
 
-        <hr style="border-color: white">
-
         <div class="mapset-cards">
             @foreach($nominations as $nomination)
                 @include('components.mapset-card_compact', [
                     'beatmap_id' => $nomination->beatmap_id,
-                    'criticizers' => count($votes->where('nomination_id', $nomination->id)->where('value', '===', -1)),
+                    'criticizers' => count($nomination->votes->where('value', '===', -1)),
                     'creator' => $nomination->beatmap_creator,
                     'creator_id' => $nomination->beatmap_creator_osu_id,
                     'metadata' => $nomination->getMetadata(),
                     'nominator' => $users->find($nomination->user_id)->username,
                     'nominator_osu_id' => $users->find($nomination->user_id)->osu_user_id,
-                    'participants' => count($votes->where('nomination_id', $nomination->id)) + 1,
+                    'participants' => count($nomination->votes) + 1,
                     'score' => $nomination->score,
                     'score_color' => $nomination->getScoreColor(),
                     'spotlighted' => $spotlights->threshold ? $nomination->score >= $spotlights->threshold : false,
-                    'supporters' => count($votes->where('nomination_id', $nomination->id)->where('value', '===', 1)),
+                    'supporters' => count($nomination->votes->where('value', '===', 1)),
                 ])
             @endforeach
         </div>

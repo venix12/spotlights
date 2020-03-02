@@ -69,16 +69,19 @@
             <h1 class="display-3">osu! Spotlights Team</h1> <br>
 
             <div>
-                <a href="{{ route('app-form') }}" class="dark-form__button">
-                    <i class="fa fa-user"></i> Apply now!
-                </a>
+                @auth
+                    <a href="{{ route('app-form') }}" class="dark-form__button">
+                        <i class="fa fa-user"></i> Apply now!
+                    </a>
+                @else
+                    <span class="text-lightgray">to access public parts of the website, such as application form or spotlights results, log in below!</span>
+                @endauth
 
                 <hr>
 
                 @auth
                     <span class="text-lightgray">you are already logged in!</span>
                 @else
-                    <span class="text-lightgray" style="font-size: 0.85rem;">or if you are already a member</span> <br>
                     <a href={{ route('login') }} class="dark-form__button">
                         <i class="fa fa-sign-in"></i> Login with osu! account
                     </a>

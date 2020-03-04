@@ -53,8 +53,9 @@ function navbar_sections() : array
 {
     $sections = [
         'Home' => 'home',
+        'Application Form' => 'app-form',
         'Spotlights' => ['route' => 'spotlights', 'permission' => 'isMember'],
-        'Spotligts Results' => 'spotlights-results',
+        'Spotlights Results' => 'spotlights-results',
         'User List' => 'user.list',
     ];
 

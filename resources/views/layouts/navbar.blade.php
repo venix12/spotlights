@@ -13,7 +13,7 @@
                     @if (is_array($route) && array_key_exists('permission', $route))
                         @if (navbar_permission_check($route))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ $route['route'] }}">{{ $section }}</a>
+                                <a class="nav-link" href="{{ route($route['route']) }}">{{ $section }}</a>
                             </li>
                         @endif
                     @else

@@ -15,9 +15,8 @@ class UserListController extends Controller
 
     public function index()
     {
-        $activeUsers = User::active()->orderBy('username')->get();
         $inactives = User::inactive()->orderBy('username')->get();
-        $usersNotLogged = $activeUsers->where('has_logged_in', false);
+        $usersNotLogged = User::active()->where('has_logged_in', false)->get();
 
         $admins = Group::byIdentifier('admin')->members;
         $managers = Group::byIdentifier('manager')->members;

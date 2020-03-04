@@ -33,7 +33,7 @@ class OsuOauthController extends Controller
 
         if ($user->username !== $userData['username'])
         {
-            Event::log("Changed username from {$user->username}");
+            Event::log("Changed username from {$user->username}", $user->id);
 
             $user->update(['username' => $userData['username']]);
         }

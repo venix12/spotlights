@@ -2,16 +2,15 @@
 
 namespace App;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    public static function log($action)
+    public static function log($action, $user_id = null)
     {
         $event = new self;
         $event->action = $action;
-        $event->user_id = Auth::id();
+        $event->user_id = $user_id ?? auth()->id();
         $event->save();
     }
 

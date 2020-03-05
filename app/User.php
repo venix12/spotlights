@@ -118,16 +118,6 @@ class User extends Authenticatable
         return $user;
     }
 
-    public function getSpotlightActivity(int $spotlights_id)
-    {
-        $nominations = SpotlightsNomination::currentUserSpots($this->id, $spotlights_id)->get();
-        $votes = SpotlightsNominationVote::currentUserSpots($this->id, $spotlights_id)->get();
-
-        $activity = count($nominations) + count($votes);
-
-        return $activity;
-    }
-
     public function getUserModes()
     {
         $modes = [];
@@ -149,6 +139,17 @@ class User extends Authenticatable
     public function highestGroup()
     {
         return $this->groups->first();
+    }
+
+    public function spotlightsActivity(int $spotlights_id)
+    {
+        $comments = $this->votes->where('user_id', $this->id)->where('spots_id', $spotlights_id);
+        $nominations = $this->nominations->where('spots_id', $spotlights_id);
+        $votes = $this->votes->where('spots_id', $spotlights_id);
+
+        $activity = count($nominations) + count($votes) - count($comments);
+
+        return $activity;
     }
 
     /**
@@ -206,6 +207,16 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'user_groups');
+    }
+
+    public function nominations()
+    {
+        return $this->hasMany(SpotlightsNomination::class, 'user_id');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(SpotlightsNominationVote::class, 'user_id');
     }
 
 }

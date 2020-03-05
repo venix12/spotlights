@@ -15,12 +15,6 @@ class SpotlightsNominationVote extends Model
         'value',
     ];
 
-
-    public function scopeCurrentUserSpots($query, $user_id, $spotlights_id)
-    {
-        return $query->where('user_id', $user_id)->where('spots_id', $spotlights_id);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

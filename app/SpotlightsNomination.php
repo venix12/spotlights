@@ -122,11 +122,6 @@ class SpotlightsNomination extends Model
      * Scopes
      */
 
-    public function scopeCurrentUserSpots($query, $user_id, $spotlights_id)
-    {
-        return $query->where('user_id', $user_id)->where('spots_id', $spotlights_id);
-    }
-
     public function scopeSortByScore($query)
     {
         return $query->get()->sortByDesc('score');

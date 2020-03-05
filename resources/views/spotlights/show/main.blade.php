@@ -82,7 +82,7 @@
             <h5>Activity</h5>
             <div class="card-body bg-dark">
                 @foreach ($users->where($spotlights->gamemode(), true) as $user)
-                    {{ $user->username }}: {{ $user->getSpotlightActivity($spotlights->id) }} / {{ count($nominations) }} <br>
+                    {{ $user->username }}: {{ $user->spotlightsActivity($spotlights->id) }} / {{ count($nominations) }} <br>
                 @endforeach
             </div>
         @endif

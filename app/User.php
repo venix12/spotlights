@@ -143,9 +143,10 @@ class User extends Authenticatable
 
     public function spotlightsActivity(int $spotlights_id)
     {
-        $comments = $this->votes->where('user_id', $this->id)->where('spots_id', $spotlights_id);
         $nominations = $this->nominations->where('spots_id', $spotlights_id);
         $votes = $this->votes->where('spots_id', $spotlights_id);
+
+        $comments = $this->votes->whereIn('nomination_id', $nominations->pluck('id'));
 
         $activity = count($nominations) + count($votes) - count($comments);
 

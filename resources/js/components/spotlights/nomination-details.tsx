@@ -162,11 +162,11 @@ class NominationDetails extends React.Component<Props, State> {
                             rows={10}
                             maxLength={2000}
                             onChange={this.handleInputChange}
-                            value={comment}
+                            value={comment ?? ''}
                         />
 
                         <div className="nomination-details__voting">
-                            <div className="info-badge">{`${comment.length} / 2000`}</div>
+                            <div className="info-badge">{`${comment ? comment.length : 0} / 2000`}</div>
 
                             <div className="nomination-details__voting__options">
                                 {this.isNotNominator() && this.renderVotingOptions()}

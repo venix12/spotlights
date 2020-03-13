@@ -160,7 +160,9 @@ class NominationCard extends React.Component<Props, State> {
         return (
             <div>
                 <span className="nomination-panel__el nomination-panel__el--5 nomination-panel__info nomination-panel__info--metadata">
-                    {`${nomination.artist} - ${nomination.title}`}
+                    <a href={`https://osu.ppy.sh/beatmapsets/${nomination.beatmap_id}`} className="text-dark-2">
+                        {`${nomination.artist} - ${nomination.title}`}
+                    </a>
                 </span>
 
                 <span className="nomination-panel__el nomination-panel__el--5 nomination-panel__info">

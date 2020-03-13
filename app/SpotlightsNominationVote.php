@@ -15,6 +15,13 @@ class SpotlightsNominationVote extends Model
         'value',
     ];
 
+    const VOTE_VALUES = [
+        'contribute' => 2,
+        'criticize' => -1,
+        'neutral' => 0,
+        'support' => 1,
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -2,90 +2,63 @@
     'title' => $spotlights->title
 ])
 
+@php
+    $d = 0;
+
+    foreach ($spotlights->nominations as $nomination)
+    {
+        $d += count($nomination->votes);
+    }
+
+    $stats = [
+        ['name' => 'deadline', 'value' => format_date($spotlights->deadline)],
+        ['name' => 'nominations', 'value' => count($spotlights->nominations)],
+        ['name' => 'votes casted', 'value' => $d],
+        ['name' => 'your activity', 'value' => Auth::user()->spotlightsActivity($spotlights->id) . ' / ' . count($spotlights->nominations)],
+    ];
+
+    if ($spotlights->threshold !== null) {
+        $stats[] = ['name' => 'threshold', 'value' => $spotlights->threshold];
+    }
+@endphp
+
 @section('content')
     @component('components.card', [
         'dark' => true,
         'size' => 11,
-        'sections' => ['Home', 'Spotlights', $spotlights->title]
+        'sections' => ['Home', 'Spotlights', $spotlights->title],
     ])
+        <div class="header-v2__block {{$spotlights->active ? 'header-v2__block--green' : 'header-v2__block--red'}}">
+            <div class="header-v2__title"><i class="fa fa-star"></i> {{ $spotlights->title }}</div>
+            <div class="header-v2__description">{{ $spotlights->description }}</div>
+        </div>
 
-        @include('components._header', [
-            'title' => $spotlights->title,
-            'description' => $spotlights->description,
-            'modifiers' => [$spotlights->active ? 'marker' : 'marker-red', 'tags' => [
-                'deadline: ' . format_date($spotlights->deadline),
-                $spotlights->threshold ? "threshold: {$spotlights->threshold}" : null,
-                ]
-            ]
-        ])
+        <div id="react--spotlights-main"></div>
 
-        @include('spotlights.show.nominate')
-
-        @if(count($nominations) > 0)
-
-            @foreach($nominations as $nomination)
-
-                @php
-                    if($nomination->user_id === Auth::id())
-                    {
-                        $state = 'NOMINATED';
-                        $stateColor = "#00b7ff";
-                    }
-
-                    else if (count($votes->where('nomination_id', $nomination->id)->where('user_id', Auth::id())) > 0)
-                    {
-                        $state = 'PARTICIPATED';
-                        $stateColor = '#12b012';
-                    }
-
-                    else
-                    {
-                        $state = 'AWAITING VOTE';
-                        $stateColor = '#ff0000';
-                    }
-                @endphp
-
-                @include('components.mapset-card', [
-                    'beatmap_id' => $nomination->beatmap_id,
-                    'creator' => $nomination->beatmap_creator,
-                    'creator_id' => $nomination->beatmap_creator_osu_id,
-                    'criticizers' => count($votes->where('nomination_id', $nomination->id)->where('value', '===', -1)),
-                    'id' => $nomination->id,
-                    'metadata' => $nomination->getMetadata(),
-                    'nominator' => $users->find($nomination->user_id)->username,
-                    'nominator_id' => $nomination->user_id,
-                    'participants' => count($votes->where('nomination_id', $nomination->id)->where('user_id', '!==', $nomination->user_id)) + 1,
-                    'score' => $nomination->score,
-                    'scoreColor' => $nomination->getScoreColor(),
-                    'spotlighted' => $spotlights->threshold ? $nomination->score >= $spotlights->threshold : false,
-                    'state' => $state,
-                    'stateColor' => $stateColor,
-                    'supporters' => count($votes->where('nomination_id', $nomination->id)->where('value', '===', 1)),
-                ])
-
-                <br>
-
-                @include('spotlights.show.expandable.main')
-
-            @endforeach
-
-            @if(Auth::user()->isAdmin())
-                @include('spotlights.show.mapids')
-                @include('spotlights.show.threshold')
-            @endif
-
-        @else
-            Seems like there aren't any nominations for this spotlights...
+        @if(Auth::user()->isAdmin())
+            @include('spotlights.show.mapids')
+            @include('spotlights.show.threshold')
         @endif
 
         @if(Auth::user()->isAdminOrManager())
             <h5>Activity</h5>
             <div class="card-body bg-dark">
-                @foreach ($users->where($spotlights->gamemode(), true) as $user)
-                    {{ $user->username }}: {{ $user->spotlightsActivity($spotlights->id) }} / {{ count($nominations) }} <br>
+                @foreach (App\Group::byIdentifier('member')->members->where($spotlights->gamemode(), true) as $user)
+                    {{ $user->username }}: {{ $user->spotlightsActivity($spotlights->id) }} / {{ count($spotlights->nominations) }} <br>
                 @endforeach
             </div>
         @endif
-
     @endcomponent
+@endsection
+
+@section('script')
+    <script id="json-spotlights">
+        {!! json_encode($spotlightsCollection) !!}
+    </script>
+
+    <script id="json-statistics">
+        {!!
+            json_encode($stats);
+        !!}
+    </script>
 @endsection

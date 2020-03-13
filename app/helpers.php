@@ -12,6 +12,11 @@ function format_date(string $date, bool $hour = false) : string
     return $formatted;
 }
 
+function fractal_item($entry, string $transformer, array $includes = null) : array
+{
+    return fractal_transform($entry, $transformer, $includes, true);
+}
+
 function fractal_transform($entries, string $transformer, array $includes = null, bool $item = false) : array
 {
     $fractal = new Manager;
@@ -40,6 +45,11 @@ function gamemode(string $abbreviation) : string
         : $name = "osu!{$abbreviation}";
 
     return $name;
+}
+
+function json_error(string $error)
+{
+    return json_encode(['error', $error]);
 }
 
 function navbar_permission_check(array $route) : bool

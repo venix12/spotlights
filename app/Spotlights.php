@@ -45,6 +45,6 @@ class Spotlights extends Model
 
     public function nominations()
     {
-        return $this->hasMany('SpotlightNomination');
+        return $this->hasMany(SpotlightsNomination::class, 'spots_id');
     }
 }

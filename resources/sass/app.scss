@@ -1,10 +1,102 @@
 $dark-1: #39454f;
 $dark-2: #343a40;
+$dark-3: #282d33;
+$dark-4: #1d2024;
+$dark-5: #191b1f;
+
 $dark-lightgray: #99c9f0;
+$dark-lightgray-1: #8bcafc;
 $dark-gray: #496073;
 
 $gray: #757575;
 $lightgray: #e3e3e3;
+
+@mixin generic-box-shadow($pseudo: after, $width: 100%, $height: 100%, $left: 0) {
+    @if $pseudo == after {
+        &::after {
+            content: '';
+            position: absolute;
+            width: $width;
+            height: $height;
+            top: 0;
+            left: $left;
+            right: 0;
+            bottom: 0;
+            opacity: .5;
+            box-shadow: 0 0 8px black;
+            transition: opacity .2s ease-in-out;
+            z-index: -1;
+        }
+    } @else {
+        &::before {
+            content: '';
+            position: absolute;
+            width: $width;
+            height: $height;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: .5;
+            box-shadow: 0 0 8px black;
+            transition: opacity .2s ease-in-out;
+            z-index: -1;
+        }
+    }
+
+    @if $pseudo == after {
+        &:hover::after {
+            opacity: 1;
+        }
+    } @else {
+        &:hover::before {
+            opacity: 1;
+        }
+    }
+}
+
+@mixin generic-marker($pseudo: before, $bg-color: $dark-4, $width: 10px) {
+    @if $pseudo == before {
+        &::before {
+            position: absolute;
+            left: -$width;
+            top: 0;
+            content: '';
+            width: $width;
+            height: 100%;
+            background-color: $bg-color;
+        }
+    } @else {
+        &::after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            content: '';
+            width: $width;
+            height: 100%;
+            background-color: $bg-color;
+        }
+    }
+}
+
+@mixin info-card($inverted: false) {
+    @if $inverted == false {
+        @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+        @include generic-marker();
+    } @else {
+        @include generic-box-shadow(before, 100%, 100%);
+        @include generic-marker(after);
+    }
+
+    position: relative;
+    background-color: $dark-3;
+    z-index: 0;
+    padding: 1.25rem 10px 1.25rem 10px;
+
+    @if $inverted == false {
+        margin-left: 10px
+    }
+}
 
 html, body {
     height: 100%;
@@ -19,6 +111,7 @@ form {
 }
 
 textarea {
+    display: block;
     background: none;
     border: none;
     color: inherit;
@@ -30,7 +123,7 @@ textarea {
     width: 100%;
 
     &::placeholder {
-        color: $dark-2;
+        color: $dark-3;
     }
 }
 
@@ -44,6 +137,58 @@ ul {
 
 #footer {
     flex-shrink: none;
+}
+
+.alert-box {
+    @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px;
+    z-index: 0;
+    margin-left: 10px;
+    background-color: white;
+
+    &--error {
+        @include generic-marker(before, red);
+
+        .alert-box__content, .alert-box__icon {
+            color: red;
+        }
+    }
+
+    &--success {
+        @include generic-marker(before, green);
+
+        .alert-box__content, .alert-box__icon {
+            color: green;
+        }
+    }
+
+    &__close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: gray;
+        font-size: 1.25rem;
+        padding: 14px;
+        cursor: pointer;
+    }
+
+    &__content {
+        padding: 10px;
+    }
+
+    &__icon {
+        align-self: stretch;
+        font-size: 1.25rem;
+        padding: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: lightgray;
+    }
 }
 
 .app-cards {
@@ -117,29 +262,99 @@ ul {
 }
 
 .comment-card {
-    border: 2px solid $dark-gray;
-    border-radius: 5px;
-    overflow: hidden;
+    @include generic-box-shadow(after, calc(100% + 5px), 100%, -5px);
 
-    &--gold {
-        border-color: orange;
+    position: relative;
+    background-color: white;
+    color: $dark-2;
+    font-size: .85rem;
+    margin-left: 5px;
+
+    &--contributor {
+        @include generic-marker(before, $dark-4, 5px);
+    }
+
+    &--criticizer {
+        @include generic-marker(before, red, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: red;
+        }
+    }
+
+    &--neutral {
+        @include generic-marker(before, dodgerblue, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: dodgerblue
+        }
+    }
+
+    &--nominator {
+        @include generic-marker(before, orange, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: orange;
+        }
+    }
+
+    &--supporter {
+        @include generic-marker(before, green, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: green;
+        }
+    }
+
+    &__content {
+        padding: 5px;
+        font-weight: bold;
+
+        &__content {
+            margin: 0;
+        }
+    }
+
+    &__info {
+        margin-top: 5px;
+
+        &__el {
+            font-size: .75rem;
+            font-weight: bold;
+        }
     }
 
     &__header {
-        padding: 10px;
-        background-color: $dark-2;
-        color: white;
-    }
+        display: flex;
+        align-self: center;
+        background-color: lightgray;
+        padding: 5px;
+        font-size: 1rem;
+        color: $dark-2;
+        text-decoration: none;
+        font-weight: bold;
 
-    &__body {
-        padding: 10px;
-        background-color: $dark-1;
-        color: white;
+        a {
+            color: $dark-2;
+        }
 
-        &__info {
-            color: $dark-lightgray;
-            margin-top: 10px;
-            font-size: .7rem;
+        &__dot {
+            display: flex;
+            align-items: center;
+
+            &::after {
+                position: absolute;
+                content: '';
+                width: 7px;
+                height: 7px;
+                margin-left: 10px;
+                background-color: $dark-2;
+                border-radius: 50px;
+            }
+        }
+
+        &__state {
+            margin-left: 27px;
         }
     }
 }
@@ -161,6 +376,14 @@ ul {
 
         &--left {
             margin-left: 10px;
+        }
+
+        &--radius-square {
+            border-radius: 5px;
+        }
+
+        &--small {
+            font-size: .85rem;
         }
 
         &--top {
@@ -190,7 +413,10 @@ ul {
         background-color: $dark-gray;
         border-radius: 5px;
         color: white;
-        margin-right: 5px;
+
+        &::placeholder {
+            color: $dark-3;
+        }
 
         &:focus {
             border-color: white;
@@ -228,12 +454,34 @@ ul {
         color: white;
         outline: none;
     }
+
+    &__textarea {
+        margin: 0;
+        padding: 5px;
+        font-size: .85rem;
+        border-radius: 5px;
+        background-color: $dark-gray;
+        border: 2px transparent solid;
+        margin-bottom: 10px;
+
+        &:focus {
+            border-color: white;
+        }
+
+        &--resize {
+            resize: vertical;
+        }
+    }
 }
 
 .dark-section {
     padding: 1.25rem;
     background-color: $dark-2;
     margin-bottom: 10px;
+
+    &--no-padding {
+        padding: 0;
+    }
 }
 
 .editable {
@@ -269,8 +517,45 @@ ul {
     }
 }
 
+.fa-margin {
+    margin-right: -0.25em;
+}
+
 .form--top {
     margin-top: 10px;
+}
+
+.header-v2 {
+    &__block {
+        @include generic-box-shadow(after, 100% , calc(100% + 3px));
+
+        position: relative;
+        display: inline-block;
+        background-color: white;
+        padding: 5px;
+        margin-bottom: 10px;
+        z-index: 0;
+
+        &--green {
+            border-bottom: 3px greenyellow solid;
+        }
+
+        &--red {
+            border-bottom: 3px red solid;
+        }
+    }
+
+    &__description {
+        font-size: .85rem;
+        color: $dark-gray;
+        font-weight: bold;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $dark-2;
+    }
 }
 
 .icon-list {
@@ -288,6 +573,21 @@ ul {
     padding: 2px 10px;
     border-radius: 50px;
     text-transform: uppercase;
+}
+
+.info-panel {
+    @include info-card();
+    margin-bottom: 10px;
+}
+
+.info-panel-inverted {
+    @include info-card(true);
+    margin-bottom: 10px;
+}
+
+.la-ball-clip-rotate {
+    display: inline-flex;
+    border: .20em solid white;
 }
 
 .list-small-distance {
@@ -440,15 +740,230 @@ ul {
     }
 }
 
+.nomination-details {
+    &__comments {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        overflow-y: auto;
+        padding-right: 10px;
+        max-height: 400px;
+    }
+
+    &__stats {
+        display: grid;
+        gap: 10px;
+
+        &__el {
+            @include generic-box-shadow(after, calc(100% + 5px), 100%, -5px);
+
+            position: relative;
+            display: flex;
+            font-size: .85rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: white;
+            color: $dark-2;
+            padding: 5px;
+            margin-left: 5px;
+            z-index: 0;
+
+            &--contributors {
+                @include generic-marker(before, $dark-4, 5px);
+            }
+
+            &--criticizers {
+                @include generic-marker(before, red, 5px);
+                color: red;
+            }
+
+            &--neutrals {
+                @include generic-marker(before, dodgerblue, 5px);
+                color: dodgerblue;
+            }
+
+            &--supporters {
+                @include generic-marker(before, green, 5px);
+                color: green;
+            }
+        }
+    }
+
+    &__voting {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &__el {
+            display: flex;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        &__options {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.nomination-panel {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+    border: 2px solid transparent;
+    height: 70px;
+
+    &:focus, &:hover {
+        border-color: white;
+    }
+
+    &__background {
+        border-radius: 10px;
+        position: absolute;
+        left: unset;
+        right: 0;
+        width: 90%;
+        height: 100%;
+        background-position: -50%;
+    }
+
+    &__background-container {
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__background-shadow {
+        border-radius: 10px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(90deg, $dark-4 20%, transparent 70%, transparent);
+    }
+
+    &__collapse {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        color: $dark-2;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+
+    &__el {
+        @include generic-box-shadow();
+
+        position: relative;
+        z-index: 0;
+
+        &--5::after {
+            border-radius: 5px;
+        }
+
+        &--10::after {
+            border-radius: 10px;
+        }
+
+        &--circle::after {
+            border-radius: 50px;
+        }
+    }
+
+    &__expand {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 56px;
+        margin-right: 5px;
+        color: $dark-2;
+    }
+
+    &__info {
+        font-weight: 600;
+        padding: 2px 5px;
+        color: $dark-2;
+        background-color: white;
+        border-radius: 5px;
+        font-size: .85rem;
+        max-height: 24px;
+
+        &--inverted {
+            color: white;
+            background-color: $dark-2;
+        }
+
+        &--left {
+            margin-left: 5px;
+        }
+
+        &--metadata {
+            display: flex;
+            margin-bottom: 5px;
+            justify-content: center;
+        }
+
+        &--right {
+            margin-right: 5px;
+        }
+    }
+
+    &__score {
+        font-size: 2rem;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        background-color: $dark-2;
+        margin-right: 5px;
+    }
+
+    &__state-container {
+        display: flex;
+        justify-content: center;
+        margin-right: 10px;
+        width: 140px;
+    }
+
+    &__vote-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 56px;
+        font-size: .85rem;
+        background-color: white;
+        color: $dark-2;
+        border-radius: 5px;
+        padding: 5px 10px;
+        line-height: 8px;
+    }
+}
+
+.navigation-panels {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+}
+
 .open {
     transform: rotate(90deg);
     transition: transform 0.2s ease-out;
-}
-
-.scrollable{
-    height: 385px;
-    overflow-y: auto;
-    padding-right: 10px;
 }
 
 .section-badge {
@@ -528,6 +1043,84 @@ ul {
     }
 }
 
+.spotlights-nominate {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    &__form {
+        width: 100%;
+    }
+
+    &__info {
+        @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+        @include generic-marker();
+
+        position: relative;
+        width: 25%;
+        background-color: $dark-3;
+        margin-left: 100px;
+        padding: 1.25rem 10px 1.25rem 10px;
+        z-index: 0;
+
+        &__el {
+            font-size: .85rem;
+            color: $dark-lightgray-1;
+
+            &--key {
+                font-weight: bold;
+            }
+        }
+
+        &__item {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__grid {
+            display: grid;
+            gap: 5px;
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__input {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &__loading {
+        display: inline-flex;
+        margin-left: 10px;
+
+        &--nominated {
+            font-weight: bold;
+            font-size: .85rem;
+        }
+    }
+
+    &__nominate {
+        @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+        @include generic-marker();
+
+        position: relative;
+        background-color: $dark-3;
+        display: inline-flex;
+        width: 60%;
+        padding: 1.25rem 10px 1.25rem 10px;
+        margin-left: 10px;
+        z-index: 0;
+    }
+
+    &__title {
+        font-size: 1.25rem;
+        font-size: italic;
+        color: $dark-lightgray-1;
+        margin-bottom: 5px;
+    }
+}
+
 .td-align {
     vertical-align: inherit !important;
 }
@@ -545,6 +1138,14 @@ ul {
 }
 
 .text {
+    &-blue, &-blue:focus, &-blue:hover {
+        color: dodgerblue;
+    }
+
+    &-dark-2, &-dark-2:focus, &-dark-2:hover {
+        color: $dark-2;
+    }
+
     &-gray, &-gray:focus, &-gray:hover {
         color: $dark-gray;
     }

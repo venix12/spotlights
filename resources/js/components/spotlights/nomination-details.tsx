@@ -250,8 +250,6 @@ class NominationDetails extends React.Component<Props, State> {
             { comment: comment, id: nomination.id, vote: vote }
         );
 
-        console.log(res.data);
-
         if (this.needsToUpdate()) {
             const newVotes = votes.slice();
             const newVote = newVotes.find(x => x.id === res.data.id);

@@ -55,25 +55,21 @@ class SpotlightsController extends Controller
 
     public function show($id)
     {
-        $spotlights = Spotlights::find($id);
+        $spotlights = Spotlights::with('nominations')
+            ->with('nominations.user')
+            ->with('nominations.votes')
+            ->with('nominations.votes.user')
+            ->find($id);
 
-        if (!$spotlights)
-        {
+        if (!$spotlights) {
             return redirect('/');
         }
 
-        $orderNominations = SpotlightsNomination::sortByScore();
-        $nominations = $orderNominations->where('spots_id', $id);
-
-        $users = User::orderBy('username')->get();
-
-        $votes = SpotlightsNominationVote::where('spots_id', $id)->get();
+        $spotlightsCollection = fractal_transform($spotlights, 'SpotlightsTransformer', null, true);
 
         return view('spotlights.show.main')
-            ->with('nominations', $nominations)
             ->with('spotlights', $spotlights)
-            ->with('users', $users)
-            ->with('votes', $votes);
+            ->with('spotlightsCollection', $spotlightsCollection);
     }
 
     public function new()

@@ -12,28 +12,33 @@ class SpotlightsNominationVoteController extends Controller
     public function __construct()
     {
         $this->middleware('is_member');
-        $this->middleware('is_admin')->only('remove_comment');
+        $this->middleware('is_admin')->only('removeComment');
     }
 
-    public function update(Request $request)
+    public function update()
     {
-        $vote = SpotlightsNominationVote::find($request->vote_id);
+        $vote = SpotlightsNominationVote::where('nomination_id', request()->id)
+            ->where('user_id', auth()->id())
+            ->first();
 
-        $vote->value = $request->vote_value;
-
-        if ($vote->comment !== $request->comment)
-        {
-            $vote->comment = $request->comment;
-            $vote->comment_updated_at = now();
+        if ($vote->comment !== request()->comment) {
+            $vote->update([
+                'comment' => request()->comment,
+                'comment_updated_at' => now(),
+            ]);
         }
 
-        $vote->save();
+        $value = SpotlightsNominationVote::VOTE_VALUES[request()->vote] ?? null;
 
-        Cache::forget("score_{$request->nomination_id}");
+        if ($vote->value !== $value) {
+            $vote->update([
+                'value' => $value,
+            ]);
+        }
 
-        return redirect()->back()
-            ->with('success', 'Vote updated successfully!');
+        Cache::forget('score_' . request()->id);
 
+        return fractal_item($vote, 'VoteTransformer');
     }
 
     public function removeComment(Request $request)
@@ -51,19 +56,20 @@ class SpotlightsNominationVoteController extends Controller
             ->with('success', 'Removed a comment successfully!');
     }
 
-    public function store(Request $request)
+    public function store($id)
     {
-        SpotlightsNominationVote::create([
-            'comment' => $request->comment,
-            'nomination_id' => $request->nomination_id,
-            'user_id' => Auth::user()->id,
-            'spots_id' => $request->spotlights_id,
-            'value' => $request->vote_value,
+        $nomination_id = request()->id;
+
+        $vote = SpotlightsNominationVote::create([
+            'comment' => request()->comment,
+            'nomination_id' => $nomination_id,
+            'spots_id' => $id,
+            'user_id' => auth()->id(),
+            'value' => request()->vote ? SpotlightsNominationVote::VOTE_VALUES[request()->vote] : null,
         ]);
 
-        Cache::forget("score_{$request->nomination_id}");
+        Cache::forget("score_{$nomination_id}");
 
-        return redirect()->back()
-            ->with('success', 'Vote casted successfully!');
+        return fractal_item($vote, 'VoteTransformer');
     }
 }

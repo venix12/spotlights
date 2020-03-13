@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Spotlights;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
 use Illuminate\Http\Request;
@@ -26,25 +27,31 @@ class SpotlightsNominationsController extends Controller
         return redirect()->back()->with('success', 'Removed nomination successfully!');
     }
 
-    public function store(Request $request, $id)
+    public function store($id)
     {
-        $nominations = SpotlightsNomination::where('spots_id', $id)->get();
+        $beatmapId = request()->id;
+        $currentNominations = SpotlightsNomination::where('beatmap_id', $beatmapId)->get();
 
-        if (count($nominations->where('beatmap_id', $request->beatmap_id)) > 0)
-        {
-            return redirect()->back()->with('error', 'This map has already been nominated!');
+        // TODO: move to frontend?
+        if (count($currentNominations) > 0) {
+            return json_error('this map has already been nominated!');
         }
 
-        $beatmapData = SpotlightsNomination::createEntry($request->beatmap_id, $id);
+        $beatmapData = SpotlightsNomination::createEntry($beatmapId, $id);
 
-        if ($beatmapData['error'])
-        {
-            return redirect()->back()->with('error', $beatmapData['error']);
+        if ($beatmapData['error']) {
+            return json_error($beatmapData['error']);
         }
 
-        return redirect()->back()
-            ->with('success', 'Nominated a beatmap successfully!')
-            ->with('beatmapData', $beatmapData);
+        if (request()->comment !== null) {
+            SpotlightsNominationVote::create([
+                'comment' => request()->comment,
+                'nomination_id' => $beatmapData->id,
+                'user_id' => auth()->user()->id,
+                'spots_id' => $id,
+            ]);
+        }
+
+        return fractal_item($beatmapData, 'NominationTransformer');
     }
-
 }

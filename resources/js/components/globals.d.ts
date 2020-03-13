@@ -22,8 +22,44 @@ interface Laroute {
     route: (name: string, parameters?: object) => string,
 }
 
+interface Nomination {
+    artist: string,
+    beatmap_id: number,
+    creator: string,
+    creator_osu_id: number,
+    id: number,
+    nominator: User,
+    score: number,
+    spots_id: number,
+    title: string,
+    votes: Vote[],
+}
+
+interface JQuery {
+    tooltip(): void,
+}
+
+interface Spotlights {
+    id: number,
+    nominations: Nomination[],
+}
+
+interface SpotlightsStatistic {
+    name: string,
+    value: number | string,
+}
+
 interface User {
     id: number,
     is_admin?: boolean,
     username: string,
+}
+
+interface Vote {
+    comment: string,
+    comment_updated_at?: Date,
+    created_at: Date,
+    id: number,
+    value: number,
+    voter: User,
 }

@@ -65,7 +65,7 @@ class SpotlightsNominationVoteController extends Controller
             'nomination_id' => $nomination_id,
             'spots_id' => $id,
             'user_id' => auth()->id(),
-            'value' => request()->vote ? SpotlightsNominationVote::VOTE_VALUES[request()->vote] : null,
+            'value' => SpotlightsNominationVote::VOTE_VALUES[request()->vote] ?? null,
         ]);
 
         Cache::forget("score_{$nomination_id}");

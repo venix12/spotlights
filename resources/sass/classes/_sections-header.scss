@@ -1,0 +1,17 @@
+.sections-header {
+    display: inline-block;
+    font-size: .85rem;
+
+    &__arrow {
+        margin: 8px;
+        font-family: 'FontAwesome';
+
+        &::before {
+            content: '\f105';
+        }
+    }
+
+    &__el {
+        text-transform: lowercase;
+    }
+}

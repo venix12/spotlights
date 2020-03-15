@@ -1,0 +1,77 @@
+.spotlights-nominate {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    &__form {
+        width: 100%;
+    }
+
+    &__info {
+        @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+        @include generic-marker();
+
+        position: relative;
+        width: 25%;
+        background-color: $dark-3;
+        margin-left: 100px;
+        padding: 1.25rem 10px 1.25rem 10px;
+        z-index: 0;
+
+        &__el {
+            font-size: .85rem;
+            color: $dark-lightgray-1;
+
+            &--key {
+                font-weight: bold;
+            }
+        }
+
+        &__item {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &__grid {
+            display: grid;
+            gap: 5px;
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__input {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &__loading {
+        display: inline-flex;
+        margin-left: 10px;
+
+        &--nominated {
+            font-weight: bold;
+            font-size: .85rem;
+        }
+    }
+
+    &__nominate {
+        @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+        @include generic-marker();
+
+        position: relative;
+        background-color: $dark-3;
+        display: inline-flex;
+        width: 60%;
+        padding: 1.25rem 10px 1.25rem 10px;
+        margin-left: 10px;
+        z-index: 0;
+    }
+
+    &__title {
+        font-size: 1.25rem;
+        font-size: italic;
+        color: $dark-lightgray-1;
+        margin-bottom: 5px;
+    }
+}

@@ -1,0 +1,45 @@
+.modal {
+    &__backdrop{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0,0,0,.6);
+    }
+
+    &__card {
+        position: fixed;
+        width: 40rem;
+        background-color: $dark-1;
+        box-shadow: 0 2px 8px black;
+        top: 8vh;
+        left: calc((100% - 40rem) / 2);
+        border-radius: 10px;
+        color: white;
+        overflow: hidden;
+        max-height: calc(100% - 16vh);
+    }
+
+    &__content {
+        padding: 1.25rem;
+        height: auto;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
+
+    &__header {
+        padding: 10px 20px;
+        background-color: $dark-gray;
+        display: flex;
+        justify-content: space-between;
+
+        &__close {
+            cursor: pointer;
+        }
+
+        &__title {
+            font-size: 2rem;
+        }
+    }
+}

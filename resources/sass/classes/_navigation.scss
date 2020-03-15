@@ -1,0 +1,22 @@
+.navigation {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+    &__el {
+        padding: 2px 5px;
+        cursor: pointer;
+
+        &:not(:first-of-type) {
+            margin-left: 10px;
+        }
+
+        &--current {
+            font-weight: 600;
+            border-radius: 5px;
+            background-color: white;
+            color: $dark-1;
+        }
+    }
+}

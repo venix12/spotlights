@@ -1,0 +1,16 @@
+.nomination-voting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__el {
+        display: flex;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    &__options {
+        display: flex;
+        align-items: center;
+    }
+}

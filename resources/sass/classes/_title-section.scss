@@ -1,0 +1,59 @@
+.title-section {
+    &__header {
+        font-size: 2rem;
+
+        &--marker {
+            position: relative;
+            left: 12px;
+
+            &::before {
+                position: absolute;
+                left: -12px;
+                top: 15px;
+                content: '';
+                width: 4px;
+                height: 40%;
+                border-radius: 10px;
+                background-color: greenyellow;
+            }
+
+            &--red::before {
+                background-color: red;
+            }
+        }
+    }
+
+    &__info {
+        display: inline-flex;
+        justify-content: center;
+        font-size: .75rem;
+        font-weight: 600;
+        color: $dark-1;
+        background-color: white;
+        padding: 2px 10px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        margin-top: 9px;
+    }
+
+    &__previous {
+        position: absolute;
+        //top: 60px;
+        text-decoration: none !important;
+        color: white;
+        font-size: .85rem;
+        transition: transform .1s ease-in-out;
+        will-change: transform;
+
+        &::before {
+            font-family: 'FontAwesome';
+            margin-right: 10px;
+            content: '\f104';
+        }
+
+        &:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+    }
+}

@@ -1,0 +1,32 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-image: url('/images/triangles.png');
+    background-repeat: fixed;
+    font-family: 'Nunito';
+}
+
+form {
+    margin: 0;
+}
+
+textarea {
+    display: block;
+    background: none;
+    border: none;
+    color: inherit;
+    resize: none;
+    font: inherit;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    width: 100%;
+
+    &::placeholder {
+        color: $dark-3;
+    }
+}
+
+ul {
+    margin-bottom: 0;
+}

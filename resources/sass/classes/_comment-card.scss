@@ -1,0 +1,97 @@
+.comment-card {
+    @include generic-box-shadow(after, calc(100% + 5px), 100%, -5px);
+
+    position: relative;
+    background-color: white;
+    color: $dark-2;
+    font-size: .85rem;
+    margin-left: 5px;
+
+    &--contributor {
+        @include generic-marker(before, $dark-4, 5px);
+    }
+
+    &--criticizer {
+        @include generic-marker(before, red, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: red;
+        }
+    }
+
+    &--neutral {
+        @include generic-marker(before, dodgerblue, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: dodgerblue
+        }
+    }
+
+    &--nominator {
+        @include generic-marker(before, orange, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: orange;
+        }
+    }
+
+    &--supporter {
+        @include generic-marker(before, green, 5px);
+
+        .comment-card__header__dot::after {
+            background-color: green;
+        }
+    }
+
+    &__content {
+        padding: 5px;
+        font-weight: bold;
+
+        &__content {
+            margin: 0;
+        }
+    }
+
+    &__info {
+        margin-top: 5px;
+
+        &__el {
+            font-size: .75rem;
+            font-weight: bold;
+        }
+    }
+
+    &__header {
+        display: flex;
+        align-self: center;
+        background-color: lightgray;
+        padding: 5px;
+        font-size: 1rem;
+        color: $dark-2;
+        text-decoration: none;
+        font-weight: bold;
+
+        a {
+            color: $dark-2;
+        }
+
+        &__dot {
+            display: flex;
+            align-items: center;
+
+            &::after {
+                position: absolute;
+                content: '';
+                width: 7px;
+                height: 7px;
+                margin-left: 10px;
+                background-color: $dark-2;
+                border-radius: 50px;
+            }
+        }
+
+        &__state {
+            margin-left: 27px;
+        }
+    }
+}

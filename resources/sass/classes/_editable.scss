@@ -1,0 +1,18 @@
+.editable {
+    text-decoration: none;
+
+    &::after {
+        font-size: .85rem;
+        font-family: 'FontAwesome';
+        content: ' \f040';
+        opacity: 0;
+    }
+
+    &:hover {
+        text-decoration: none;
+
+        &::after {
+            opacity: 100;
+        }
+    }
+}

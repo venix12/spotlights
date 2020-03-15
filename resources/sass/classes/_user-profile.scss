@@ -1,0 +1,26 @@
+.user-profile {
+    &__avatar {
+        display: flex;
+        object-fit: contain;
+        align-self: flex-start;
+        width: 100px;
+        height: 100px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-right: 5px;
+
+        &--border {
+            border: 3px solid;
+        }
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    &__username-section {
+        line-height: 5px;
+    }
+}

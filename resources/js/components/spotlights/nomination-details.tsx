@@ -106,7 +106,7 @@ class NominationDetails extends React.Component<Props, State> {
             <div className="col-md-6"  style={{padding: '0 0 0 10px'}}>
                 <div className="info-panel" style={{paddingRight: '0', height: '100%'}}>
                     <div className="spotlights-nominate__title">{`Comments (${comments.length})`}</div>
-                    <div className="nomination-details__comments">
+                    <div className="nomination-comments">
                         {comments.length > 0
                             ? comments.map(comment => {
                                 return <NominationComment comment={comment} key={comment.id}/>;
@@ -124,22 +124,20 @@ class NominationDetails extends React.Component<Props, State> {
         const voters = this.getVotersUsernames();
 
         return (
-            <div className="nomination-details__stats">
+            <div className="nomination-statistics">
                 {categories.map((category, index) => {
                     return (
                         <div
-                            className={`nomination-details__stats__el nomination-details__stats__el--${category}`}
+                            className={`nomination-statistics__el nomination-statistics__el--${category}`}
                             title={this.getVotersListForRender(voters[category])}
                             key={index}
                         >
-                            <div className="nomination-details__stats__el__content">
-                                {
-                                    `${voters[category].length} ${category}${voters[category].length > 0
-                                        ? `: ${this.getVotersListForRender(voters[category])}`
-                                        : ''
-                                    }`
-                                }
-                            </div>
+                            {
+                                `${voters[category].length} ${category}${voters[category].length > 0
+                                    ? `: ${this.getVotersListForRender(voters[category])}`
+                                    : ''
+                                }`
+                            }
                         </div>
                     );
                 })}
@@ -165,13 +163,13 @@ class NominationDetails extends React.Component<Props, State> {
                             value={comment ?? ''}
                         />
 
-                        <div className="nomination-details__voting">
+                        <div className="nomination-voting">
                             <div className="info-badge">{`${comment ? comment.length : 0} / 2000`}</div>
 
-                            <div className="nomination-details__voting__options">
+                            <div className="nomination-voting__options">
                                 {this.isNotNominator() && this.renderVotingOptions()}
 
-                                <div className="nomination-details__voting__el">
+                                <div className="nomination-voting__el">
                                     {loading
                                         ? <LoadingSpinner />
                                         : <button className="dark-form__button dark-form__button--small">
@@ -203,7 +201,7 @@ class NominationDetails extends React.Component<Props, State> {
         const options = votingOptions.map((option, index) => {
             return (
                 <div
-                    className={`nomination-details__voting__el ${vote === option.name && `text-${option.select}`}`}
+                    className={`nomination-voting__el ${vote === option.name && `text-${option.select}`}`}
                     id={option.name}
                     onClick={() => this.selectVote(option.name)}
                     key={index}

@@ -1,0 +1,32 @@
+.header-v2 {
+    &__block {
+        @include generic-box-shadow(after, 100% , calc(100% + 3px));
+
+        position: relative;
+        display: inline-block;
+        background-color: white;
+        padding: 5px;
+        margin-bottom: 10px;
+        z-index: 0;
+
+        &--green {
+            border-bottom: 3px greenyellow solid;
+        }
+
+        &--red {
+            border-bottom: 3px red solid;
+        }
+    }
+
+    &__description {
+        font-size: .85rem;
+        color: $dark-gray;
+        font-weight: bold;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $dark-2;
+    }
+}

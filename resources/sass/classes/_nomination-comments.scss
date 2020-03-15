@@ -1,0 +1,8 @@
+.nomination-comments {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    overflow-y: auto;
+    padding-right: 10px;
+    max-height: 400px;
+}

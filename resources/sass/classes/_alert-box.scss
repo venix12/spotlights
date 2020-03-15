@@ -1,0 +1,51 @@
+.alert-box {
+    @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px;
+    z-index: 0;
+    margin-left: 10px;
+    background-color: white;
+
+    &--error {
+        @include generic-marker(before, red);
+
+        .alert-box__content, .alert-box__icon {
+            color: red;
+        }
+    }
+
+    &--success {
+        @include generic-marker(before, green);
+
+        .alert-box__content, .alert-box__icon {
+            color: green;
+        }
+    }
+
+    &__close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: gray;
+        font-size: 1.25rem;
+        padding: 14px;
+        cursor: pointer;
+    }
+
+    &__content {
+        padding: 10px;
+    }
+
+    &__icon {
+        align-self: stretch;
+        font-size: 1.25rem;
+        padding: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: lightgray;
+    }
+}

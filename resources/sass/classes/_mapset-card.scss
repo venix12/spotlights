@@ -1,0 +1,61 @@
+.mapset-card {
+    display: flex;
+    justify-content: center;
+
+    &__badge {
+        background-color: $dark-2;
+        color: $lightgray;
+        padding: 5px 8px;
+        border-radius: 10px;
+        font-size: .85rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        &--info {
+            max-width: 220px;
+        }
+
+        &--metadata {
+            width: 363px;
+            text-align: center;
+        }
+
+        &--score {
+            font-weight: 600;
+            width: 40px;
+            text-align: center;
+            margin-right: 8px;
+            user-select: none;
+        }
+    }
+
+    &__border {
+        border: 4px solid $dark-2;
+    }
+
+    &__card {
+        border-radius: 15px;
+        width: 100%;
+        height: 125px;
+        padding: 15px;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__link {
+        text-decoration: none;
+        color: $lightgray;
+
+        &:hover {
+            color: white;
+        }
+    }
+
+    &__metadata {
+        display: flex;
+    }
+}

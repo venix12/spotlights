@@ -22,7 +22,7 @@ class SpotlightsController extends Controller
 
     public function index()
     {
-        $spotlights = Spotlights::all();
+        $spotlights = Spotlights::orderBy('id', 'DESC')->get();
 
         return view('spotlights.index')->with('spotlights', $spotlights);
     }

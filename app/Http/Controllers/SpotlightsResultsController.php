@@ -17,7 +17,9 @@ class SpotlightsResultsController extends Controller
 
     public function index()
     {
-        $spotlights = Spotlights::where('released', true)->get();
+        $spotlights = Spotlights::where('released', true)
+            ->orderBy('id', 'DESC')
+            ->get();
 
         return view('spotlights-results.index')
             ->with('spotlights', $spotlights);

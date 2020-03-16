@@ -42,6 +42,7 @@ interface JQuery {
 interface Spotlights {
     id: number,
     nominations: Nomination[],
+    threshold?: number,
 }
 
 interface SpotlightsStatistic {

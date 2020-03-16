@@ -68,7 +68,6 @@ class NominateField extends React.Component<Props, State> {
         );
 
         if (response.data[0] === 'error') {
-
             this.setState({
                 loading: false,
                 message: response.data,

@@ -33,7 +33,7 @@ class Main extends React.Component<Props, State> {
                 <div className="dark-section">
                     <div className="navigation-panels">
                         {nominations.map(nomination => {
-                            return <NominationCard nomination={nomination} key={nomination.id} />
+                            return <NominationCard nomination={nomination} threshold={spotlights.threshold} key={nomination.id} />
                         })}
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import NominationDetails from './nomination-details';
 
 interface Props {
     nomination: Nomination,
+    threshold?: number,
 }
 
 interface State {
@@ -50,7 +51,7 @@ class NominationCard extends React.Component<Props, State> {
                 return '#ff7373';
 
             case (score > 2 && score < 5):
-                return '#577557';
+                return '#6dbd6a';
 
             case (score > 4):
                 return '#12b012';
@@ -181,11 +182,14 @@ class NominationCard extends React.Component<Props, State> {
     }
 
     renderScore() {
+        const { threshold } = this.props;
         const { score } = this.state;
+
+        const spotlighted = (threshold && score >= threshold) && 'nomination-panel__score--spotlighted'
 
         return (
             <div
-                className="nomination-panel__el nomination-panel__el--10 nomination-panel__score"
+                className={`nomination-panel__el nomination-panel__el--10 nomination-panel__score ${spotlighted}`}
                 style={{color: this.getScoreColor(score)}}
             >
                 {score}

@@ -17,7 +17,7 @@ class EventLoggerController extends Controller
     {
         $events = Event::with('user')
             ->orderBy('id', 'DESC')
-            ->paginate(50);
+            ->paginate(150);
 
         return view('admin.log')
             ->with('events', $events);

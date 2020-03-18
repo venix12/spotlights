@@ -50,6 +50,6 @@ class OsuOauthController extends Controller
             Event::log('Logged in for the first time');
         }
 
-        return redirect('home');
+        return redirect()->intended('home');
     }
 }

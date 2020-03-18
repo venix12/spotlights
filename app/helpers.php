@@ -81,3 +81,10 @@ function navbar_welcome_sections() : array
 
     return $sections;
 }
+
+function truncate_text(string $text, int $count) : string
+{
+    return strlen($text) > $count
+        ? substr($text, 0, $count) . '…'
+        : $text;
+}

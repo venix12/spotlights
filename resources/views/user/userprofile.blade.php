@@ -35,7 +35,7 @@
             Votes casted: {{ count($votes->where('user_id', $user->id)) }}
         </div> <br>
 
-        @if(count($spotlightsParticipated) > 0)
+        @if (count($spotlightsParticipated) > 0)
             <h5>Spotlights ({{count($spotlightsParticipated)}})</h5>
             <div class="card-body bg-dark">
                 <p class="medium-font">the user participated in following spotlights:</p>
@@ -53,7 +53,7 @@
             </div>
         @endif
 
-        @if(Auth::user()->isAdminOrManager())
+        @if (Auth::user()->isAdminOrManager())
             <hr>
 
             @php
@@ -74,6 +74,15 @@
             @if(!$user->has_logged_in)
                 <span class="text-muted medium-font">This user hasn't logged in yet!</span>
             @endif
+        @endif
+
+        @if (Auth::user()->isAdmin() && $user->groups->count() > 0)
+            <div class="medium-font">
+                this user belongs to usergroups: <br>
+                @foreach ($user->groups as $group)
+                    - {{ $group->identifier }} <br>
+                @endforeach
+            </div>
         @endif
     @endcomponent
 @endsection

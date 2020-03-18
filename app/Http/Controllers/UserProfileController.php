@@ -6,7 +6,6 @@ use App\Spotlights;
 use App\SpotlightsNomination;
 use App\SpotlightsNominationVote;
 use App\User;
-use Illuminate\Http\Request;
 use Auth;
 
 
@@ -21,13 +20,11 @@ class UserProfileController extends Controller
     {
         $user = User::find($id);
 
-        if(!$user || !$user->isMember())
-        {
+        if (!$user) {
             return redirect('/');
         }
 
-        if (!$user->active && !Auth::user()->isAdminOrManager())
-        {
+        if (!$user->isMember() && !Auth::user()->isAdminOrManager()) {
             return redirect('/');
         }
 

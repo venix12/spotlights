@@ -157,6 +157,11 @@ class User extends Authenticatable
      * Checks
      */
 
+    public function isActive()
+    {
+        return $this->active === true;
+    }
+
     public function isAdmin()
     {
         return $this->hasPermSet('admin');
@@ -184,7 +189,7 @@ class User extends Authenticatable
 
     public function isMember()
     {
-        return $this->hasPermSet('member') || $this->isAdminOrManager();
+        return $this->isActive() && ($this->hasPermSet('member') || $this->isAdminOrManager());
     }
 
     /**

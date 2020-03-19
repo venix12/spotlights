@@ -1,16 +1,15 @@
 .alert-box {
-    @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+    @include generic-box-shadow(10px);
 
     position: relative;
     display: inline-flex;
     align-items: center;
     margin-bottom: 10px;
     z-index: 0;
-    margin-left: 10px;
     background-color: white;
 
     &--error {
-        @include generic-marker(before, red);
+        @include generic-marker(red);
 
         .alert-box__content, .alert-box__icon {
             color: red;
@@ -18,7 +17,7 @@
     }
 
     &--success {
-        @include generic-marker(before, green);
+        @include generic-marker(green);
 
         .alert-box__content, .alert-box__icon {
             color: green;

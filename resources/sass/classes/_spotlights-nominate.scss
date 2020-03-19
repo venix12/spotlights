@@ -8,13 +8,12 @@
     }
 
     &__info {
-        @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+        @include generic-box-shadow(10px);
         @include generic-marker();
 
         position: relative;
         width: 25%;
         background-color: $dark-3;
-        margin-left: 100px;
         padding: 1.25rem 10px 1.25rem 10px;
         z-index: 0;
 
@@ -56,7 +55,7 @@
     }
 
     &__nominate {
-        @include generic-box-shadow(after, calc(100% + 10px), 100%, -10px);
+        @include generic-box-shadow(10px);
         @include generic-marker();
 
         position: relative;
@@ -64,13 +63,11 @@
         display: inline-flex;
         width: 60%;
         padding: 1.25rem 10px 1.25rem 10px;
-        margin-left: 10px;
         z-index: 0;
     }
 
     &__title {
         font-size: 1.25rem;
-        font-size: italic;
         color: $dark-lightgray-1;
         margin-bottom: 5px;
     }

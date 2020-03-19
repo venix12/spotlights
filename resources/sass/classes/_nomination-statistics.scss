@@ -3,7 +3,7 @@
     gap: 10px;
 
     &__el {
-        @include generic-box-shadow(after, calc(100% + 5px), 100%, -5px);
+        @include generic-box-shadow(5px);
 
         position: relative;
         display: flex;
@@ -13,25 +13,24 @@
         background-color: white;
         color: $dark-2;
         padding: 5px;
-        margin-left: 5px;
         z-index: 0;
 
         &--contributors {
-            @include generic-marker(before, $dark-4, 5px);
+            @include generic-marker($dark-4, 5px);
         }
 
         &--criticizers {
-            @include generic-marker(before, red, 5px);
+            @include generic-marker(red, 5px);
             color: red;
         }
 
         &--neutrals {
-            @include generic-marker(before, dodgerblue, 5px);
+            @include generic-marker(dodgerblue, 5px);
             color: dodgerblue;
         }
 
         &--supporters {
-            @include generic-marker(before, green, 5px);
+            @include generic-marker(green, 5px);
             color: green;
         }
     }

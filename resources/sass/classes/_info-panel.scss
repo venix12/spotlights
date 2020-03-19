@@ -1,0 +1,10 @@
+.info-panel {
+    @include info-card();
+    margin-bottom: 10px;
+
+    &__header {
+        font-size: 1.25rem;
+        color: $dark-lightgray-1;
+        margin-bottom: 5px;
+    }
+}

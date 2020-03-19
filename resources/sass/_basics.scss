@@ -6,13 +6,6 @@
     flex-shrink: none;
 }
 
-.app-cards {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(auto-fill, 242px);
-    justify-content: center;
-}
-
 .badge {
     border-radius: 0.5em;
     color: #fefefe;
@@ -82,16 +75,6 @@
     text-transform: uppercase;
 }
 
-.info-panel {
-    @include info-card();
-    margin-bottom: 10px;
-}
-
-.info-panel-inverted {
-    @include info-card(true);
-    margin-bottom: 10px;
-}
-
 .la-ball-clip-rotate {
     display: inline-flex;
     border: .20em solid white;
@@ -99,13 +82,6 @@
 
 .list-small-distance {
     line-height: 0.5em;
-}
-
-.mapset-cards {
-    display: grid;
-    gap: 8px;
-    grid-template-columns: repeat(auto-fill, 450px);
-    justify-content: center;
 }
 
 .margin-img {

@@ -1,18 +1,17 @@
 .comment-card {
-    @include generic-box-shadow(after, calc(100% + 5px), 100%, -5px);
+    @include generic-box-shadow(5px);
 
     position: relative;
     background-color: white;
     color: $dark-2;
     font-size: .85rem;
-    margin-left: 5px;
 
     &--contributor {
-        @include generic-marker(before, $dark-4, 5px);
+        @include generic-marker($dark-4, 5px);
     }
 
     &--criticizer {
-        @include generic-marker(before, red, 5px);
+        @include generic-marker( red, 5px);
 
         .comment-card__header__dot::after {
             background-color: red;
@@ -20,7 +19,7 @@
     }
 
     &--neutral {
-        @include generic-marker(before, dodgerblue, 5px);
+        @include generic-marker(dodgerblue, 5px);
 
         .comment-card__header__dot::after {
             background-color: dodgerblue
@@ -28,7 +27,7 @@
     }
 
     &--nominator {
-        @include generic-marker(before, orange, 5px);
+        @include generic-marker(orange, 5px);
 
         .comment-card__header__dot::after {
             background-color: orange;
@@ -36,7 +35,7 @@
     }
 
     &--supporter {
-        @include generic-marker(before, green, 5px);
+        @include generic-marker(green, 5px);
 
         .comment-card__header__dot::after {
             background-color: green;

@@ -1,6 +1,6 @@
 .header-v2 {
     &__block {
-        @include generic-box-shadow(after, 100% , calc(100% + 3px));
+        @include generic-box-shadow();
 
         position: relative;
         display: inline-block;

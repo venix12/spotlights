@@ -55,7 +55,7 @@
     }
 
     &__el {
-        @include generic-box-shadow();
+        @include generic-box-shadow(0, true);
 
         position: relative;
         z-index: 0;

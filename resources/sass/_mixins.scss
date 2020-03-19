@@ -1,4 +1,4 @@
-@mixin generic-box-shadow($left: 0) {
+@mixin generic-box-shadow($left: 0, $animated: false) {
     &::after {
         content: '';
         position: absolute;
@@ -14,8 +14,10 @@
         z-index: -1;
     }
 
-    &:hover::after {
-        opacity: 1;
+    @if $animated == true {
+        &:hover::after {
+            opacity: 1;
+        }
     }
 }
 
@@ -23,8 +25,8 @@
     border-left: $width $bg-color solid;
 }
 
-@mixin info-card() {
-    @include generic-box-shadow(10px);
+@mixin info-card($animated: false) {
+    @include generic-box-shadow(10px, $animated);
     @include generic-marker();
 
     position: relative;

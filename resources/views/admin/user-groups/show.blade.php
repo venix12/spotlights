@@ -16,8 +16,8 @@
             'title' => "{$group->identifier} usergroup",
         ])
 
-        <h5>Info</h5>
-        <div class="card-body bg-dark">
+        <div class="info-panel">
+            <div class="info-panel__header">Info</div>
             <div>Identifier: {{ $group->identifier }}</div>
             <div>Name: {{ $group->name }}</div>
             <div>Permissions: {{ $group->perm_set }}</div>
@@ -32,10 +32,8 @@
             <div>Hierarchy: {{ $group->hierarchy }}</div>
         </div>
 
-        <br>
-
-        <h5>Members</h5>
-        <div class="card-body bg-dark">
+        <div class="info-panel">
+            <div class="info-panel__header">Members</div>
             @foreach($group->members as $member)
                 <div>
                     <form
@@ -55,19 +53,17 @@
                             &times;
                         </button>
                     </form>
-                    {{ $member->username }}
+                    <a href="{{ route('user.profile', $member->id)}}">{{ $member->username }}</a>
                 </div>
             @endforeach
         </div>
-
-        <br>
 
         <form action="{{ route('admin.user-groups.add-member', ['id' => $group->id]) }}" method="POST">
             @csrf
 
             <input class="dark-form__input dark-form__input--inline" type="text" name="username" autocomplete="off">
 
-            <button type="submit" class="dark-form__button" onclick="return confirm('are you sure?')">
+            <button type="submit" class="dark-form__button dark-form__button--left dark-form__button--small dark-form__button--radius-square" onclick="return confirm('are you sure?')">
                 <i class="fa fa-plus"></i> Add user
             </button>
         </form>

@@ -12,7 +12,7 @@
         ])
 
         @foreach($groups as $group)
-            <div class="card-body bg-dark">
+            <div class="dark-section">
                 <div class="space-between">
                     <span style="color: {{ $group->group_color }}">{{ $group->identifier }}</span>
                     <div>
@@ -23,11 +23,9 @@
                     </div>
                 </div>
             </div>
-
-            <br>
         @endforeach
 
-        <a href="{{ route('admin.user-groups.create') }}"class="dark-form__button">
+        <a href="{{ route('admin.user-groups.create') }}"class="dark-form__button dark-form__button--radius-square dark-form__button--small">
             <i class="fa fa-plus"></i> Add usergroup
         </a>
 

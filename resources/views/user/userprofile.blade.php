@@ -7,48 +7,56 @@
         'dark' => true,
         'sections' => ['Home', 'Users', $user->username],
     ])
+        <div class="dark-section dark-section--3">
+            <div class="user-profile__top">
+                <img
+                    src="https://a.ppy.sh/{{$user->osu_user_id}}"
+                    class="user-profile__avatar {{ $user->color ? 'user-profile__avatar--border' : '' }}"
+                    style="{{ $user->color ? "border-color: {$user->color}" : ''}}"
+                >
 
-        <div class="user-profile__top">
-            <img
-                src="https://a.ppy.sh/{{$user->osu_user_id}}"
-                class="user-profile__avatar {{ $user->color ? 'user-profile__avatar--border' : '' }}"
-                style="{{ $user->color ? "border-color: {$user->color}" : ''}}"
-            >
-
-            <div class="user-profile__username-section">
-                <h4 style="color: {{$user->color}};">{{$user->username}}</h4>
-                {{$user->title}}
+                <div class="user-profile__username-section">
+                    <h4 style="color: {{$user->color}};">{{$user->username}}</h4>
+                    {{$user->title}}
+                </div>
             </div>
-        </div>
 
-        <div class="medium-font row">
-            <div class="col-md-8">
-                Joined at {{$user->created_at}} // <a href="https://osu.ppy.sh/u/{{$user->osu_user_id}}">osu! Profile</a>
+            <div class="user-profile__info-container">
+                <div class="user-profile__info user-profile__info--join" title="{{ $user->created_at }}">
+                    Joined {{ $user->created_at->diffForHumans() }}
+                </div>
+
+                <div class="user-profile__info user-profile__info--osu">
+                    <a href="https://osu.ppy.sh/u/{{ $user->osu_user_id }}">osu! Profile</a>
+                </div>
             </div>
         </div>
 
         <hr>
 
-        <h5>Statistics</h5>
-        <div class="card-body bg-dark">
+        <div class="info-panel">
+            <div class="info-panel__header">Statistics</div>
             Nominatinated maps: {{ count($nominations->where('user_id', $user->id)) }} <br>
             Votes casted: {{ count($votes->where('user_id', $user->id)) }}
-        </div> <br>
+        </div>
 
         @if (count($spotlightsParticipated) > 0)
-            <h5>Spotlights ({{count($spotlightsParticipated)}})</h5>
-            <div class="card-body bg-dark">
-                <p class="medium-font">the user participated in following spotlights:</p>
+            <div class="info-panel">
+                <div class="info-panel__header">Spotlights ({{ count($spotlightsParticipated) }})</div>
 
-                <ul>
+                <ul class="list">
                     @foreach($spotlightsParticipated as $spotlight)
-                        <li>{{$spotlight}} <br>
+                        <li>
+                            <a href="{{ route('spotlights.show', $spotlight->id) }}">
+                                {{ $spotlight->title }}
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             </div>
         @else
-            <h5>Spotlights</h5>
-            <div class="card-body bg-dark">
+            <div class="info-panel">
+                <div class="info-panel__header">Spotlights</div>
                 This user hasn't participated in any spotlights yet!
             </div>
         @endif
@@ -60,7 +68,7 @@
                 $activeValue = $user->active ? 'deactivate' : 'activate';
             @endphp
 
-            <form action={{route('admin.'.$activeValue.'User')}} method="POST">
+            <form action={{ route('admin.'.$activeValue.'User') }} method="POST">
                 @csrf
                 <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
                 <input
@@ -69,10 +77,10 @@
                     type="submit"
                     value={{ucfirst($activeValue)}}
                 >
-            </form><br>
+            </form>
 
             @if(!$user->has_logged_in)
-                <span class="text-muted medium-font">This user hasn't logged in yet!</span>
+                <span class="text-lightgray medium-font">This user hasn't logged in yet!</span>
             @endif
         @endif
 
@@ -80,7 +88,7 @@
             <div class="medium-font">
                 this user belongs to usergroups: <br>
                 @foreach ($user->groups as $group)
-                    - {{ $group->identifier }} <br>
+                    - <a href="{{ route('admin.user-groups.show', $group->id)}}">{{ $group->identifier }}</a><br>
                 @endforeach
             </div>
         @endif

@@ -34,3 +34,17 @@
     z-index: 0;
     padding: 1.25rem 10px 1.25rem 10px;
 }
+
+@mixin info-card-white-compact {
+    @include generic-box-shadow(5px);
+
+    position: relative;
+    display: flex;
+    font-size: .85rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: white;
+    color: $dark-2;
+    padding: 5px;
+    z-index: 0;
+}

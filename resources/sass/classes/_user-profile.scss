@@ -14,10 +14,34 @@
         }
     }
 
+    &__info {
+        @include info-card-white-compact();
+
+        &--join {
+            @include generic-marker($blue, 5px);
+            color: $blue;
+        }
+
+        &--osu {
+            @include generic-marker(deeppink, 5px);
+            color: deeppink;
+            text-decoration: none;
+
+            a, a:hover {
+                color: deeppink;
+            }
+        }
+    }
+
+    &__info-container {
+        display: inline-grid;
+        gap: 10px;
+    }
+
     &__top {
         display: flex;
         align-items: center;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
 
     &__username-section {

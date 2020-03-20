@@ -29,28 +29,27 @@ class UserProfileController extends Controller
         }
 
         $nominations = SpotlightsNomination::all();
-
         $spotlights = Spotlights::all();
-        $userSpotlights = $nominations->where('user_id', $id);
-
         $votes = SpotlightsNominationVote::all();
+
+        $userNominations = $nominations->where('user_id', $id);
         $userVotes = $votes->where('user_id', $id);
 
         $spotlightsParticipated = [];
 
-        foreach($userSpotlights as $userSpotlight)
+        foreach($userNominations as $userSpotlight)
         {
-            if(!in_array($spotlights->find($userSpotlight->spots_id)->title, $spotlightsParticipated))
+            if(!in_array($spotlights->find($userSpotlight->spots_id), $spotlightsParticipated))
             {
-                $spotlightsParticipated[] = $spotlights->find($userSpotlight->spots_id)->title;
+                $spotlightsParticipated[] = $spotlights->find($userSpotlight->spots_id);
             }
         }
 
         foreach($userVotes as $userVote)
         {
-            if(!in_array($spotlights->find($userVote->spots_id)->title, $spotlightsParticipated))
+            if(!in_array($spotlights->find($userVote->spots_id), $spotlightsParticipated))
             {
-                $spotlightsParticipated[] = $spotlights->find($userVote->spots_id)->title;
+                $spotlightsParticipated[] = $spotlights->find($userVote->spots_id);
             }
         }
 

@@ -7,12 +7,17 @@
         'dark' => true,
         'sections' => ['Home', 'Users', 'List']
     ])
-        @include('components._userlist', ['membersArray' => $membersArray])
+        @include('components._header-v2', [
+            'icon' => 'user',
+            'title' => 'User List',
+        ])
+
+        @include('user._list', $membersArray)
 
         <hr>
 
         @if(Auth::user()->isAdminOrManager())
-            @include('components._userlist', ['membersArray' => $moderationArray])
+            @include('user._list', ['membersArray' => $moderationArray])
         @endif
     @endcomponent
 @endsection

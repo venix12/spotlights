@@ -1,21 +1,20 @@
 .header-v2 {
-    &__block {
-        @include generic-box-shadow();
+    @include generic-box-shadow();
 
-        position: relative;
-        display: inline-block;
-        background-color: white;
-        padding: 5px;
-        margin-bottom: 10px;
-        z-index: 0;
+    position: relative;
+    display: inline-block;
+    background-color: white;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-bottom: 3px $blue solid;
+    z-index: 0;
 
-        &--green {
-            border-bottom: 3px greenyellow solid;
-        }
+    &--green {
+        border-bottom: 3px greenyellow solid;
+    }
 
-        &--red {
-            border-bottom: 3px red solid;
-        }
+    &--red {
+        border-bottom: 3px red solid;
     }
 
     &__description {

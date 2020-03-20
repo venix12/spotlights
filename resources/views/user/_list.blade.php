@@ -1,11 +1,11 @@
 @foreach ($membersArray as $group)
-    <div class="card-body bg-dark">
-        <p>{{$group['title']}}</p>
+    <div class="info-panel">
+        <div class="info-panel__header">{{$group['title']}}</div>
 
         <ul class="list">
             @foreach ($group['users'] as $member)
                 <li>
-                    <a href="{{ route('user.profile', ['id' => $member->id]) }}" style="color: {{$member->color}}">{{
+                    <a href="{{ route('user.profile', $member->id) }}" style="color: {{$member->color}}">{{
                         $member->username
                     }}</a>
 
@@ -17,5 +17,5 @@
                 </li>
             @endforeach
         </ul>
-    </div> <br>
+    </div>
 @endforeach

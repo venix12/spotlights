@@ -28,19 +28,21 @@
         'size' => 11,
         'sections' => ['Home', 'Spotlights', $spotlights->title],
     ])
-        <div class="header-v2__block {{$spotlights->active ? 'header-v2__block--green' : 'header-v2__block--red'}}">
-            <div class="header-v2__title"><i class="fa fa-star"></i> {{ $spotlights->title }}</div>
-            <div class="header-v2__description">{{ $spotlights->description }}</div>
-        </div>
+        @include('components._header-v2', [
+            'colour' => $spotlights->active ? 'green' : 'red',
+            'description' => $spotlights->description,
+            'icon' => 'star',
+            'title' => $spotlights->title,
+        ])
 
         <div id="react--spotlights-main"></div>
 
-        @if(Auth::user()->isAdmin())
+        @if (Auth::user()->isAdmin())
             @include('spotlights.show.mapids')
             @include('spotlights.show.threshold')
         @endif
 
-        @if(Auth::user()->isAdminOrManager())
+        @if (Auth::user()->isAdminOrManager())
             <h5>Activity</h5>
             <div class="card-body bg-dark">
                 @foreach (App\Group::byIdentifier('member')->members->where($spotlights->gamemode(), true) as $user)

@@ -2,7 +2,7 @@
     &::after {
         content: '';
         position: absolute;
-        width: calc(100% + $left);
+        width: calc(100% + #{$left});
         height: 100%;
         top: 0;
         left: -$left;

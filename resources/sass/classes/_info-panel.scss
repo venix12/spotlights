@@ -1,6 +1,9 @@
 .info-panel {
     @include info-card();
-    margin-bottom: 10px;
+
+    &:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
 
     &__header {
         font-size: 1.25rem;

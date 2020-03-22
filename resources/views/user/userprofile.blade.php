@@ -7,7 +7,7 @@
         'dark' => true,
         'sections' => ['Home', 'Users', $user->username],
     ])
-        <div class="dark-section dark-section--3">
+        <div class="dark-section dark-section--4">
             <div class="user-profile__top">
                 <img
                     src="https://a.ppy.sh/{{$user->osu_user_id}}"
@@ -34,32 +34,34 @@
 
         <hr>
 
-        <div class="info-panel">
-            <div class="info-panel__header">Statistics</div>
-            Nominatinated maps: {{ count($nominations->where('user_id', $user->id)) }} <br>
-            Votes casted: {{ count($votes->where('user_id', $user->id)) }}
+        <div class="dark-section dark-section--4">
+            <div class="info-panel">
+                <div class="info-panel__header">Statistics</div>
+                Nominatinated maps: {{ count($nominations->where('user_id', $user->id)) }} <br>
+                Votes casted: {{ count($votes->where('user_id', $user->id)) }}
+            </div>
+
+            @if (count($spotlightsParticipated) > 0)
+                <div class="info-panel">
+                    <div class="info-panel__header">Spotlights ({{ count($spotlightsParticipated) }})</div>
+
+                    <ul class="list">
+                        @foreach($spotlightsParticipated as $spotlight)
+                            <li>
+                                <a href="{{ route('spotlights.show', $spotlight->id) }}">
+                                    {{ $spotlight->title }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @else
+                <div class="info-panel">
+                    <div class="info-panel__header">Spotlights</div>
+                    This user hasn't participated in any spotlights yet!
+                </div>
+            @endif
         </div>
-
-        @if (count($spotlightsParticipated) > 0)
-            <div class="info-panel">
-                <div class="info-panel__header">Spotlights ({{ count($spotlightsParticipated) }})</div>
-
-                <ul class="list">
-                    @foreach($spotlightsParticipated as $spotlight)
-                        <li>
-                            <a href="{{ route('spotlights.show', $spotlight->id) }}">
-                                {{ $spotlight->title }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        @else
-            <div class="info-panel">
-                <div class="info-panel__header">Spotlights</div>
-                This user hasn't participated in any spotlights yet!
-            </div>
-        @endif
 
         @if (Auth::user()->isAdminOrManager())
             <hr>

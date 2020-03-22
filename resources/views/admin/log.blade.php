@@ -8,7 +8,9 @@
         'sections' => ['Home', 'Manage', 'Log']
     ])
 
-        @include('components._header', [
+        @include('components._header-v2', [
+            'description' => 'we see everything',
+            'icon' => 'list',
             'title' => 'Log',
         ])
 

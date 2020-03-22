@@ -8,6 +8,11 @@
         'dark' => true,
         'sections' => ['Home', 'Manage', 'Manage application form']
     ])
+        @include('components._header-v2', [
+            'icon' => 'check',
+            'title' => 'Manage Application',
+        ])
+
         <form action="{{ route('admin.app.store-question') }}" method="POST">
             @csrf
 

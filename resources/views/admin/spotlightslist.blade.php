@@ -7,8 +7,9 @@
         'dark' => true,
         'sections' => ['Home', 'Manage', 'Manage spotlights'],
     ])
-        @include('components._header', [
-            'title' => 'Manage spotlights'
+        @include('components._header-v2', [
+            'icon' => 'star',
+            'title' => 'Manage Spotlights',
         ])
 
         <table class="table table-dark">

@@ -7,8 +7,9 @@
         'dark' => true,
         'sections' => ['Home', 'Manage', 'Manage users']
     ])
-        @include('components._header', [
-            'title' => 'Manage users',
+        @include('components._header-v2', [
+            'icon' => 'user',
+            'title' => 'Manage Users',
         ])
 
         <table class="table table-dark">

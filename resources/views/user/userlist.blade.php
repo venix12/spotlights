@@ -12,12 +12,14 @@
             'title' => 'User List',
         ])
 
-        @include('user._list', $membersArray)
+        <div class="dark-section dark-section--4">
+            @include('user._list', $membersArray)
 
-        <hr>
+            <hr>
 
-        @if(Auth::user()->isAdminOrManager())
-            @include('user._list', ['membersArray' => $moderationArray])
-        @endif
+            @if(Auth::user()->isAdminOrManager())
+                @include('user._list', ['membersArray' => $moderationArray])
+            @endif
+        </div>
     @endcomponent
 @endsection

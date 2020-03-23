@@ -9,8 +9,9 @@
         'sections' => ['Home', 'Spotlights']
     ])
         @include('components._header-v2', [
+            'description' => 'the real stuff happens here',
             'icon' => 'star',
-            'title' => 'Spotlights',
+            'title' => 'Spotlights Listing',
         ])
 
         <div class="dark-section dark-section--4 spotlights-listing">

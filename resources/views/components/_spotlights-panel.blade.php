@@ -23,13 +23,15 @@
 
 
 <a href="{{ route($route, $spotlight->id) }}" class="spotlights-panel {{ $additionalClass }}">
-    <div class="spotlights-panel__header">
-        {{ $spotlight->title }}
-    </div>
+    <div class="spotlights-panel__container">
+        <div>
+            <div class="spotlights-panel__header">
+                {{ $spotlight->title }}
+            </div>
 
-    <div class="spotlights-panel__bottom">
-        <div class="spotlights-panel__description">
-            {{ $spotlight->description }}
+            <div class="spotlights-panel__description">
+                {{ $spotlight->description }}
+            </div>
         </div>
 
         <div class="spotlights-panel__info-container">

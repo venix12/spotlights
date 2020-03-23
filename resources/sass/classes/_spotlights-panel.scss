@@ -6,9 +6,15 @@
     background-color: $dark-3;
     color: white;
     z-index: 0;
-    padding: 5px;
+    padding: 10px 10px 10px 5px;
     text-decoration: none !important;
+    transition: .1s ease-in;
     cursor: pointer;
+
+    &:hover {
+        padding-left: 10px;
+        background-color: $dark-2;
+    }
 
     &--green {
         @include generic-marker(green, 5px)
@@ -18,18 +24,18 @@
         @include generic-marker(red, 5px)
     }
 
-    &__bottom {
+    &__container {
         margin-top: -5px;
         display: flex;
         width: 100%;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-end;
     }
 
     &__description {
         font-size: $font-size-small-1;
-        // font-weight: 600;
         color: $dark-lightgray-1;
+        margin-bottom: -3px;
     }
 
     &__info-container {
@@ -39,7 +45,7 @@
     &__info {
         @include info-card-white-compact();
         background-color: white;
-        margin-left: 5px;
+        margin-left: 10px;
 
         &--created, &--released {
             @include generic-marker(green, 5px);

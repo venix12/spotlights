@@ -113,9 +113,18 @@ class SpotlightsNomination extends Model
         return $entry;
     }
 
-    public function getMetadata()
+    public function metadata()
     {
         return "{$this->beatmap_artist} - {$this->beatmap_title}";
+    }
+
+    /**
+     * Checks
+     */
+
+    public function isSpotlighted()
+    {
+        return $this->score >= $this->spotlights->threshold;
     }
 
     /**

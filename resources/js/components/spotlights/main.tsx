@@ -24,13 +24,15 @@ class Main extends React.Component<Props, State> {
 
         return (
             <div>
-                <NominateField
-                    nominateBeatmap={this.nominateBeatmap}
-                    spotlights={spotlights}
-                    statistics={statistics}
-                />
+                <div className="dark-section dark-section--3">
+                    <NominateField
+                        nominateBeatmap={this.nominateBeatmap}
+                        spotlights={spotlights}
+                        statistics={statistics}
+                    />
+                </div>
 
-                <div className="dark-section">
+                <div className="dark-section dark-section--4">
                     <div className="navigation-panels">
                         {nominations.map(nomination => {
                             return <NominationCard nomination={nomination} threshold={spotlights.threshold} key={nomination.id} />

@@ -3,7 +3,7 @@
 /**
  * bool $active
  * bool $required
- * enum $type ['checkbox', 'input', 'textarea']
+ * enum $type ['checkbox', 'input', 'multiple-choice', 'section', 'textarea']
  * int $char_limit
  * string $question
  */
@@ -20,6 +20,7 @@ class AppQuestion extends Model
     ];
 
     protected $fillable = [
+        'active',
         'char_limit',
         'question',
         'required',

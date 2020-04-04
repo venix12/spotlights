@@ -22,7 +22,12 @@
         }
 
         &--small {
-            font-size: .85rem;
+            font-size: $font-size-small-1;
+        }
+
+        &--tiny {
+            font-size: $font-size-small-1;
+            padding: 2px 5px;
         }
 
         &--top {

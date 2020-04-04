@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="dark-form__el">
-                        <div class="dark-form__label">characters</div>
+                        <div class="dark-form__label">char limit</div>
                         <input name="char_limit" type="text" class="dark-form__input dark-form__input--short" autocomplete="off" required>
                     </div>
 
@@ -54,6 +54,13 @@
                 <div class="info-panel__header">Active questions</div>
                 @foreach($questionsActive as $question)
                     {{$question->question}}
+                    <form action="{{ route('admin.app.delete-revert-question') }}" method="POST" style="display: inline-flex">
+                        @csrf
+                        <input type="hidden" name="question_id" value="{{ $question->id }}">
+                        <button type="submit" class="dark-form__button dark-form__button--left dark-form__button--tiny">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
+                    </form>
 
                     <ul>
                         <li>
@@ -81,6 +88,13 @@
                 <div class="info-panel__header">Deleted questions</div>
                 @foreach($questionsDeleted as $question)
                     {{$question->question}}
+                    <form action="{{ route('admin.app.delete-revert-question') }}" method="POST" style="display: inline-flex">
+                        @csrf
+                        <input type="hidden" name="question_id" value="{{ $question->id }}">
+                        <button type="submit" class="dark-form__button dark-form__button--left dark-form__button--tiny">
+                            <i class="fa fa-refresh"></i> Revert
+                        </button>
+                    </form>
 
                     <ul>
                         <li>

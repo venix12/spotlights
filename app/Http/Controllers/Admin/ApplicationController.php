@@ -12,6 +12,15 @@ class ApplicationController extends Controller
         $this->middleware('is_admin');
     }
 
+    public function deleteOrRevertQuestion()
+    {
+        $question = AppQuestion::find(request()->question_id);
+        $question->update(['active' => $question->active ? false : true]);
+
+        return redirect()->back()
+            ->with('success', 'Successfully changed a question!');
+    }
+
     public function index()
     {
         $questions = AppQuestion::all();

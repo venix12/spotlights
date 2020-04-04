@@ -37,19 +37,23 @@
 
         <div id="react--spotlights-main"></div>
 
-        @if (Auth::user()->isAdmin())
-            @include('spotlights.show.mapids')
-            @include('spotlights.show.threshold')
-        @endif
+        <div class="dark-section dark-section--3">
+            @if (Auth::user()->isAdmin())
+                @include('spotlights.show.mapids')
+                @include('spotlights.show.threshold')
+            @endif
+        </div>
 
-        @if (Auth::user()->isAdminOrManager())
-            <h5>Activity</h5>
-            <div class="card-body bg-dark">
-                @foreach (App\Group::byIdentifier('member')->members->where($spotlights->gamemode(), true) as $user)
-                    {{ $user->username }}: {{ $user->spotlightsActivity($spotlights->id) }} / {{ count($spotlights->nominations) }} <br>
-                @endforeach
+        <div class="dark-section dark-section--4">
+            <div class="info-panel">
+                <div class="info-panel__header">Activity</div>
+                @if (Auth::user()->isAdminOrManager())
+                    @foreach (App\Group::byIdentifier('member')->members->where($spotlights->gamemode(), true) as $user)
+                        {{ $user->username }}: {{ $user->spotlightsActivity($spotlights->id) }} / {{ count($spotlights->nominations) }} <br>
+                    @endforeach
+                @endif
             </div>
-        @endif
+        </div>
     @endcomponent
 @endsection
 
@@ -59,8 +63,6 @@
     </script>
 
     <script id="json-statistics">
-        {!!
-            json_encode($stats);
-        !!}
+        {!! json_encode($stats) !!}
     </script>
 @endsection

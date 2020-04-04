@@ -7,8 +7,9 @@
         'dark' => true,
         'sections' => ['Home']
     ])
-
-        <h3>Welcome to the spotlights, {{Auth::user()->username}}</h3>
-        there's nothing here at the moment...
+        <div class="dark-section dark-section--header-section">
+            <h3>Welcome to the spotlights, {{Auth::user()->username}}</h3>
+            there's nothing here at the moment...
+        </div>
     @endcomponent
 @endsection

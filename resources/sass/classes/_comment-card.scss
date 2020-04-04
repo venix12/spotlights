@@ -11,7 +11,7 @@
     }
 
     &--criticizer {
-        @include generic-marker( red, 5px);
+        @include generic-marker(red, 5px);
 
         .comment-card__header__dot::after {
             background-color: red;

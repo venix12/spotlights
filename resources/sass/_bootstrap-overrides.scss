@@ -1,3 +1,33 @@
 .bg-gray {
     background-color: $dark-3;
 }
+
+.container-main {
+    @media ($mobile) {
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+    }
+}
+
+.col-main {
+    @media ($mobile) {
+        flex: none;
+        padding: 0;
+    }
+}
+
+.tooltip {
+    &>.arrow::before {
+        border-top-color: $dark-5;
+    }
+
+    &.show {
+        opacity: 1;
+    }
+
+    &>.tooltip-inner {
+        background-color: $dark-5;
+        padding: 0 6px 3px; // font align
+    }
+}

@@ -13,20 +13,22 @@
             'title' => 'Management Panel',
         ])
 
-        @if (Auth::user()->isAdmin())
-            <div class="dark-section dark-section--4">
-                @foreach($adminSections as $section)
+        <div class="dark-section dark-section--4">
+            @if (Auth::user()->isAdmin())
+                <div class="info-panel">
+                    <div class="info-panel__header">Admin sections</div>
+                    @foreach($adminSections as $section)
+                        <a href="{{ route($section['route']) }}">{{$section['title']}}</a> <br>
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="info-panel">
+                <div class="info-panel__header">Manager sections</div>
+                @foreach($sections as $section)
                     <a href="{{ route($section['route']) }}">{{$section['title']}}</a> <br>
                 @endforeach
             </div>
-
-            <hr>
-        @endif
-
-        <div class="dark-section dark-section--4">
-            @foreach($sections as $section)
-                <a href="{{ route($section['route']) }}">{{$section['title']}}</a> <br>
-            @endforeach
         </div>
     @endcomponent
 @endsection

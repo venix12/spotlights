@@ -1,0 +1,40 @@
+.dark-section {
+    position: relative;
+    padding: 1.5rem;
+    background-color: $dark-2;
+
+    @media ($mobile) {
+        padding: 10px !important;
+    }
+
+    &--3 {
+        background-color: $dark-3;
+    }
+
+    &--4 {
+        background-color: $dark-4;
+
+        &:not(:last-of-type) {
+            margin-bottom: 5px;
+
+            &::after {
+                position: absolute;
+                content: '';
+                width: 100%;
+                height: 5px;
+                background-color: $dark-5;
+                left: 0;
+                bottom: -5px;
+            }
+        }
+    }
+
+    &--5 {
+        background-color: $dark-5;
+    }
+
+    &--header-section {
+        background-color: $dark-3;
+        padding: .75rem 1.5rem;
+    }
+}

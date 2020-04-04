@@ -8,6 +8,7 @@
     }
 
     $headerClass = 'title-section__header';
+
     if (in_array('marker', $modifiers)) {
         $headerClass .= ' title-section__header--marker';
     }

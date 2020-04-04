@@ -1,5 +1,5 @@
 @extends('layouts.app', [
-    'title' => $user->username."'s profile"
+    'title' => "{$user->username}'s profile"
 ])
 
 @section('content')
@@ -7,7 +7,7 @@
         'dark' => true,
         'sections' => ['Home', 'Users', $user->username],
     ])
-        <div class="dark-section dark-section--4">
+        <div class="dark-section dark-section--5">
             <div class="user-profile__top">
                 <img
                     src="https://a.ppy.sh/{{$user->osu_user_id}}"
@@ -31,8 +31,6 @@
                 </div>
             </div>
         </div>
-
-        <hr>
 
         <div class="dark-section dark-section--4">
             <div class="info-panel">
@@ -63,36 +61,37 @@
             @endif
         </div>
 
-        @if (Auth::user()->isAdminOrManager())
-            <hr>
+        <div class="dark-section dark-section--4">
+            @if (Auth::user()->isAdminOrManager())
+                @php
+                    $activeValue = $user->active ? 'deactivate' : 'activate';
+                @endphp
 
-            @php
-                $activeValue = $user->active ? 'deactivate' : 'activate';
-            @endphp
+                <form action={{ route('admin.'.$activeValue.'User') }} method="POST">
+                    @csrf
+                    <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
+                    <input
+                        onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')"
+                        class="btn btn-dark btn-sm"
+                        type="submit"
+                        value={{ucfirst($activeValue)}}
+                        style="margin-bottom: 5px"
+                    >
+                </form>
 
-            <form action={{ route('admin.'.$activeValue.'User') }} method="POST">
-                @csrf
-                <input type="hidden" id="userID" name="userID" value="{{$user->id}}">
-                <input
-                    onclick="return confirm('Are you sure you want to {{$activeValue}} {{$user->username}}?')"
-                    class="btn btn-dark btn-sm"
-                    type="submit"
-                    value={{ucfirst($activeValue)}}
-                >
-            </form>
-
-            @if(!$user->has_logged_in)
-                <span class="text-lightgray medium-font">This user hasn't logged in yet!</span>
+                @if(!$user->has_logged_in)
+                    <span class="text-lightgray medium-font">This user hasn't logged in yet!</span>
+                @endif
             @endif
-        @endif
 
-        @if (Auth::user()->isAdmin() && $user->groups->count() > 0)
-            <div class="medium-font">
-                this user belongs to usergroups: <br>
-                @foreach ($user->groups as $group)
-                    - <a href="{{ route('admin.user-groups.show', $group->id)}}">{{ $group->identifier }}</a><br>
-                @endforeach
-            </div>
-        @endif
+            @if (Auth::user()->isAdmin() && $user->groups->count() > 0)
+                <div class="medium-font">
+                    this user belongs to usergroups: <br>
+                    @foreach ($user->groups as $group)
+                        - <a href="{{ route('admin.user-groups.show', $group->id)}}">{{ $group->identifier }}</a><br>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     @endcomponent
 @endsection

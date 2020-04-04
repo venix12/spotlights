@@ -12,88 +12,91 @@
             'icon' => 'check',
             'title' => 'Manage Application',
         ])
+        <div class="dark-section dark-section--3">
+            <form action="{{ route('admin.app.store-question') }}" method="POST">
+                @csrf
 
-        <form action="{{ route('admin.app.store-question') }}" method="POST">
-            @csrf
+                <div class="dark-form">
+                    <div class="dark-form__el">
+                        <div class="dark-form__label">question</div>
+                        <input name="question" type="text" class="dark-form__input dark-form__input--long" autocomplete="off" required>
+                    </div>
 
-            <div class="dark-form">
-                <div class="dark-form__el">
-                    <div class="dark-form__label">question</div>
-                    <input name="question" type="text" class="dark-form__input dark-form__input--long" autocomplete="off" required>
+                    <div class="dark-form__el">
+                        <div class="dark-form__label">characters</div>
+                        <input name="char_limit" type="text" class="dark-form__input dark-form__input--short" autocomplete="off" required>
+                    </div>
+
+                    <div class="dark-form__el">
+                        <div class="dark-form__label">type</div>
+                        <select name="type" class="dark-form__select">
+                            <option>textarea</option>
+                            <option>checkbox</option>
+                            <option>input</option>
+                        </select>
+                    </div>
+
+                    <div class="dark-form__el dark-form__el--offset">
+                        <input type="checkbox" name="required"> required?
+                    </div>
+
+                    <div class="dark-form__el dark-form__el--offset" style="margin-bottom: 0">
+                        <button type="submit" class="dark-form__button">
+                            <i class="fa fa-check"></i> Create
+                        </button>
+                    </div>
                 </div>
-
-                <div class="dark-form__el">
-                    <div class="dark-form__label">characters</div>
-                    <input name="char_limit" type="text" class="dark-form__input dark-form__input--short" autocomplete="off" required>
-                </div>
-
-                <div class="dark-form__el">
-                    <div class="dark-form__label">type</div>
-                    <select name="type" class="dark-form__select">
-                        <option>textarea</option>
-                        <option>checkbox</option>
-                        <option>input</option>
-                    </select>
-                </div>
-
-                <div class="dark-form__el dark-form__el--offset">
-                    <input type="checkbox" name="required"> required?
-                </div>
-
-                <div class="dark-form__el dark-form__el--offset">
-                    <button type="submit" class="dark-form__button">
-                        <i class="fa fa-check"></i> Create
-                    </button>
-                </div>
-            </div>
-        </form>
-
-        <h5>Active questions</h5>
-        <div class="dark-section">
-            @foreach($questionsActive as $question)
-                {{$question->question}}
-
-                <ul>
-                    <li>
-                        <span class="text-lightgray">
-                            type: {{$question->type}}
-                        </span>
-                    </li>
-
-                    <li>
-                        <span class="text-lightgray">
-                            required: {{ $question->required ? 'true' : 'false' }}
-                        </span>
-                    </li>
-
-                    <li>
-                        <span class="text-lightgray">
-                            character limit: {{$question->char_limit}}
-                        </span>
-                    </li>
-                </ul>
-            @endforeach
+            </form>
         </div>
 
-        <h5>Deleted questions</h5>
-        <div class="dark-section">
-            @foreach($questionsDeleted as $question)
-                {{$question->question}}
+        <div class="dark-section dark-section--4">
+            <div class="info-panel">
+                <div class="info-panel__header">Active questions</div>
+                @foreach($questionsActive as $question)
+                    {{$question->question}}
 
-                <ul>
-                    <li>
-                        <span class="text-lightgray">
-                            required: {{ $question->required ? 'true' : 'false' }}
-                        </span>
-                    </li>
+                    <ul>
+                        <li>
+                            <span class="text-lightgray">
+                                type: {{$question->type}}
+                            </span>
+                        </li>
 
-                    <li>
-                        <span class="text-lightgray">
-                            character limit: {{$question->char_limit}}
-                        </span>
-                    </li>
-                </ul>
-            @endforeach
+                        <li>
+                            <span class="text-lightgray">
+                                required: {{ $question->required ? 'true' : 'false' }}
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="text-lightgray">
+                                character limit: {{$question->char_limit}}
+                            </span>
+                        </li>
+                    </ul>
+                @endforeach
+            </div>
+
+            <div class="info-panel">
+                <div class="info-panel__header">Deleted questions</div>
+                @foreach($questionsDeleted as $question)
+                    {{$question->question}}
+
+                    <ul>
+                        <li>
+                            <span class="text-lightgray">
+                                required: {{ $question->required ? 'true' : 'false' }}
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="text-lightgray">
+                                character limit: {{$question->char_limit}}
+                            </span>
+                        </li>
+                    </ul>
+                @endforeach
+            </div>
         </div>
     @endcomponent
 @endsection

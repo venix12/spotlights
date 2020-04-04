@@ -2,11 +2,15 @@
     display: flex;
     width: 100%;
     justify-content: flex-end;
-    margin-bottom: 10px;
+    color: $dark-lightgray;
 
     &__el {
         padding: 2px 5px;
         cursor: pointer;
+
+        &:hover {
+            color: $dark-lightgray-1;
+        }
 
         &:not(:first-of-type) {
             margin-left: 10px;
@@ -15,7 +19,7 @@
         &--current {
             font-weight: 600;
             border-radius: 5px;
-            background-color: white;
+            background-color: $dark-lightgray-1;
             color: $dark-1;
         }
     }

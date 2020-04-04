@@ -14,12 +14,12 @@
 
         <div class="dark-section dark-section--4">
             @include('user._list', $membersArray)
-
-            <hr>
-
-            @if(Auth::user()->isAdminOrManager())
-                @include('user._list', ['membersArray' => $moderationArray])
-            @endif
         </div>
+
+        @if(Auth::user()->isAdminOrManager())
+            <div class="dark-section dark-section--4">
+                @include('user._list', ['membersArray' => $moderationArray])
+            </div>
+        @endif
     @endcomponent
 @endsection

@@ -6,6 +6,7 @@
         height: 100vh;
         width: 100%;
         background: rgba(0,0,0,.6);
+        z-index: 1;
     }
 
     &__card {
@@ -19,6 +20,7 @@
         color: white;
         overflow: hidden;
         max-height: calc(100% - 16vh);
+        z-index: 2;
     }
 
     &__content {

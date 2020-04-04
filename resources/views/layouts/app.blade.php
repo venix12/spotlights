@@ -52,7 +52,7 @@
         @include('layouts.navbar')
 
         <main class="py-4">
-            <div class="container">
+            <div class="container container-main">
                 @yield('content')
             </div>
         </main>

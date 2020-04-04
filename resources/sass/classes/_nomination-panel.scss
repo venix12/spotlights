@@ -4,12 +4,12 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    border-radius: 10px;
+    border-radius: $border-radius-card;
     padding: 5px;
-    border: 2px solid transparent;
     height: 70px;
+    border: 2px solid transparent;
 
-    &:focus, &:hover {
+    &:hover {
         border-color: white;
     }
 
@@ -24,25 +24,19 @@
     }
 
     &__background-container {
+        @include full-size();
         border-radius: 10px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
     }
 
     &__background-shadow {
+        @include full-size();
         border-radius: 10px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: linear-gradient(90deg, $dark-4 20%, transparent 70%, transparent);
+        background-image: linear-gradient(90deg, $dark-5 20%, transparent 70%, transparent);
     }
 
     &__collapse {
+        @include generic-box-shadow(0, true, 50px);
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -52,25 +46,6 @@
         color: $dark-2;
         border-radius: 50px;
         cursor: pointer;
-    }
-
-    &__el {
-        @include generic-box-shadow(0, true);
-
-        position: relative;
-        z-index: 0;
-
-        &--5::after {
-            border-radius: 5px;
-        }
-
-        &--10::after {
-            border-radius: 10px;
-        }
-
-        &--circle::after {
-            border-radius: 50px;
-        }
     }
 
     &__expand {
@@ -84,17 +59,19 @@
     }
 
     &__info {
-        font-weight: 600;
-        padding: 2px 5px;
-        color: $dark-2;
-        background-color: white;
-        border-radius: 5px;
-        font-size: .85rem;
+        @include generic-badge();
+        @include generic-box-shadow(0, false, 5px);
         max-height: 24px;
+        position: relative;
+        z-index: 0;
 
         &--inverted {
             color: white;
             background-color: $dark-2;
+
+            a, a:focus, a:hover {
+                color: white;
+            }
         }
 
         &--left {
@@ -123,9 +100,15 @@
         border-radius: 10px;
         background-color: $dark-2;
         margin-right: 5px;
+        position: relative;
 
         &--spotlighted {
-            border: 4px dodgerblue solid;
+            &::before {
+                @include full-size();
+                content: '';
+                border-radius: 5px;
+                box-shadow: inset 0 0 0 4px dodgerblue;
+            }
         }
     }
 
@@ -134,6 +117,8 @@
     }
 
     &__vote-info {
+        @include generic-box-shadow(0, false, 5px);
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -144,5 +129,7 @@
         color: $dark-2;
         border-radius: 5px;
         line-height: 8px;
+        position: relative;
+        z-index: 0;
     }
 }

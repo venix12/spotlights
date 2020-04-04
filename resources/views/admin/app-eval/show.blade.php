@@ -8,16 +8,9 @@
         'sections' => ['Home', 'Manage', 'Application Evaluation', $cycle->name],
         'size' => 12,
     ])
-        @include('components._header', [
-            'description' => $cycle->name,
-            'modifiers' => [
-                $cycle->active ? 'marker' : 'marker-red',
-                'previous' => [
-                    'route' => 'admin.app-eval',
-                    'section' => 'application evaluation',
-                ],
-            ],
-            'title' => 'Application Cycle',
+        @include('components._header-v2', [
+            'icon' => 'check',
+            'title' => 'Application Evaluation'
         ])
 
         <div id="react--app-eval"></div>

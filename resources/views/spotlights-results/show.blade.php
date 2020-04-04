@@ -8,38 +8,15 @@
         'size' => 11,
         'sections' => ['home', 'spotlights results', $spotlights->title],
     ])
-        @include('components._header', [
-            'title' => $spotlights->title,
+        @include('components._header-v2', [
             'description' => $spotlights->description,
-            'modifiers' => [
-                'marker',
-                'previous' => [
-                    'route' => 'spotlights-results',
-                    'section' => 'spotlights results listing',
-                ],
-                'tags' => [
-                    "Threshold: {$spotlights->threshold}",
-                    'Released at ' . format_date($spotlights->released_at),
-                ],
-            ]
+            'icon' => 'star',
+            'title' => "{$spotlights->title}: results",
         ])
 
-        <div class="mapset-cards">
+        <div class="dark-section dark-section--4 mapset-cards">
             @foreach($nominations as $nomination)
-                @include('components.mapset-card_compact', [
-                    'beatmap_id' => $nomination->beatmap_id,
-                    'criticizers' => count($nomination->votes->where('value', '===', -1)),
-                    'creator' => $nomination->beatmap_creator,
-                    'creator_id' => $nomination->beatmap_creator_osu_id,
-                    'metadata' => $nomination->getMetadata(),
-                    'nominator' => $users->find($nomination->user_id)->username,
-                    'nominator_osu_id' => $users->find($nomination->user_id)->osu_user_id,
-                    'participants' => count($nomination->votes) + 1,
-                    'score' => $nomination->score,
-                    'score_color' => $nomination->getScoreColor(),
-                    'spotlighted' => $spotlights->threshold ? $nomination->score >= $spotlights->threshold : false,
-                    'supporters' => count($nomination->votes->where('value', '===', 1)),
-                ])
+                @include('spotlights-results._card', $nomination)
             @endforeach
         </div>
     @endcomponent

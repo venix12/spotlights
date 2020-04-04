@@ -1,61 +1,119 @@
 .mapset-card {
-    display: flex;
-    justify-content: center;
+    @include generic-box-shadow(0, false, $border-radius-card);
+    @include border-hover($border-radius-card);
 
-    &__badge {
-        background-color: $dark-2;
-        color: $lightgray;
-        padding: 5px 8px;
-        border-radius: 10px;
-        font-size: .85rem;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
+    // display: flex;
+    position: relative;
+    width: 100%;
+    height: 125px;
+    padding: 10px;
+    border-radius: $border-radius-card;
+    z-index: 0;
 
-        &--info {
-            max-width: 220px;
-        }
-
-        &--metadata {
-            width: 363px;
-            text-align: center;
-        }
-
-        &--score {
-            font-weight: 600;
-            width: 40px;
-            text-align: center;
-            margin-right: 8px;
-            user-select: none;
-        }
-    }
-
-    &__border {
-        border: 4px solid $dark-2;
-    }
-
-    &__card {
-        border-radius: 15px;
-        width: 100%;
-        height: 125px;
-        padding: 15px;
+    &__background {
+        @include full-size();
+        border-radius: $border-radius-card;
+        opacity: .8;
     }
 
     &__info {
-        display: flex;
-        justify-content: space-between;
-    }
+        @include generic-badge();
+        @include generic-box-shadow(0, false, 5px);
 
-    &__link {
-        text-decoration: none;
-        color: $lightgray;
+        position: relative;
+        width: max-content;
+        height: fit-content;
+        max-width: 100%;
+        z-index: 3;
 
-        &:hover {
+        &--metadata {
+            margin-bottom: 5px;
+        }
+
+        &--nominator {
             color: white;
+            background-color: $dark-2;
+            margin-left: 5px;
         }
     }
 
-    &__metadata {
+    &__info-container {
         display: flex;
+        margin-bottom: 5px;
+    }
+
+    &__info-second-row {
+        display: flex;
+    }
+
+    &__info-row {
+        max-width: calc(100% - 58px);
+        margin-left: 5px;
+    }
+
+    &__score {
+        @include generic-box-shadow(0, false, 5px);
+
+        width: 53px;
+        height: 53px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: $font-size-header-3;
+        border-radius: 5px;
+        background-color: $dark-2;
+        position: relative;
+        z-index: 1;
+
+        &--spotlighted {
+            &::before {
+                @include full-size();
+                content: '';
+                border-radius: 5px;
+                box-shadow: inset 0 0 0 4px $blue;
+            }
+        }
+    }
+
+    &__vote-info-container {
+        display: flex;
+        position: absolute;
+        bottom: 10px;
+        z-index: 2;
+    }
+
+    &__vote-info {
+        @include info-card-white-compact();
+        width: fit-content;
+        z-index: 2;
+
+        &:not(:first-of-type) {
+            margin-left: 5px;
+        }
+
+        &--criticizers {
+            @include generic-marker(red, 5px);
+            color: red;
+        }
+
+        &--participants {
+            @include generic-marker($dark-2, 5px);
+            color: $dark-2;
+        }
+
+        &--supporters {
+            @include generic-marker(green, 5px);
+            color: green;
+        }
+    }
+
+    &__vote-icon {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-bottom: 2px;
+        margin-right: 5px;
+        z-index: 2;
     }
 }

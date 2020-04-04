@@ -1,0 +1,16 @@
+.card-layout {
+    color: white;
+
+    a, a:focus, a:hover {
+        color: white;
+    }
+
+    &__content {
+        background-color: $dark-3;
+    }
+
+    &__header {
+        background-color: $dark-2;
+        padding: .75rem 1.25rem;
+    }
+}

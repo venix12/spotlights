@@ -1,32 +1,15 @@
 @php
-    if(!isset($dark))
-    {
-        $dark = false;
-    }
-
     if(!isset($size))
     {
         $size = 8;
     }
-
-    $dark ? $bodyClass = 'bg-gray text-white' : $bodyClass = '';
-    $dark ? $borderStyle = 'border: none' : $borderStyle = '';
-    $dark ? $headerClass = 'bg-dark text-white' : $headerClass = '';
 @endphp
 
-@if($dark === true)
-    <style>
-    a, a:hover, a:focus {
-        color: white;
-    }
-    </style>
-@endif
-
-<div class="container">
+<div class="container container-main">
     <div class="row justify-content-center">
-        <div class="col-md-{{$size}}">
-            <div class="card" style="{{$borderStyle}}">
-                <div class="card-header {{$headerClass}}">
+        <div class="col-md-{{$size}} col-main">
+            <div class="card-layout">
+                <div class="card-layout__header">
                     <div class="sections-header">
                         @foreach($sections as $section)
                             <span class="sections-header__el">
@@ -35,7 +18,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="card-body {{$bodyClass}}">
+                <div class="card-layout__content">
                     @include('layouts.session')
 
                     {{$slot}}

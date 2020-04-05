@@ -53,7 +53,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
 
     Route::group(['prefix' => 'app'], function () {
-        Route::get('/', 'ApplicationController@index')->name('admin.app');
+        Route::get('/', 'ApplicationController@create')->name('admin.app');
+        Route::post('/{direction}', 'ApplicationController@moveAround')->name('admin.app.move-around');
         Route::post('/delete-revert-question', 'ApplicationController@deleteOrRevertQuestion')->name('admin.app.delete-revert-question');
         Route::post('/store-question', 'ApplicationController@storeQuestion')->name('admin.app.store-question');
     });

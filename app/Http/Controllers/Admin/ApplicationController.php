@@ -12,6 +12,17 @@ class ApplicationController extends Controller
         $this->middleware('is_admin');
     }
 
+    public function create()
+    {
+        $questions = AppQuestion::orderBy('order')->get();
+        $questionsActive = $questions->where('active', true);
+        $questionsDeleted = $questions->where('active', false);
+
+        return view('admin.manage-app.create')
+            ->with('questionsActive', $questionsActive)
+            ->with('questionsDeleted', $questionsDeleted);
+    }
+
     public function deleteOrRevertQuestion()
     {
         $question = AppQuestion::find(request()->question_id);
@@ -21,21 +32,33 @@ class ApplicationController extends Controller
             ->with('success', 'Successfully changed a question!');
     }
 
-    public function index()
-    {
-        $questions = AppQuestion::all();
-        $questionsActive = $questions->where('active', true);
-        $questionsDeleted = $questions->where('active', false);
+    public function moveAround($direction) {
+        $selectedQuestion = AppQuestion::find(request()->id);
 
-        return view('admin.manage-app')
-            ->with('questionsActive', $questionsActive)
-            ->with('questionsDeleted', $questionsDeleted);
+        $secondQuestion = AppQuestion::active()
+            ->where('order', $direction === 'up' ? '<' : '>', $selectedQuestion->order)
+            ->orderBy('order', $direction === 'up' ? 'desc' : 'asc')
+            ->first();
+
+        $newOrder = $secondQuestion->order;
+
+        $secondQuestion->update(['order' => $selectedQuestion->order]);
+        $selectedQuestion->update(['order' => $newOrder]);
+
+        return redirect()->back()
+            ->with('success', 'Successfully changed the order!');
     }
 
     public function storeQuestion()
     {
+        if (AppQuestion::where('order', request()->order_value)->exists() !== false) {
+            return redirect()->back()
+                ->with('error', 'A question with the same order value already exists!');
+        }
+
         AppQuestion::create([
             'char_limit' => request()->char_limit,
+            'order' => request()->order_value,
             'question' => request()->question,
             'required' => request()->required ? true : false,
             'type' => request()->type,

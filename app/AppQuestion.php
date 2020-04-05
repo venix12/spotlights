@@ -6,6 +6,7 @@
  * enum $type ['checkbox', 'input', 'multiple-choice', 'section', 'textarea']
  * int $char_limit
  * int $order
+ * string $description
  * string $question
  */
 
@@ -23,6 +24,7 @@ class AppQuestion extends Model
     protected $fillable = [
         'active',
         'char_limit',
+        'description',
         'order',
         'question',
         'required',

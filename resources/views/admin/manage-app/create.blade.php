@@ -22,6 +22,11 @@
                         <input name="question" type="text" class="dark-form__input dark-form__input--long" autocomplete="off" required>
                     </div>
 
+                    <div class="dark-form__el">
+                        <div class="dark-form__label">description</div>
+                        <input name="description" type="text" class="dark-form__input dark-form__input--long" autocomplete="off" placeholder="leave empty if no description">
+                    </div>
+
                     <div class="dark-form__el" id="charLimitField">
                         <div class="dark-form__label">char limit</div>
                         <input name="char_limit" type="text" class="dark-form__input dark-form__input--short" autocomplete="off" required>

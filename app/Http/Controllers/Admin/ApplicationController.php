@@ -58,6 +58,7 @@ class ApplicationController extends Controller
 
         AppQuestion::create([
             'char_limit' => request()->char_limit,
+            'description' => request()->description,
             'order' => request()->order_value,
             'question' => request()->question,
             'required' => request()->required ? true : false,

@@ -38,6 +38,12 @@
         <ul>
             <li>
                 <span class="text-lightgray">
+                    description: {{ $question->description }}
+                </span>
+            </li>
+
+            <li>
+                <span class="text-lightgray">
                     type: {{ $question->type }}
                 </span>
             </li>

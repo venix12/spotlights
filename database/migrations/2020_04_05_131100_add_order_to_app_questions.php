@@ -14,7 +14,7 @@ class AddOrderToAppQuestions extends Migration
     public function up()
     {
         Schema::table('app_questions', function (Blueprint $table) {
-            $table->integer('order');
+            $table->integer('order')->default(0);
         });
     }
 

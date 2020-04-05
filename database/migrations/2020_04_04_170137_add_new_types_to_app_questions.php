@@ -14,7 +14,7 @@ class AddNewTypesToAppQuestions extends Migration
     public function up()
     {
         Schema::table('app_questions', function (Blueprint $table) {
-            $table->enum('type', ['checkbox', 'input', 'section', 'textarea'])->default('textarea')->change();
+            $table->string('type')->default('textarea')->change();
         });
     }
 

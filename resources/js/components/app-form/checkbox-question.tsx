@@ -10,7 +10,7 @@ class CheckboxQuestion extends React.Component<Props> {
     handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { question } = this.props;
 
-        if (question.relation === 'parent') {
+        if (question.relation === 'parent' && question.children) {
             this.props.displayOrHideChildren(question, event.target.value);
         }
 

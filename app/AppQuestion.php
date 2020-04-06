@@ -47,7 +47,7 @@ class AppQuestion extends Model
     }
 
     public function children() {
-        return $this->hasMany(static::class, 'parent_id');
+        return $this->hasMany(static::class, 'parent_id')->where('active', true);
     }
 
     public function parent() {

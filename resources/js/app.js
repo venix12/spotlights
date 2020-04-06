@@ -14,4 +14,5 @@ require('./bootstrap');
  */
 
 require('./components/app-eval');
+require('./components/app-form/main');
 require('./components/spotlights/main');

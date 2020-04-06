@@ -39,6 +39,18 @@ interface JQuery {
     tooltip(): void,
 }
 
+interface Question {
+    char_limit: number,
+    children?: Question[],
+    description?: string,
+    id: number,
+    order: number,
+    question: string,
+    required: boolean,
+    relation: 'alone' | 'parent' | 'child',
+    type: 'checkbox' | 'input' | 'section' | 'textarea',
+}
+
 interface Spotlights {
     id: number,
     nominations: Nomination[],

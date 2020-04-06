@@ -92,6 +92,24 @@
     z-index: 0;
 }
 
+@mixin margin-modifiers {
+    &--bottom {
+        margin-bottom: 10px;
+    }
+
+    &--left {
+        margin-left: 10px;
+    }
+
+    &--right {
+        margin-right: 10px;
+    }
+
+    &--top {
+        margin-top: 10px;
+    }
+}
+
 @mixin text-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;

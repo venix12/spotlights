@@ -13,10 +13,6 @@
             margin-left: 10px;
         }
 
-        &--left {
-            margin-left: 10px;
-        }
-
         &--radius-square {
             border-radius: 5px;
         }
@@ -30,13 +26,11 @@
             padding: 2px 5px;
         }
 
-        &--top {
-            margin-top: 10px;
-        }
-
         &--top-rem {
             margin-top: 1rem;
         }
+
+        @include margin-modifiers();
     }
 
     &__el {
@@ -78,6 +72,8 @@
         &--short {
             width: 100px;
         }
+
+        @include margin-modifiers();
     }
 
     &__label {
@@ -97,6 +93,8 @@
         background-color: $dark-2;
         color: white;
         outline: none;
+
+        @include margin-modifiers();
     }
 
     &__textarea {

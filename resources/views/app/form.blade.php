@@ -7,93 +7,33 @@
         'dark' => true,
         'sections' => ['Home', 'Application form'],
     ])
-        @include('components._header', [
+        @include('components._header-v2', [
+            'icon' => 'users',
             'title' => 'Application to the osu! Spotlights Team'
         ])
 
-        @if(App\AppCycle::isActive())
-            <form action="{{ route('app.store') }}" method="POST">
-                @csrf
-
-                @foreach($questions as $question)
-
-                    @php
-                        $rowCount = round($question->char_limit / 100) + 2;
-                    @endphp
-
-                    @if($question->type === 'checkbox')
-                        <div class="text-center">
-                            <input type="hidden" name="{{$question->id}}" value="false">
-                            <input type="checkbox" name="{{$question->id}}" value="true"> {{$question->question}}
-                        </div>
-                    @endif
-
-                    @if($question->type === 'input')
-                        <div class="text-center">
-                            {{$question->question}}
-                            <input
-                                name="{{$question->id}}"
-                                type="text"
-                                class="dark-form__input dark-form__input--short"
-                                autocomplete="off"
-                                {!! $question->required ? 'required' : '' !!}
-                            >
-                        </div>
-                    @endif
-
-                    @if($question->type === 'textarea')
-                        <div class="card-body bg-dark">
-                            <h4>{{$question->question}} {!! $question->required ? '' : '<span class="text-muted">(optional)</span>' !!}</h4>
-
-                            <div class="textarea-border">
-                                <textarea class="textarea-invisible"
-                                    id="{{$question->id}}"
-                                    name="{{$question->id}}"
-                                    oninput="countChars(this.id, this.value.length);"
-                                    maxlength={{$question->char_limit}}
-                                    rows={{$rowCount}}
-                                    {!! $question->required ? 'required' : '' !!}
-                                ></textarea>
-
-                                <div class="d-flex justify-content-end">
-                                    <div class="title-section__info">
-                                        <span id="{{$question->id}}-counter">0</span>
-                                        <span>&nbsp;/ {{$question->char_limit}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    {!! $loop->last ? '' : '<br>' !!}
-                @endforeach
-                <hr>
-
-                <div class="text-center">
-                    @if(Auth::check() && !Auth::user()->isMember())
-                        @if (count($availableModes) > 0)
-                            gamemode <select name="gamemode" class="dark-form__select">
-                                @foreach ($availableModes as $mode)
-                                    <option value="{{ $mode }}">{{ gamemode($mode) }}</option>
-                                @endforeach
-                            </select> <br>
-
-                            <button type="submit" class="dark-form__button dark-form__button--top-rem flex-centre">
-                                <i class="fa fa-user"></i> Apply now!
-                            </button>
-                        @else
-                            <span class="text-lightgray">you have applied for all gamemodes already...</span>
-                        @endif
-                    @else
-                        <span class="text-lightgray">you are already a member!</span>
-                    @endif <br>
+        @if(App\AppCycle::isActive() || Auth::user()->isAdmin())
+            @if (!App\AppCycle::isActive() && Auth::user()->isAdmin())
+                <div class="dark-section dark-section--2 d-flex justify-content-center text-lightgray">
+                    there's no active app cycle at the moment - only admins can see this
                 </div>
-            </form>
+            @endif
+
+            <div id="react--app-form"></div>
         @else
-            <div class="d-flex justify-content-center text-lightgray">
+            <div class="dark-section dark-section--3 d-flex justify-content-center text-lightgray">
                 there's no active application cycle at the moment!
             </div>
         @endif
     @endcomponent
 @endsection
 
+@section('script')
+    <script id="json-modes">
+        {!! json_encode($availableModes) !!}
+    </script>
+
+    <script id="json-questions">
+        {!! json_encode($questionsCollection) !!}
+    </script>
+@endsection

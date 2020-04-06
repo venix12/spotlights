@@ -2,7 +2,7 @@
     <div class="info-panel__header">{{ $section }}</div>
     @foreach($questions as $question)
         <div class="d-inline-flex">
-            {{ $question->question }}
+            ({{ $question->id }}) {{ $question->question }}
 
             @if ($section === 'Active questions')
                 @if (!$loop->first)
@@ -36,11 +36,21 @@
         </div>
 
         <ul>
-            <li>
-                <span class="text-lightgray">
-                    description: {{ $question->description }}
-                </span>
-            </li>
+            @if ($question->parent_id)
+                <li>
+                    <span class="text-lightgray">
+                        parent: {{ $question->parent->question }}
+                    </span>
+                </li>
+            @endif
+
+            @if ($question->type === 'section')
+                <li>
+                    <span class="text-lightgray">
+                        description: {{ $question->description }}
+                    </span>
+                </li>
+            @endif
 
             <li>
                 <span class="text-lightgray">
@@ -54,12 +64,13 @@
                 </span>
             </li>
 
-            <li>
-                <span class="text-lightgray">
-                    character limit: {{ $question->char_limit }}
-                </span>
-            </li>
-
+            @if ($question->type === 'textarea')
+                <li>
+                    <span class="text-lightgray">
+                        character limit: {{ $question->char_limit }}
+                    </span>
+                </li>
+            @endif
 
             <li>
                 <span class="text-lightgray">

@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from '../../helpers/render';
 import { classModified } from '../../helpers/helpers';
 import Axios from 'axios';
 import { LoadingSpinner } from '../loading-spinner';

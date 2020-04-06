@@ -19,12 +19,17 @@ class ApplicationController extends Controller
 
     public function create()
     {
-        $questions = AppQuestion::active()->get();
+        $questions = AppQuestion::active()
+            ->with('children')
+            ->orderBy('order')
+            ->get();
+
+        $questionsCollection = fractal_transform($questions, 'AppQuestionTransformer');
 
         $availableModes = auth()->user()->availableAppModes();
 
         return view('app.form')
-            ->with('questions', $questions)
+            ->with('questionsCollection', $questionsCollection)
             ->with('availableModes', $availableModes);
     }
 
@@ -35,50 +40,42 @@ class ApplicationController extends Controller
             return redirect()->back();
         }
 
-        $fields = request()->all();
+        $gamemode = request()->gamemode;
 
-        if (auth()->user()->isApplying($fields['gamemode']))
+        if (auth()->user()->isApplying($gamemode))
         {
-            return redirect()->back()
-                ->with('error', 'You\'ve applied for this gamemode in this cycle already!');
+            return json_error('You\'ve applied for this gamemode in this cycle already!');
         }
 
         $app = Application::create([
             'cycle_id' => AppCycle::current()->id,
-            'gamemode' => $fields['gamemode'],
-            'user_id' => auth()->user()->id,
+            'gamemode' => $gamemode,
+            'user_id' => auth()->id(),
         ]);
 
-        $questionIds = AppQuestion::active()->pluck('id');
+        $questionIds = AppQuestion::active()->pluck('id')->toArray();
 
-        foreach ($fields as $key => $value)
-        {
-            if (in_array($key, $questionIds)) {
-                $question = AppQuestion::find($key);
-
-                if ($question->required === true && $value === null) {
-                    return redirect()->back()
-                        ->with('error', 'You have to fill all of the required fields!');
+        foreach (request()->answers as $answer) {
+            if (in_array($answer['id'], $questionIds)) {
+                if ($answer['answer'] === null) {
+                    return json_error('You have to fill all of the required fields!');
                 }
 
-                if ($value !== null) {
+                if ($answer['answer'] !== null) {
                     AppAnswer::create([
-                        'answer' => $value,
+                        'answer' => $answer['answer'],
                         'app_id' => $app->id,
-                        'question_id' => $key,
+                        'question_id' => $answer['id'],
                     ]);
                 }
             }
         }
 
         UserGroup::create([
-            'group_id' => Group::byIdentifier("applicant_{$fields['gamemode']}")->id,
+            'group_id' => Group::byIdentifier("applicant_{$gamemode}")->id,
             'user_id' => auth()->id(),
         ]);
 
-        Event::log('Applied for gamemode ' . gamemode($fields['gamemode']));
-
-        return redirect()->back()
-            ->with('success', 'Successfully submitted an application!');
+        Event::log('Applied for gamemode ' . gamemode($gamemode));
     }
 }

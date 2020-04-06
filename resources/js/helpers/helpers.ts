@@ -8,6 +8,16 @@ export const classModified = (className: string, modidifers: string[]) => {
     return finalClass;
 }
 
+export const gamemode = (mode: string): string => {
+    let formattedGamemode;
+
+    mode === 'osu'
+        ? formattedGamemode = 'osu!'
+        : formattedGamemode = `osu!${mode}`;
+
+    return formattedGamemode;
+}
+
 export const getElAttribute = (id: string, attribute: string) => {
     const el = document.getElementById(id) as HTMLElement;
     const attr = el.getAttribute(attribute) ?? null;

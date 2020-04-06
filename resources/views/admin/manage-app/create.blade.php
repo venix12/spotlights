@@ -33,8 +33,17 @@
                     </div>
 
                     <div class="dark-form__el" id="charLimitField">
-                        <div class="dark-form__label" title="position of question, can't be the same for two questions">order</div>
-                        <input name="order_value" type="text" class="dark-form__input dark-form__input--short" autocomplete="off" required>
+                        <div class="dark-form__label">parent id</div>
+                        <input name="parent_id" type="text" class="dark-form__input dark-form__input--short" autocomplete="off" placeholder="only if child">
+                    </div>
+
+                    <div class="dark-form__el">
+                        <div class="dark-form__label">relation</div>
+                        <select name="relation" id="typeField" class="dark-form__select">
+                            <option value="0">alone</option>
+                            <option value="1">parent</option>
+                            <option value="2">child</option>
+                        </select>
                     </div>
 
                     <div class="dark-form__el">

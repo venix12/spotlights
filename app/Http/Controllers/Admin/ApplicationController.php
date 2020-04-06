@@ -51,16 +51,15 @@ class ApplicationController extends Controller
 
     public function storeQuestion()
     {
-        if (AppQuestion::where('order', request()->order_value)->exists() !== false) {
-            return redirect()->back()
-                ->with('error', 'A question with the same order value already exists!');
-        }
+        $order = AppQuestion::orderBy('order', 'desc')->first()->order + 1;
 
         AppQuestion::create([
             'char_limit' => request()->char_limit,
             'description' => request()->description,
-            'order' => request()->order_value,
+            'order' => $order,
             'question' => request()->question,
+            'parent_id' => request()->parent_id,
+            'relation_type' => request()->relation,
             'required' => request()->required ? true : false,
             'type' => request()->type,
         ]);

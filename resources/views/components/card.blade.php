@@ -5,7 +5,7 @@
     }
 @endphp
 
-<div class="container container-main">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-{{$size}} col-main">
             <div class="card-layout">

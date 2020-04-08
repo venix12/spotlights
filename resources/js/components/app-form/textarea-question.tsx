@@ -39,7 +39,7 @@ class TextareaQuestion extends React.Component<Props, State> {
     }
 
     rowsCount = (): number => {
-        return Math.round(this.props.question.char_limit / 100) + 2;
+        return Math.round(this.props.question.char_limit / 100);
     }
 }
 

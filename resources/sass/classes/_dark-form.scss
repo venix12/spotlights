@@ -73,6 +73,10 @@
             width: 100px;
         }
 
+        &--small {
+            padding: 2px;
+        }
+
         @include margin-modifiers();
     }
 

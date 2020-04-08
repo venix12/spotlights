@@ -32,6 +32,35 @@ class Main extends React.Component<Props, State> {
         questions: this.props.questions.filter(x => x.relation !== 'child'),
     }
 
+    childClass = (question: Question): string => {
+        const { questions } = this.state;
+
+        const firstChildren: Question[] = [];
+        const lastChildren: Question[] = [];
+
+        for (let i = 0; i < questions.length; i++) {
+            if (i > 1 && questions[i-1].relation !== 'child' && questions[i].relation === 'child') {
+                firstChildren.push(questions[i]);
+            }
+
+            if ((i === questions.length - 1 && questions[i].relation === 'child') || (questions[i].relation === 'child' && questions[i+1].relation !== 'child')) {
+                lastChildren.push(questions[i]);
+            }
+        }
+
+        let className = '';
+
+        if (firstChildren.includes(question)) {
+            className += ' app-form__child--first';
+        }
+
+        if (lastChildren.includes(question)) {
+            className += ' app-form__child--last';
+        }
+
+        return className;
+    }
+
     closeMessage = () => {
         this.setState({ message: [] });
     }
@@ -94,7 +123,16 @@ class Main extends React.Component<Props, State> {
                 <form onSubmit={this.storeApplication}>
                     <div  className="dark-section dark-section--4">
                         {questions.map(question => {
-                            return this.renderQuestion(question);
+                            const additionalClass = question.type === 'input' ? 'app-form__row--input' : '';
+
+                            return (
+                                <div
+                                    className={`app-form__row ${additionalClass} ${question.relation === 'child' ? 'app-form__child' : ''} ${this.childClass(question)}`}
+                                    key={question.id}
+                                >
+                                    {this.renderQuestion(question)}
+                                </div>
+                            );
                         })}
                     </div>
 

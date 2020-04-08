@@ -28,7 +28,7 @@ class InputQuestion extends React.Component<Props, State> {
                 {question.question}
                 <input
                     type="text"
-                    className="dark-form__input dark-form__input--bottom dark-form__input--left"
+                    className="dark-form__input dark-form__input--small dark-form__input--left"
                     value={input}
                     onChange={this.handleChange}
                 />

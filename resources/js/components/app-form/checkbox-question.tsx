@@ -7,7 +7,7 @@ interface Props {
 }
 
 class CheckboxQuestion extends React.Component<Props> {
-    handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { question } = this.props;
 
         if (question.relation === 'parent' && question.children) {
@@ -21,14 +21,26 @@ class CheckboxQuestion extends React.Component<Props> {
         const { question } = this.props;
 
         return (
-            <div className="d-block">
-                {question.question}
-                <select className="dark-form__select dark-form__select--left dark-form__select--bottom" onChange={this.handleChange} required>
-                    <option value="">Select an answer!</option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
-            </div>
+            <>
+                <div className="app-form__radio-question">
+                    {question.question}
+                    <div className="app-form__description">
+                        {question.description}
+                    </div>
+                </div>
+
+                <div className="app-form__radio-container">
+                    <div className="app-form__radio">
+                        <input type="radio" id={`true-${question.id}`} name={`${question.id}`} value="true" onChange={this.handleChange} />
+                        <label htmlFor={`true-${question.id}`}>Yes</label>
+                    </div>
+
+                    <div className="app-form__radio">
+                        <input type="radio" id={`false-${question.id}`} name={`${question.id}`} value="false" onChange={this.handleChange} />
+                        <label htmlFor={`false-${question.id}`}>No</label>
+                    </div>
+                </div>
+            </>
         )
     }
 }

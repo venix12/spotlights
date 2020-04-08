@@ -33,6 +33,7 @@ class TextareaQuestion extends React.Component<Props, State> {
                     onChange={this.handleChange}
                     value={input}
                 />
+                <div className="info-badge">{input.length} / {question.char_limit}</div>
             </div>
         );
     }

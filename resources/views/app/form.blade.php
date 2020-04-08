@@ -4,8 +4,8 @@
 
 @section('content')
     @component('components.card', [
-        'dark' => true,
         'sections' => ['Home', 'Application form'],
+        'size' => 9,
     ])
         @include('components._header-v2', [
             'icon' => 'users',

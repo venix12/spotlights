@@ -30,3 +30,45 @@ textarea {
 ul {
     margin-bottom: 0;
 }
+
+// form elements styling
+
+input[type=radio] {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+
+    + label {
+        cursor: pointer;
+
+        &::before {
+            font-family: 'FontAwesome';
+            display: inline-block;
+            content: '\f10c';
+            font-size: 1.2em;
+            color: white;
+            margin-right: 5px;
+            transition: .1s ease-out;
+        }
+    }
+
+    &:checked {
+        + label {
+            color: $dark-lightgray;
+
+            &::before {
+                font-family: 'FontAwesome';
+                display: inline-block;
+                content: '\f192';
+                font-size: 1.2em;
+                margin-right: 5px;
+                color: $dark-lightgray-1;
+            }
+        }
+    }
+}

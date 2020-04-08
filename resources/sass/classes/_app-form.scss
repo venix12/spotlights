@@ -1,0 +1,52 @@
+.app-form {
+    &__child {
+        background-color: $dark-3;
+        margin: 0 -1.5rem !important;
+        padding: 5px 1.5rem;
+
+        &--first {
+            padding-top: 1.5rem;
+        }
+
+        &--last {
+            padding-bottom: 1.5rem;
+            margin-bottom: 10px !important;
+        }
+    }
+
+    &__description {
+        color: $dark-lightgray-1;
+        font-size: $font-size-small-2;
+    }
+
+    &__radio {
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+
+    &__radio-container {
+        display: inline-flex;
+        justify-content: flex-end;
+        width: 97px;
+    }
+
+    &__radio-question {
+        width: calc(100% - 97px);
+    }
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: $font-size-small-1;
+
+        &:not(:last-of-type) {
+            margin-bottom: 10px;
+        }
+
+        &--input {
+            justify-content: center;
+        }
+    }
+}

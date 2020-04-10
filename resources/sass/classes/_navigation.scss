@@ -8,10 +8,6 @@
         padding: 2px 5px;
         cursor: pointer;
 
-        &:hover {
-            color: $dark-lightgray-1;
-        }
-
         &:not(:first-of-type) {
             margin-left: 10px;
         }
@@ -19,7 +15,7 @@
         &--current {
             font-weight: 600;
             border-radius: 5px;
-            background-color: $dark-lightgray-1;
+            background-color: white;
             color: $dark-1;
         }
     }

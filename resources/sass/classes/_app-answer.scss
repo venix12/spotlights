@@ -1,0 +1,43 @@
+.app-answer {
+    font-size: $font-size-small-1;
+    margin-bottom: 8px;
+
+    &--child {
+        margin-left: 19px;
+    }
+
+    &__checkbox {
+        &::before {
+            font-family: 'FontAwesome';
+            margin-right: 5px;
+        }
+
+        &--false::before {
+            content: '\f00d';
+            color: red;
+        }
+
+        &--true::before {
+            content: '\f00c';
+            color: greenyellow;
+        }
+    }
+
+    &__header {
+        color: $dark-lightgray-1;
+    }
+
+    &__textarea {
+        position: relative;
+        margin-left: 7px;
+
+        &::before {
+            position: absolute;
+            left: -7px;
+            width: 2px;
+            height: 100%;
+            content: '';
+            background-color: white;
+        }
+    }
+}

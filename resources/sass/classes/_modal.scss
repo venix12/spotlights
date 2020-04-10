@@ -12,11 +12,11 @@
     &__card {
         position: fixed;
         width: 40rem;
-        background-color: $dark-1;
+        background-color: $dark-3;
         box-shadow: 0 2px 8px black;
         top: 8vh;
         left: calc((100% - 40rem) / 2);
-        border-radius: 10px;
+        border-radius: 5px;
         color: white;
         overflow: hidden;
         max-height: calc(100% - 16vh);
@@ -24,7 +24,6 @@
     }
 
     &__content {
-        padding: 1.25rem;
         height: auto;
         max-height: 75vh;
         overflow-y: auto;
@@ -32,7 +31,7 @@
 
     &__header {
         padding: 10px 20px;
-        background-color: $dark-gray;
+        background-color: $dark-3;
         display: flex;
         justify-content: space-between;
 

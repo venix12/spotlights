@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 interface Props {
     close: any,
@@ -6,7 +7,7 @@ interface Props {
     title: string,
 }
 
-const Modal = (props: Props) => {
+const ModalInner = (props: Props) => {
     return (
         <div>
             <div className="modal__backdrop" onClick={props.close} />
@@ -27,6 +28,13 @@ const Modal = (props: Props) => {
             </div>
         </div>
     )
+}
+
+const Modal = (props: Props) => {
+    return ReactDOM.createPortal(
+        <ModalInner {...props}/>,
+        document.querySelector('#modal') as Element,
+    );
 }
 
 export default Modal;

@@ -3,7 +3,7 @@ declare var laroute: Laroute;
 
 interface Answer {
     answer: string,
-    question: string,
+    question: Question;
 }
 
 interface Application {

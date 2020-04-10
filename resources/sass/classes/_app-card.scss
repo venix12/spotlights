@@ -1,9 +1,9 @@
 .app-card {
-    @include generic-box-shadow(0, true, 5px);
+    @include generic-box-shadow(10px, true);
+    @include generic-marker();
 
     width: 100%;
     background-color: $dark-3;
-    border-radius: 5px;
     padding: 10px;
     transition: background-color .1s ease-in;
     position: relative;
@@ -12,6 +12,14 @@
 
     &:hover {
         background-color: $dark-2;
+    }
+
+    &--fail {
+        @include generic-marker(chocolate);
+    }
+
+    &--pass {
+        @include generic-marker(green);
     }
 
     &__name {

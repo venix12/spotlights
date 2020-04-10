@@ -46,23 +46,28 @@ class AppEval extends React.Component<Props, State> {
 
         return (
             <div>
-                {this.renderModeFilter()}
+                <div id="modal" />
 
-                <h5>Pending applications</h5>
-                {this.renderAppCards(applications.filter(x => x.approved === false))}
+                <div className="dark-section-select">
+                    {this.renderModeFilter()}
+                </div>
 
-                <h5>Finished applications</h5>
-                {this.renderAppCards(applications.filter(x => x.approved === true))}
+                <div className="dark-section dark-section--4">
+                    {this.renderAppCards(applications.filter(x => x.approved === false), 'Pending Applications')}
+
+                    {this.renderAppCards(applications.filter(x => x.approved === true), 'Finished Applications')}
+                </div>
             </div>
         );
     }
 
-    renderAppCards(apps: Application[]) {
+    renderAppCards(apps: Application[], title: string) {
         return (
-            <div className="dark-section">
+            <div className="info-panel">
+                <div className="info-panel__header">{title}</div>
                 <div className="app-cards">
                     {apps.map(app => {
-                        return <AppCard application={app} key={app.id}/>
+                        return <AppCard application={app} key={app.id} />
                     })}
                 </div>
             </div>

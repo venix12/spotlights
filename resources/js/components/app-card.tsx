@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from './modal';
 import Axios from 'axios';
 import AppResultsMessage from './app-results-message';
+import { gamemode } from '../helpers/helpers';
 
 interface Props {
     application: Application,
@@ -52,6 +53,9 @@ class AppCard extends React.Component<Props, State> {
     render() {
         const { application } = this.props;
         const { modal } = this.state;
+
+        const verdictClass = application.verdict && `app-card--${application.verdict}`
+
         return (
             <div>
                 {modal &&
@@ -62,13 +66,17 @@ class AppCard extends React.Component<Props, State> {
                     />
                 }
 
-                <div className="app-card" onClick={this.switchModal}>
+                <div className={`app-card ${verdictClass}`} onClick={this.switchModal}>
                     <div className="app-card__name">
                         {application.user.username}
                     </div>
 
                     <div className="app-card__info">
                         {`applied at ${application.created_at}`}
+                    </div>
+
+                    <div className="app-card__info">
+                        {`gamemode: ${application.gamemode}`}
                     </div>
 
                     <div className="app-card__info">
@@ -89,25 +97,54 @@ class AppCard extends React.Component<Props, State> {
         );
     }
 
+    renderCheckboxAnswer(answer: Answer) {
+        const childClass = answer.question.relation === 'child' ? 'app-answer--child' : '';
+
+        return (
+            <div className={`app-answer app-answer__checkbox ${childClass} app-answer__checkbox--${answer.answer}`}>
+                {answer.question.question}
+            </div>
+        )
+    }
+
+    renderInputOrTextareaAnswer(answer: Answer) {
+        return (
+            <div className={`app-answer ${answer.question.relation === 'child' ? 'app-answer--child' : ''}`}>
+                <div className="app-answer__header">{answer.question.question}</div>
+                <div className="app-answer__textarea">
+                    {answer.answer}
+                </div>
+            </div>
+        )
+    }
+
     renderModalContent() {
         const { application } = this.props;
         const { approved } = this.state;
 
+        const sortedQuestions = application.answers.sort((x, y) => x.question.order - y.question.order);
+
         return (
             <div>
-                {application.answers.map((answer, index) => {
-                    return <span key={index}>
-                        <h5>{answer.question}</h5>
-                        <div className="dark-section">
-                            {answer.answer}
-                        </div>
-                    </span>
-                })}
+                <div className="dark-section dark-section--4">
+                    {sortedQuestions.map(answer => {
+                        switch (answer.question.type) {
+                            case 'checkbox':
+                                return this.renderCheckboxAnswer(answer);
 
-                <hr />
+                            case 'input':
+                                return this.renderInputOrTextareaAnswer(answer);
 
-                {approved ? this.renderVerdictInfoField() : this.renderVerdictField()}
-                {(authUser.is_admin && application.feedback && !approved) && this.renderApproveButton()}
+                            case 'textarea':
+                                return this.renderInputOrTextareaAnswer(answer);
+                        }
+                    })}
+                </div>
+
+                <div className="dark-section dark-section--3">
+                    {approved ? this.renderVerdictInfoField() : this.renderVerdictField()}
+                    {(authUser.is_admin && application.feedback && !approved) && this.renderApproveButton()}
+                </div>
             </div>
         )
     }
@@ -142,9 +179,13 @@ class AppCard extends React.Component<Props, State> {
         return (
             <>
                 <form onSubmit={this.storeFeedback}>
-                    <div className="textarea-border">
-                        <textarea id="feedback" placeholder="write feedback here..." defaultValue={feedback} />
-                    </div>
+                    <textarea
+                        className="dark-form__textarea"
+                        rows={7}
+                        id="feedback"
+                        placeholder="write feedback here..."
+                        defaultValue={feedback}
+                    />
 
                     <div className="form--top space-between">
                         <span>

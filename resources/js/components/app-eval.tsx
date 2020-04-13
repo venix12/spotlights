@@ -64,7 +64,7 @@ class AppEval extends React.Component<Props, State> {
     renderAppCards(apps: Application[], title: string) {
         return (
             <div className="info-panel">
-                <div className="info-panel__header">{title}</div>
+                <div className="info-panel__header">{title} ({apps.length})</div>
                 <div className="app-cards">
                     {apps.map(app => {
                         return <AppCard application={app} key={app.id} />

@@ -29,6 +29,7 @@
 
     &__textarea {
         position: relative;
+        white-space: pre-wrap;
         margin-left: 7px;
 
         &::before {

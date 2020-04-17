@@ -57,6 +57,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('/move/{direction}', 'ApplicationController@moveAround')->name('admin.app.move-around');
         Route::post('/delete-revert-question', 'ApplicationController@deleteOrRevertQuestion')->name('admin.app.delete-revert-question');
         Route::post('/store-question', 'ApplicationController@storeQuestion')->name('admin.app.store-question');
+
+        Route::group(['prefix' => 'edit-question'], function () {
+            Route::get('/{id}', 'ApplicationController@editQuestion')->name('admin.app.edit-question');
+            Route::post('/{id}/update', 'ApplicationController@updateQuestion')->name('admin.app.update-question');
+        });
     });
 
     Route::group(['prefix' => 'app-eval'], function () {

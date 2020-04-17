@@ -26,6 +26,12 @@
                 @endif
             @endif
 
+            <form action="{{ route('admin.app.edit-question', $question->id) }}">
+                <button type="submit" class="button-invisible" title="edit question">
+                    <a class="fa fa-pencil"></a>
+                </button>
+            </form>
+
             <form action="{{ route('admin.app.delete-revert-question') }}" method="POST">
                 @csrf
                 <input type="hidden" name="question_id" value="{{ $question->id }}">

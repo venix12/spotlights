@@ -3,7 +3,6 @@
 ])
 
 @section('content')
-<div class="container">
     @component('components.card', [
         'dark' => true,
         'sections' => ['Home', 'Manage', 'Manage application form'],

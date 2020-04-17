@@ -23,6 +23,13 @@ class ApplicationController extends Controller
             ->with('questionsDeleted', $questionsDeleted);
     }
 
+    public function editQuestion($id) {
+        $question = AppQuestion::find($id);
+
+        return view('admin.manage-app.edit')
+            ->with('question', $question);
+    }
+
     public function deleteOrRevertQuestion()
     {
         $question = AppQuestion::find(request()->question_id);
@@ -68,5 +75,22 @@ class ApplicationController extends Controller
 
         return redirect()->back()
             ->with('success', 'Successfully added a question!');
+    }
+
+    public function updateQuestion($id)
+    {
+        $question = AppQuestion::find($id);
+
+        $question->update([
+            'char_limit' => request()->char_limit,
+            'description' => request()->description,
+            'question' => request()->question,
+            'parent_id' => request()->parent_id,
+            'relation_type' => request()->relation,
+            'type' => request()->type,
+        ]);
+
+        return redirect(route('admin.app'))
+            ->with('success', 'successfully updated a question!');
     }
 }

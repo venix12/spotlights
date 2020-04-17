@@ -90,6 +90,8 @@ class ApplicationController extends Controller
             'type' => request()->type,
         ]);
 
+        Event::log("Edited a question {$question->question}");
+
         return redirect(route('admin.app'))
             ->with('success', 'successfully updated a question!');
     }

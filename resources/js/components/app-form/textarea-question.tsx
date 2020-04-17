@@ -26,6 +26,7 @@ class TextareaQuestion extends React.Component<Props, State> {
         return (
             <div className="info-panel">
                 <div className="info-panel__header">{question.question}</div>
+                <div className="info-panel__description">{question.description}</div>
                 <textarea
                     className="dark-form__textarea"
                     rows={this.rowsCount()}

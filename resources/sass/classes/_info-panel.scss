@@ -6,6 +6,11 @@
         margin-bottom: 10px;
     }
 
+    &__description {
+        margin-top: -3px;
+        margin-bottom: 5px;
+    }
+
     &__header {
         font-size: 1.25rem;
         color: $dark-lightgray-1;

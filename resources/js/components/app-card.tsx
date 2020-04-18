@@ -60,7 +60,9 @@ class AppCard extends React.Component<Props, State> {
             <div>
                 {modal &&
                     <Modal
-                        title={<>application evaluation - <a href={`https://osu.ppy.sh/users/${application.user.osu_id}`}>{application.user.username}</a></>}
+                        title={
+                            <>application evaluation - <a href={`https://osu.ppy.sh/users/${application.user.osu_id}`} target="_blank">{application.user.username}</a></>
+                        }
                         content={this.renderModalContent()}
                         close={this.switchModal}
                     />

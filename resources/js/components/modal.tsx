@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 interface Props {
     close: any,
     content: JSX.Element,
-    title: string,
+    title: JSX.Element,
 }
 
 const ModalInner = (props: Props) => {

@@ -65,6 +65,7 @@ interface SpotlightsStatistic {
 interface User {
     id: number,
     is_admin?: boolean,
+    osu_id: number,
     username: string,
 }
 

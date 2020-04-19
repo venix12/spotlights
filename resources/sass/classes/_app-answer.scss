@@ -32,6 +32,10 @@
         white-space: pre-wrap;
         margin-left: 7px;
 
+        a, a:hover, a:focus {
+            color: $color-url !important;
+        }
+
         &::before {
             position: absolute;
             left: -7px;

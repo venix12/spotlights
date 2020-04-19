@@ -2,7 +2,8 @@ import React from 'react';
 import Modal from './modal';
 import Axios from 'axios';
 import AppResultsMessage from './app-results-message';
-import { gamemode } from '../helpers/helpers';
+import Linkify from 'react-linkify';
+
 
 interface Props {
     application: Application,
@@ -114,7 +115,9 @@ class AppCard extends React.Component<Props, State> {
             <div className={`app-answer ${answer.question.relation === 'child' ? 'app-answer--child' : ''}`}>
                 <div className="app-answer__header">{answer.question.question}</div>
                 <div className="app-answer__textarea">
-                    {answer.answer}
+                    <Linkify>
+                        {answer.answer}
+                    </Linkify>
                 </div>
             </div>
         )

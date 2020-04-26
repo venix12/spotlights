@@ -7,6 +7,7 @@ use App\AppAnswer;
 use App\AppCycle;
 use App\AppQuestion;
 use App\Event;
+use App\Events\ApplicationSubmitted;
 use App\Group;
 use App\UserGroup;
 
@@ -75,6 +76,8 @@ class ApplicationController extends Controller
             'group_id' => Group::byIdentifier("applicant_{$gamemode}")->id,
             'user_id' => auth()->id(),
         ]);
+
+        event(new ApplicationSubmitted($app));
 
         Event::log('Applied for gamemode ' . gamemode($gamemode));
     }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\ApplicationSubmitted;
+use App\Listeners\SendApplicationDiscordMessage;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -15,6 +17,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        ApplicationSubmitted::class => [
+            SendApplicationDiscordMessage::class,
+        ],
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],

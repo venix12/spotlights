@@ -29,7 +29,7 @@ class SendApplicationDiscordMessage
             'json' => [
                 'embeds' => [[
                     'color' => 3066993,
-                    'description' => "**[{$app->user->username}](https://osu.ppy.sh/users/{$app->user->osu_user_id})** submitted an application!",
+                    'description' => "**[{$app->user->username}](https://osu.ppy.sh/users/{$app->user->osu_user_id})** has just submitted an application!",
                     'fields' => [[
                         'name' => 'gamemode',
                         'value' => $gamemode,

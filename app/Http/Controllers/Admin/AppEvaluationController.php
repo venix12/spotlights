@@ -17,7 +17,13 @@ class AppEvaluationController extends Controller
             'storeCycle',
         ]);
 
-        $this->middleware('is_admin_or_manager');
+        $this->middleware(function ($request, $next) {
+            if (auth()->check() && auth()->user()->isAppEvaluator()) {
+                return $next($request);
+            }
+
+            return redirect('/');
+        });
     }
 
     public function approveFeedback($id)

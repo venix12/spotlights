@@ -172,6 +172,11 @@ class User extends Authenticatable
         return $this->hasPermSet('applicant');
     }
 
+    public function isAppEvaluator()
+    {
+        return $this->hasPermSet('app-eval') || $this->isAdminOrManager();
+    }
+
     public function isApplying($mode)
     {
         return count($this->groups->where('identifier', "applicant_{$mode}")) > 0;

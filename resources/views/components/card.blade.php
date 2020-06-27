@@ -13,7 +13,7 @@
                     <div class="sections-header">
                         @foreach($sections as $section)
                             <span class="sections-header__el">
-                                {{$section}} {!! $loop->last ? '' : '<span class="sections-header__arrow"></span>' !!}
+                                <a href="{{ section_url($section) }}" >{{ $section }}</a> {!! $loop->last ? '' : '<span class="sections-header__arrow"></span>' !!}
                             </span>
                         @endforeach
                     </div>

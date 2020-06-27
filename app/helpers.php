@@ -82,6 +82,25 @@ function navbar_welcome_sections() : array
     return $sections;
 }
 
+function section_url(string $route) : ?string
+{
+    $routeMappings = [
+        'Application Evaluation' => 'admin.app-eval',
+        'Home' => 'home',
+        'Manage' => 'admin.manage',
+        'Manage usergroups' => 'admin.user-groups',
+        'Spotlights' => 'spotlights',
+        'spotlights results' => 'spotlights-results',
+        'Users' => 'user.list'
+    ];
+
+    if (array_key_exists($route, $routeMappings)) {
+        return route($routeMappings[$route]);
+    }
+
+    return null;
+}
+
 function truncate_text(string $text, int $count) : string
 {
     return strlen($text) > $count

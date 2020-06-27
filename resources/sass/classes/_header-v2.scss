@@ -1,31 +1,37 @@
 .header-v2 {
-    @include generic-box-shadow();
-
-    position: relative;
-    display: inline-block;
-    background-color: white;
-    padding: 5px;
-    border-bottom: 3px $blue solid;
-    z-index: 0;
-
-    &--green {
-        border-bottom: 3px greenyellow solid;
-    }
-
-    &--red {
-        border-bottom: 3px red solid;
-    }
+    display: flex;
+    align-items: center;
 
     &__description {
         margin-top: -5px;
         font-size: $font-size-small-1;
-        color: $dark-2;
-        font-weight: bold;
+        color: $lightblue;
+    }
+
+    &__icon {
+        transform: rotate(-45deg);
+    }
+
+    &__icon-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px $lightblue solid;
+        width: 35px;
+        height: 35px;
+        transform: rotate(45deg);
+        padding: 10px;
+        margin-left: 8px;
     }
 
     &__title {
-        font-size: $font-size-header-1;
-        font-weight: bold;
-        color: $dark-3;
+        display: inline-flex;
+        font-size: $font-size-header-2;
+    }
+
+    &__title-container {
+        margin-left: 19px;
+        display: inline-flex;
+        flex-direction: column;
     }
 }

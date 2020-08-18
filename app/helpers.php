@@ -5,6 +5,21 @@ use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 
+function closest_range_value(int $search, array $array)
+{
+    $match = null;
+
+    foreach ($array as $key => $value) {
+        if ($search <= $value) {
+            $match = $key;
+
+            break;
+        }
+    }
+
+    return $match;
+}
+
 function format_date(string $date, bool $hour = false) : string
 {
     $formatted = substr($date, 0, $hour ? -3 : -9);

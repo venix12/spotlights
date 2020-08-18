@@ -7,6 +7,22 @@ use Illuminate\Support\Str;
 
 class OsuOauth
 {
+    public function apiRequest(string $url)
+    {
+        $token = request()->session()->get('token');
+
+        $apiRequest = Guzzle::request('GET', $url, [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Authorization' => "Bearer {$token}",
+            ],
+        ]);
+
+        $data = json_decode((string) $apiRequest->getBody(), true);
+
+        return $data;
+    }
+
     public function authorize()
     {
         request()->session()->put('state', $state = Str::random(40));
@@ -15,11 +31,21 @@ class OsuOauth
             'client_id' => env('CLIENT_ID'),
             'redirect_uri' => env('CLIENT_CALLBACK'),
             'response_type' => 'code',
-            'scope' => '',
+            'scope' => 'public',
             'state' => $state,
         ]);
 
         return redirect("http://osu.ppy.sh/oauth/authorize?{$query}");
+    }
+
+    public function getRoomInfo(int $room)
+    {
+        return $this->apiRequest("https://osu.ppy.sh/api/v2/rooms/{$room}");
+    }
+
+    public function getRoomLeaderboard(int $room, int $page)
+    {
+        return $this->apiRequest("https://osu.ppy.sh/api/v2/rooms/{$room}/leaderboard?page={$page}");
     }
 
     public function getToken()
@@ -48,19 +74,12 @@ class OsuOauth
         $data = json_decode((string) $response->getBody(), true);
         $token = $data['access_token'];
 
+        request()->session()->put('token', $token);
+
         return $token;
     }
 
     public function getUserData(string $token) {
-        $userApiRequest = Guzzle::request('GET', 'https://osu.ppy.sh/api/v2/me', [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Authorization' => "Bearer {$token}",
-            ],
-        ]);
-
-        $userData = json_decode((string) $userApiRequest->getBody(), true);
-
-        return $userData;
+        return $this->apiRequest('https://osu.ppy.sh/api/v2/me', $token);
     }
 }

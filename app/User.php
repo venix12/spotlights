@@ -141,6 +141,39 @@ class User extends Authenticatable
         return $this->groups->first();
     }
 
+    public function seasonTotalScore(int $season_id)
+    {
+        $playlistIds = Season::find($season_id)->playlists->pluck('id');
+
+        $scores = $this->scores
+            ->whereIn('playlist_id', $playlistIds);
+
+        $playlistScores = [];
+
+        foreach ($scores as $score) {
+            $roomName = $score->playlist->osu_room_name;
+            $totalScore = $score->total_score;
+
+            if (!array_key_exists($roomName, $playlistScores) || $playlistScores[$roomName] < $totalScore) {
+                $playlistScores[$roomName] = $totalScore;
+            }
+        }
+
+        $indexedScores = array_values($playlistScores);
+
+        rsort($indexedScores);
+
+        $factors = [1, 0.875, 0.65, 0.45];
+        $totalScore = 0;
+
+        for ($i = 0; $i < count($indexedScores); $i++)
+        {
+            $totalScore += $indexedScores[$i] * $factors[$i];
+        }
+
+        return $totalScore;
+    }
+
     public function spotlightsActivity(int $spotlights_id)
     {
         $nominations = $this->nominations->where('spots_id', $spotlights_id);
@@ -223,6 +256,11 @@ class User extends Authenticatable
     public function nominations()
     {
         return $this->hasMany(SpotlightsNomination::class, 'user_id');
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class, 'user_id');
     }
 
     public function votes()

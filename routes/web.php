@@ -75,6 +75,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('/{id}/store-feedback', 'AppEvaluationController@storeFeedback')->name('admin.app-eval.store-feedback');
     });
 
+    Route::group(['prefix' => 'leaderboards'], function () {
+        Route::get('/', 'SeasonsController@index')->name('admin.seasons');
+        Route::get('/create', 'SeasonsController@create')->name('admin.seasons.create');
+        Route::get('/{id}', 'SeasonsController@show')->name('admin.seasons.show');
+
+        Route::post('/store', 'LeaderboardsController@storeSeason')->name('admin.seasons.store');
+
+        Route::get('/{id}/create-playlist', 'PlaylistsController@create')->name('admin.playlists.create');
+        Route::post('/{id}/store-playlist', 'PlaylistsController@store')->name('admin.playlists.store');
+
+        Route::get('/{id}/create-division', 'DivisionsController@create')->name('admin.divisions.create');
+        Route::post('/{id}/store-division', 'DivisionsController@store')->name('admin.divisions.store');
+    });
+
     Route::group(['prefix' => 'user-groups'], function () {
         Route::get('/', 'UserGroupsController@index')->name('admin.user-groups');
         Route::get('/create', 'UserGroupsController@create')->name('admin.user-groups.create');
@@ -84,6 +98,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('/{id}/add-member', 'UserGroupsController@addMember')->name('admin.user-groups.add-member');
         Route::post('/{id}/remove-member', 'UserGroupsController@removeMember')->name('admin.user-groups.remove-member');
     });
+});
+
+Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
+    Route::get('/leaderboard/{id}', 'LeaderboardController@show');
 });
 
 Route::group(['prefix' => 'app'], function () {

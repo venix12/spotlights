@@ -32,6 +32,10 @@ class ManageController extends Controller
                 'title' => 'Manage usergroups',
                 'route' => 'admin.user-groups',
             ],
+            [
+                'title' => 'Manage season leaderboards',
+                'route' => 'admin.seasons',
+            ],
         ];
 
         $sections = [

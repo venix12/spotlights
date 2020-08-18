@@ -8,12 +8,12 @@
         'sections' => ['Home', 'Manage', 'Create season'],
     ])
         @include('components._header-v2', [
-            'icon' => '',
+            'icon' => 'random',
             'title' => 'Create season',
         ])
 
         <div class="dark-section dark-section--4">
-            <form action="{{ route('admin.seasons.store', $id) }}" method="POST">
+            <form action="{{ route('admin.seasons.store') }}" method="POST">
                 @csrf
 
                 <div class="dark-form">

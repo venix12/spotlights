@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/create', 'SeasonsController@create')->name('admin.seasons.create');
         Route::get('/{id}', 'SeasonsController@show')->name('admin.seasons.show');
 
-        Route::post('/store', 'LeaderboardsController@storeSeason')->name('admin.seasons.store');
+        Route::post('/store', 'SeasonsController@store')->name('admin.seasons.store');
 
         Route::get('/{id}/create-playlist', 'PlaylistsController@create')->name('admin.playlists.create');
         Route::post('/{id}/store-playlist', 'PlaylistsController@store')->name('admin.playlists.store');

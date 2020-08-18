@@ -39,6 +39,6 @@ class SeasonsController extends Controller
             'name' => request()->name,
         ]);
 
-        redirect(route('admin.seasons'));
+        return redirect(route('admin.seasons'));
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Group;
 use App\Playlist;
 use App\Score;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\UserGroup;
 
 class PlaylistsController extends Controller
 {
@@ -45,6 +47,11 @@ class PlaylistsController extends Controller
                     $user = User::create([
                         'osu_user_id' => $osuUserId,
                         'username' => $score['user']['username'],
+                    ]);
+
+                    UserGroup::create([
+                        'group_id' => Group::byIdentifier('default')->id,
+                        'user_id' => $user->id,
                     ]);
                 }
 

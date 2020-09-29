@@ -5,7 +5,7 @@
 @section('content')
     @component('components.card', [
         'dark' => true,
-        'sections' => ['Home', 'Manage', 'Create season'],
+        'sections' => ['Home', 'Manage', 'Manage leaderboards' ,'Create season'],
     ])
         @include('components._header-v2', [
             'icon' => 'random',

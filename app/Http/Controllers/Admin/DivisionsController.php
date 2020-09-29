@@ -29,8 +29,7 @@ class DivisionsController extends Controller
     public function store($season_id)
     {
         $currentDivision = Division::where('season_id', $season_id)
-            ->where('name', request()->name)
-            ->first();
+            ->where('name', request()->name);
 
         if ($currentDivision->exists()) {
             return redirect(route('admin.seasons.show', $season_id));

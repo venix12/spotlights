@@ -19,7 +19,7 @@
                 <div class="dark-form">
                     <div class="dark-form__el">
                         <div class="dark-form__label">name</div>
-                        <input name="name" type="text" class="dark-form__input dark-form__input--long" autocomplete="off" value="{{ $division->name }}" required>
+                        <input name="name" type="text" class="dark-form__input" autocomplete="off" value="{{ $division->name }}" required>
                     </div>
 
                     <div class="dark-form__el">

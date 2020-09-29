@@ -39,7 +39,7 @@ class PlaylistsController extends Controller
         for ($i = 1; $i <= $pagesCount; $i++) {
             $scores = app('osu-oauth')->getRoomLeaderboard($roomId, $i);
 
-            foreach ($scores as $score) {
+            foreach ($scores['leaderboard'] as $score) {
                 $osuUserId = $score['user']['id'];
                 $user = User::where('osu_user_id', $osuUserId)->first();
 
@@ -60,15 +60,15 @@ class PlaylistsController extends Controller
                 $currentScore = Score::where('playlist_id', $playlist->id)
                     ->where('user_id', $user->id);
 
-                if (!$currentScore->exists()) {
+                if ($currentScore->exists()) {
+                    $currentScore->update([
+                        'total_score' => $totalScore,
+                    ]);
+                } else {
                     Score::create([
                         'playlist_id' => $playlist->id,
                         'total_score' => $totalScore,
                         'user_id' => $user->id,
-                    ]);
-                } else {
-                    $currentScore->update([
-                        'total_score' => $totalScore,
                     ]);
                 }
             }

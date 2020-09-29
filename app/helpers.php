@@ -103,6 +103,7 @@ function section_url(string $route) : ?string
         'Application Evaluation' => 'admin.app-eval',
         'Home' => 'home',
         'Manage' => 'admin.manage',
+        'Manage leaderboards' => 'admin.seasons',
         'Manage usergroups' => 'admin.user-groups',
         'Spotlights' => 'spotlights',
         'spotlights results' => 'spotlights-results',

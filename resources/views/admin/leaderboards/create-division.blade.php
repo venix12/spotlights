@@ -8,7 +8,7 @@
         'sections' => ['Home', 'Manage', 'Create division'],
     ])
         @include('components._header-v2', [
-            'icon' => '',
+            'icon' => 'random',
             'title' => 'Create division',
         ])
 

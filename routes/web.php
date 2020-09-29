@@ -82,11 +82,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::post('/store', 'SeasonsController@store')->name('admin.seasons.store');
 
+        Route::get('/{id}/create-factor', 'FactorsController@create')->name('admin.factors.create');
+        Route::post('{id}/store-factor', 'FactorsController@store')->name('admin.factors.store');
+
         Route::get('/{id}/create-playlist', 'PlaylistsController@create')->name('admin.playlists.create');
         Route::post('/{id}/store-playlist', 'PlaylistsController@store')->name('admin.playlists.store');
 
         Route::get('/{id}/create-division', 'DivisionsController@create')->name('admin.divisions.create');
         Route::post('/{id}/store-division', 'DivisionsController@store')->name('admin.divisions.store');
+
+        Route::group(['prefix' => 'divisions'], function () {
+            Route::get('/{id}/edit', 'DivisionsController@edit')->name('admin.divisions.edit');
+            Route::post('/{id}/update', 'DivisionsController@update')->name('admin.divisions.update');
+        });
+
+        Route::group(['prefix' => 'factors'], function () {
+            Route::get('/{id}/edit', 'FactorsController@edit')->name('admin.factors.edit');
+            Route::post('/{id}/update', 'FactorsController@update')->name('admin.factors.update');
+        });
     });
 
     Route::group(['prefix' => 'user-groups'], function () {

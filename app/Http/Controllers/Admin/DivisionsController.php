@@ -12,31 +12,50 @@ class DivisionsController extends Controller
         $this->middleware('is_admin');
     }
 
-    public function create($id)
+    public function create($season_id)
     {
         return view('admin.leaderboards.create-division')
-            ->with('id', $id);
+            ->with('id', $season_id);
     }
 
-    public function store($id)
+    public function edit($id)
     {
-        $currentDivision = Division::where('season_id', $id)
+        $division = Division::find($id);
+
+        return view('admin.leaderboards.edit-division')
+            ->with('division', $division);
+    }
+
+    public function store($season_id)
+    {
+        $currentDivision = Division::where('season_id', $season_id)
             ->where('name', request()->name)
             ->first();
 
-        if ($currentDivision === null) {
+        if ($currentDivision->exists()) {
+            return redirect(route('admin.seasons.show', $season_id));
+        } else {
             Division::create([
                 'absolute' => request()->absolute ? true : false,
                 'name' => request()->name,
-                'season_id' => $id,
-                'threshold' => request()->threshold,
-            ]);
-        } else {
-            $currentDivision->update([
+                'season_id' => $season_id,
                 'threshold' => request()->threshold,
             ]);
         }
 
-        return redirect(route('admin.seasons.show', $id));
+        return redirect(route('admin.seasons.show', $season_id));
+    }
+
+    public function update($id)
+    {
+        $division = Division::find($id);
+
+        $division->update([
+            'absolute' => request()->absolute ? true : false,
+            'name' => request()->name,
+            'threshold' => request()->threshold,
+        ]);
+
+        return redirect(route('admin.seasons.show', $division->season->id));
     }
 }

@@ -17,7 +17,11 @@
             @foreach ($season->playlists as $playlist)
                 <div class="info-panel">
                     <div class="space-between">
-                        <span>{{ $playlist->osu_room_name }} ({{ $playlist->osu_room_id }})</span>
+                        <span>
+                            <a href="https://osu.ppy.sh/multiplayer/rooms/{{ $playlist->osu_room_id }}">
+                                {{ $playlist->osu_room_name }} ({{ $playlist->osu_room_id }})
+                            </a>
+                        </span>
                     </div>
                 </div>
             @endforeach
@@ -26,8 +30,35 @@
         <div class="dark-section dark-section--3">
             Divisions: <br>
 
-            @foreach ($season->divisionsThresholds() as $key => $value)
-                {{ $key }}: top{{ $value }} <br>
+            @foreach ($season->divisionsForListing() as $division)
+                <div class="d-inline-flex">
+                    {{ $division['name'] }}: top{{ $division['threshold'] }}
+
+                    <form action="{{ route('admin.divisions.edit', $division['id']) }}">
+                        <button class="button-invisible" type="submit" title="edit">
+                            <a class="fa fa-pencil"></a>
+                        </button>
+                    </form>
+                </div>
+                <br>
+            @endforeach
+
+        </div>
+
+        <div class="dark-section dark-section--3">
+            Factors: <br>
+
+            @foreach ($season->factors->sortByDesc('factor') as $factor)
+                <div class="d-inline-flex">
+                    {{ $factor->factor }}
+
+                    <form action="{{ route('admin.factors.edit', $factor->id) }}">
+                        <button class="button-invisible" type="submit" title="edit">
+                            <a class="fa fa-pencil"></a>
+                        </button>
+                    </form>
+                </div>
+                <br>
             @endforeach
 
         </div>
@@ -39,6 +70,10 @@
 
             <a href="{{ route('admin.divisions.create', $season->id) }}"class="dark-form__button dark-form__button--radius-square dark-form__button--small">
                 <i class="fa fa-plus"></i> Add division
+            </a>
+
+            <a href="{{ route('admin.factors.create', $season->id) }}"class="dark-form__button dark-form__button--radius-square dark-form__button--small">
+                <i class="fa fa-plus"></i> Add factor
             </a>
         </div>
     @endcomponent

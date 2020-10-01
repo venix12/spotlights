@@ -57,4 +57,13 @@ class DivisionsController extends Controller
 
         return redirect(route('admin.seasons.show', $division->season->id));
     }
+
+    public function remove($id)
+    {
+        $factor = Division::find($id);
+
+        $factor->delete();
+
+        return redirect()->back();
+    }
 }

@@ -94,11 +94,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::group(['prefix' => 'divisions'], function () {
             Route::get('/{id}/edit', 'DivisionsController@edit')->name('admin.divisions.edit');
             Route::post('/{id}/update', 'DivisionsController@update')->name('admin.divisions.update');
+            Route::post('/{id}/remove', 'DivisionsController@remove')->name('admin.divisions.remove');
         });
 
         Route::group(['prefix' => 'factors'], function () {
             Route::get('/{id}/edit', 'FactorsController@edit')->name('admin.factors.edit');
             Route::post('/{id}/update', 'FactorsController@update')->name('admin.factors.update');
+            Route::post('/{id}/remove', 'FactorsController@remove')->name('admin.factors.remove');
         });
     });
 

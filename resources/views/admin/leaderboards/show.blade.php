@@ -39,6 +39,14 @@
                             <a class="fa fa-pencil"></a>
                         </button>
                     </form>
+
+                    <form method="POST" action="{{ route('admin.divisions.remove', $division['id']) }}">
+                        @csrf
+
+                        <button class="button-invisible" type="submit" title="remove">
+                            <a class="fa fa-trash"></a>
+                        </button>
+                    </form>
                 </div>
                 <br>
             @endforeach
@@ -57,10 +65,21 @@
                             <a class="fa fa-pencil"></a>
                         </button>
                     </form>
+
+                    <form method="POST" action="{{ route('admin.factors.remove', $factor->id) }}">
+                        @csrf
+
+                        <button class="button-invisible" type="submit" title="remove">
+                            <a class="fa fa-trash"></a>
+                        </button>
+                    </form>
                 </div>
                 <br>
             @endforeach
 
+            @if ($season->uniquePlaylistsCount() > $season->factors->count())
+                <div class="text-danger">There are more unique playlists than factors!</div>
+            @endif
         </div>
 
         <div class="dark-section dark-section--4">

@@ -67,6 +67,11 @@ class Season extends Model
         return $this->scores->pluck('user_id')->unique();
     }
 
+    public function uniquePlaylistsCount()
+    {
+        return $this->playlists->unique('osu_room_name')->count();
+    }
+
     public function divisions()
     {
         return $this->hasMany(Division::class, 'season_id');

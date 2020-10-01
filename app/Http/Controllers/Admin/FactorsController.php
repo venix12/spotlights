@@ -47,4 +47,13 @@ class FactorsController extends Controller
 
         return redirect(route('admin.seasons.show', $factor->season->id));
     }
+
+    public function remove($id)
+    {
+        $factor = LeaderboardFactor::find($id);
+
+        $factor->delete();
+
+        return redirect()->back();
+    }
 }

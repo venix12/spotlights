@@ -8,6 +8,7 @@ class Season extends Model
 {
     protected $fillable = [
         'name',
+        'prefix',
     ];
 
     public function divisionsForListing()

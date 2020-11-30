@@ -22,6 +22,11 @@
                         <input name="name" type="text" class="dark-form__input dark-form__input--long" autocomplete="off" required>
                     </div>
 
+                    <div class="dark-form__el">
+                        <div class="dark-form__label">prefix</div>
+                        <input name="prefix" type="text" class="dark-form__input dark-form__input--long" autocomplete="off" required>
+                    </div>
+
                     <div class="dark-form__el dark-form__el--offset">
                         <button type="submit" class="dark-form__button">
                             <i class="fa fa-check"></i> Create

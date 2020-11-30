@@ -37,6 +37,7 @@ class SeasonsController extends Controller
     {
         Season::create([
             'name' => request()->name,
+            'prefix' => request()->prefix,
         ]);
 
         return redirect(route('admin.seasons'));

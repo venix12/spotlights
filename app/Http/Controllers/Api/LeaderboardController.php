@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Division;
 use App\Http\Controllers\Controller;
 use App\Season;
 use App\User;
@@ -33,8 +34,12 @@ class LeaderboardController extends Controller
         for ($i = 0; $i < count($leaderboard); $i++) {
             $rank = $i + 1;
 
+            $closestDivisionId = closest_range_value($rank, $divisions);
+            $division = Division::find($closestDivisionId);
+
             $leaderboard[$i]['rank'] = $rank;
-            $leaderboard[$i]['division'] = closest_range_value($rank, $divisions);
+            $leaderboard[$i]['division']['identifier'] = $division->name;
+            $leaderboard[$i]['division']['title'] = $division->badgeTooltip();
         }
 
         return $leaderboard;

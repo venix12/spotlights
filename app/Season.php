@@ -42,9 +42,9 @@ class Season extends Model
 
         foreach ($this->divisions as $division) {
             if ($division->absolute === true) {
-                $thresholds[$division->name] = $division->threshold;
+                $thresholds[$division->id] = $division->threshold;
             } else {
-                $thresholds[$division->name] = $division->threshold * $this->participantCount();
+                $thresholds[$division->id] = $division->threshold * $this->participantCount();
             }
         }
 

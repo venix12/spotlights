@@ -18,6 +18,16 @@ class Division extends Model
         'threshold',
     ];
 
+    public function getNameAttribute($value)
+    {
+        return "{$this->season->prefix}-{$value}";
+    }
+
+    public function badgeTooltip()
+    {
+        return "Beatmap Spotlights: {$this->season->name} ({$this->display})";
+    }
+
     public function season()
     {
         return $this->belongsTo(Season::class, 'season_id');

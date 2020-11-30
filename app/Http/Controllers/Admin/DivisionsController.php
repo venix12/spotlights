@@ -26,6 +26,20 @@ class DivisionsController extends Controller
             ->with('division', $division);
     }
 
+    public function loadDefaults($season_id)
+    {
+        foreach (default_divisions() as $default) {
+            Division::create([
+                'absolute' => $default['absolute'],
+                'name' => $default['name'],
+                'season_id' => $season_id,
+                'threshold' => $default['threshold'],
+            ]);
+        }
+
+        return redirect(route('admin.seasons.show', $season_id));
+    }
+
     public function store($season_id)
     {
         $currentDivision = Division::where('season_id', $season_id)

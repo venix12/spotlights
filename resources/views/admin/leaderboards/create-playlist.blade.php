@@ -8,7 +8,7 @@
         'sections' => ['Home', 'Manage', 'Create playlist'],
     ])
         @include('components._header-v2', [
-            'icon' => '',
+            'icon' => 'random',
             'title' => 'Create playlist',
         ])
 

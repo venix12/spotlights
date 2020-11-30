@@ -20,6 +20,94 @@ function closest_range_value(int $search, array $array)
     return $match;
 }
 
+function default_divisions()
+{
+    $defaults = [
+        [
+            'absolute' => true,
+            'name' => 'ri-3',
+            'threshold' => 3,
+        ],
+        [
+            'absolute' => true,
+            'name' => 'ri-2',
+            'threshold' => 10,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'diamond-3',
+            'threshold' => 0.019,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'diamond-2',
+            'threshold' => 0.029,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'platinum-3',
+            'threshold' => 0.064,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'platinum-2',
+            'threshold' => 0.099,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'gold-3',
+            'threshold' => 0.174,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'gold-2',
+            'threshold' => 0.249,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'silver-3',
+            'threshold' => 0.374,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'silver-2',
+            'threshold' => 0.499,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'bronze-3',
+            'threshold' => 0.59,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'bronze-2',
+            'threshold' => 0.699,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'copper-3',
+            'threshold' => 0.824,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'copper-2',
+            'threshold' => 0.949,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'iron-3',
+            'threshold' => 0.974,
+        ],
+        [
+            'absolute' => false,
+            'name' => 'iron-2',
+            'threshold' => 1,
+        ],
+    ];
+
+    return $defaults;
+}
+
 function format_date(string $date, bool $hour = false) : string
 {
     $formatted = substr($date, 0, $hour ? -3 : -9);

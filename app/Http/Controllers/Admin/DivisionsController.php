@@ -31,6 +31,7 @@ class DivisionsController extends Controller
         foreach (default_divisions() as $default) {
             Division::create([
                 'absolute' => $default['absolute'],
+                'display' => $default['display'],
                 'name' => $default['name'],
                 'season_id' => $season_id,
                 'threshold' => $default['threshold'],
@@ -50,6 +51,7 @@ class DivisionsController extends Controller
         } else {
             Division::create([
                 'absolute' => request()->absolute ? true : false,
+                'display' => request()->display,
                 'name' => request()->name,
                 'season_id' => $season_id,
                 'threshold' => request()->threshold,
@@ -65,6 +67,7 @@ class DivisionsController extends Controller
 
         $division->update([
             'absolute' => request()->absolute ? true : false,
+            'display' => request()->display,
             'name' => request()->name,
             'threshold' => request()->threshold,
         ]);

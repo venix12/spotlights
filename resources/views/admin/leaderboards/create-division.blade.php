@@ -23,6 +23,11 @@
                     </div>
 
                     <div class="dark-form__el">
+                        <div class="dark-form__label">display</div>
+                        <input name="display" type="text" class="dark-form__input" autocomplete="off" required>
+                    </div>
+
+                    <div class="dark-form__el">
                         <div class="dark-form__label">threshold (%)</div>
                         <input name="threshold" type="text" class="dark-form__input" autocomplete="off" required>
                     </div>

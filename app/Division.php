@@ -12,6 +12,7 @@ class Division extends Model
 
     protected $fillable = [
         'absolute',
+        'display',
         'name',
         'season_id',
         'threshold',

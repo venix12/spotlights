@@ -16,7 +16,7 @@
             @foreach ($seasons as $season)
                 <div class="info-panel">
                     <div class="space-between">
-                        <span>{{ $season->name }}</span>
+                        <span>{{ $season->name }} ({{ $season->id }})</span>
                         <div>
                             <a href="{{ route('admin.seasons.show', ['id' => $season->id]) }}" class="dark-form__button" style="margin-left: 10px">
                                 <i class="fa fa-cog"></i> Manage

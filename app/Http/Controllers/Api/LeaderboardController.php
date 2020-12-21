@@ -39,6 +39,7 @@ class LeaderboardController extends Controller
 
             $leaderboard[$i]['rank'] = $rank;
             $leaderboard[$i]['division']['identifier'] = $division->name;
+            $leaderboard[$i]['division']['display'] = $division->display;
             $leaderboard[$i]['division']['title'] = $division->badgeTooltip();
         }
 

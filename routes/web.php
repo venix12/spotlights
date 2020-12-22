@@ -119,6 +119,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
 Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
     Route::get('/leaderboard/{id}', 'LeaderboardController@show');
+    Route::get('/supporters/{id}', 'SupportersController@show');
 });
 
 Route::group(['prefix' => 'app'], function () {

@@ -12,4 +12,9 @@ class Playlist extends Model
         'participant_count',
         'season_id',
     ];
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class, 'playlist_id');
+    }
 }

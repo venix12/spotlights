@@ -21,7 +21,7 @@ class SupportersController extends Controller
             foreach ($topScores as $score) {
                 $user = $score->user;
 
-                $res[$playlist->osu_room_id][] = [
+                $userInfo[$playlist->osu_room_id][] = [
                     'osu_id' => $user->osu_user_id,
                     'username' => $user->username,
                 ];

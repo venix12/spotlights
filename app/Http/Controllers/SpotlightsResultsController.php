@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Spotlights;
-use App\SpotlightsNomination;
-use App\SpotlightsNominationVote;
-use App\User;
-use Illuminate\Http\Request;
+use App\Models\Spotlights;
+use App\Models\SpotlightsNomination;
+use App\Models\SpotlightsNominationVote;
+use App\Models\User;
 
 class SpotlightsResultsController extends Controller
 {

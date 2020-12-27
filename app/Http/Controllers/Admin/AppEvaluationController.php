@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\AppCycle;
-use App\Application;
-use App\Event;
+use App\Models\AppCycle;
+use App\Models\Application;
+use App\Models\Event;
 
 class AppEvaluationController extends Controller
 {

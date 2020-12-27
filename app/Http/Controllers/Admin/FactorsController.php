@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\LeaderboardFactor;
+use App\Models\Leaderboard\LeaderboardFactor;
 
 class FactorsController extends Controller
 {

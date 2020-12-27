@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Event;
-use App\User;
-use Illuminate\Http\Request;
+use App\Models\Event;
 
 class EventLoggerController extends Controller
 {

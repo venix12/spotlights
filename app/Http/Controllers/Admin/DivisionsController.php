@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Division;
+use App\Models\Division;
 use App\Http\Controllers\Controller;
 
 class DivisionsController extends Controller

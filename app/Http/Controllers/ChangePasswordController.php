@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Auth;
-use App\Event;
-use App\User;
+use App\Models\Event;
+use App\Models\User;
 
 class ChangePasswordController extends Controller
 {

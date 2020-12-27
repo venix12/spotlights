@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Application;
-use App\AppAnswer;
-use App\AppCycle;
-use App\AppQuestion;
-use App\Event;
+use App\Models\Application;
+use App\Models\AppAnswer;
+use App\Models\AppCycle;
+use App\Models\AppQuestion;
+use App\Models\Event;
 use App\Events\ApplicationSubmitted;
-use App\Group;
-use App\UserGroup;
+use App\Models\Group;
+use App\Models\UserGroup;
 
 class ApplicationController extends Controller
 {

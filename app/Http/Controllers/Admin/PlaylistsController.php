@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Group;
-use App\Playlist;
-use App\Score;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\UserGroup;
+use App\Models\Group;
+use App\Models\Leaderboard\Playlist;
+use App\Models\Leaderboard\Score;
+use App\Models\User;
+use App\Models\UserGroup;
 
 class PlaylistsController extends Controller
 {

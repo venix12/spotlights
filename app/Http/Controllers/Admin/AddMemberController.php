@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Event;
-use App\Group;
+use App\Models\Event;
+use App\Models\Group;
 use App\Http\Controllers\Controller;
-use App\User;
-use App\UserGroup;
+use App\Models\User;
+use App\Models\UserGroup;
 
 class AddMemberController extends Controller
 {

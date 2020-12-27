@@ -34,7 +34,7 @@
                     <i class="fa fa-plus"></i> Create new app cycle
                 </a>
 
-                @if (App\AppCycle::isActive())
+                @if (App\Models\AppCycle::isActive())
                     <a href="{{ route('admin.app-eval.deactivate-current-cycle') }}" class="dark-form__button">
                         <i class="fa fa-trash"></i> Close current app cycle
                     </a>

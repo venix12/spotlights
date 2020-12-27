@@ -48,7 +48,7 @@
             <div class="info-panel">
                 <div class="info-panel__header">Activity</div>
                 @if (Auth::user()->isAdminOrManager())
-                    @foreach (App\Group::byIdentifier('member')->members->where($spotlights->gamemode(), true) as $user)
+                    @foreach (App\Models\Group::byIdentifier('member')->members->where($spotlights->gamemode(), true) as $user)
                         {{ $user->username }}: {{ $user->spotlightsActivity($spotlights->id) }} / {{ count($spotlights->nominations) }} <br>
                     @endforeach
                 @endif

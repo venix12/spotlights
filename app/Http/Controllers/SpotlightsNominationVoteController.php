@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\SpotlightsNominationVote;
-use Auth;
+use App\Models\SpotlightsNominationVote;
 use Cache;
 use Illuminate\Http\Request;
 

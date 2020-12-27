@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Event;
-use App\User;
-use App\SpotlightsNomination;
-use App\SpotlightsNominationVote;
+use App\Models\Event;
+use App\Models\User;
+use App\Models\SpotlightsNomination;
+use App\Models\SpotlightsNominationVote;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 

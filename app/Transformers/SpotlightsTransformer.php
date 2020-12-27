@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Spotlights;
+use App\Models\Spotlights;
 use League\Fractal\TransformerAbstract;
 
 class SpotlightsTransformer extends TransformerAbstract

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Spotlights;
-use Illuminate\Http\Request;
+use App\Models\Spotlights;
 
 class SpotlightsListController extends Controller
 {

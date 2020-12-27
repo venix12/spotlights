@@ -12,8 +12,8 @@
             'title' => 'Application to the osu! Spotlights Team'
         ])
 
-        @if(App\AppCycle::isActive() || Auth::user()->isAdmin())
-            @if (!App\AppCycle::isActive() && Auth::user()->isAdmin())
+        @if(App\Models\AppCycle::isActive() || Auth::user()->isAdmin())
+            @if (!App\Models\AppCycle::isActive() && Auth::user()->isAdmin())
                 <div class="dark-section dark-section--2 d-flex justify-content-center text-lightgray">
                     there's no active app cycle at the moment - only admins can see this
                 </div>

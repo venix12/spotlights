@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Application;
+use App\Models\Application;
 use League\Fractal\TransformerAbstract;
 
 class ApplicationTransformer extends TransformerAbstract

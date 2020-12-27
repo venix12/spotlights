@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
-use App\User;
-use Illuminate\Http\Request;
+use App\Models\Group;
+use App\Models\User;
 
 class UserListController extends Controller
 {
@@ -48,7 +47,7 @@ class UserListController extends Controller
                 'users' => $usersNotLogged,
                 'title' => 'Users that haven\'t logged in yet',
             ]
-            ];
+        ];
 
         return view('user.userlist')
             ->with('membersArray', $membersArray)

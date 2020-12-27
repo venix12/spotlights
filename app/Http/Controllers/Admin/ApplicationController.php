@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\AppQuestion;
-use App\Event;
+use App\Models\AppQuestion;
+use App\Models\Event;
 
 class ApplicationController extends Controller
 {

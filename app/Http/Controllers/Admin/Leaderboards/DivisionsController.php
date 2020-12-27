@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Leaderboards;
 
 use App\Models\Division;
 use App\Http\Controllers\Controller;

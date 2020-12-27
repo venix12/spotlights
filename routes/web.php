@@ -75,7 +75,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('/{id}/store-feedback', 'AppEvaluationController@storeFeedback')->name('admin.app-eval.store-feedback');
     });
 
-    Route::group(['prefix' => 'leaderboards'], function () {
+    Route::group(['namespace' => 'Leaderboards', 'prefix' => 'leaderboards'], function () {
         Route::get('/', 'SeasonsController@index')->name('admin.seasons');
         Route::get('/create', 'SeasonsController@create')->name('admin.seasons.create');
         Route::get('/{id}', 'SeasonsController@show')->name('admin.seasons.show');

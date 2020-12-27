@@ -208,17 +208,24 @@ class User extends Authenticatable
 
     public function isAppEvaluator()
     {
-        return $this->hasPermSet('app-eval') || $this->isAdminOrManager();
+        return $this->hasPermSet('app-eval') || $this->isAdminOrManager() || $this->isTeamLeader();
     }
 
     public function isApplying($mode)
     {
-        return count($this->groups->where('identifier', "applicant_{$mode}")) > 0;
+        return $this->isGroup("applicant_{$mode}");
     }
 
     public function isAdminOrManager()
     {
         return $this->isAdmin() || $this->isManager();
+    }
+
+    public function isGroup($identifier)
+    {
+        return $this->groups
+            ->where('identifier', $identifier)
+            ->first() !== null;
     }
 
     public function isManager()
@@ -229,6 +236,11 @@ class User extends Authenticatable
     public function isMember()
     {
         return $this->isActive() && ($this->hasPermSet('member') || $this->isAdminOrManager());
+    }
+
+    public function isTeamLeader()
+    {
+        return $this->isGroup('team_leaders');
     }
 
     /**

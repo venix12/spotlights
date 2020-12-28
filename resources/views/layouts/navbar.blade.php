@@ -33,7 +33,8 @@
                             <a class="dropdown-item" href={{route('user.profile', ['id' => Auth::id()])}}>
                                 {{ __('User profile') }}
                             </a>
-                            @if(Auth::user()->isAdmin() || Auth::user()->isManager())
+
+                            @if (Auth::user()->isAdminOrManager() || Auth::user()->isTeamLeader())
                                 <a class="dropdown-item" href="{{ route('admin.manage') }}">
                                     {{ __('Manage') }}
                                 </a>

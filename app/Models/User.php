@@ -137,13 +137,26 @@ class User extends Authenticatable
         return $this->groups->first();
     }
 
+    public function modesRaw()
+    {
+        $modes = [];
+
+        foreach (self::MODES as $mode) {
+            if ($this->$mode === true) {
+                $modes[] = $mode;
+            }
+        }
+
+        return $modes;
+    }
+
     public function playlistComposerGamemodes()
     {
         if ($this->isAdmin()) {
             return self::MODES;
         }
 
-        return $this->getUserModes();
+        return $this->modesRaw();
     }
 
     public function seasonTotalScore(int $season_id)

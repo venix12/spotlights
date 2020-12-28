@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Division;
 use App\Http\Controllers\Controller;
-use App\Season;
-use App\User;
+use App\Models\Leaderboard\Division;
+use App\Models\Leaderboard\Season;
+use App\Models\User;
 
 class LeaderboardController extends Controller
 {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Event;
-use App\Group;
-use App\User;
-use App\UserGroup;
+use App\Models\Event;
+use App\Models\Group;
+use App\Models\User;
+use App\Models\UserGroup;
 
 class OsuOauthController extends Controller
 {

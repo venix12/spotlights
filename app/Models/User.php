@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\SpotlightsNomination;
-use App\SpotlightsNominationVote;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -139,6 +137,15 @@ class User extends Authenticatable
         return $this->groups->first();
     }
 
+    public function playlistComposerGamemodes()
+    {
+        if ($this->isAdmin()) {
+            return self::MODES;
+        }
+
+        return $this->getUserModes();
+    }
+
     public function seasonTotalScore(int $season_id)
     {
         $season = Season::find($season_id);
@@ -238,7 +245,7 @@ class User extends Authenticatable
 
     public function isTeamLeader()
     {
-        return $this->isGroup('team_leaders');
+        return $this->isGroup('team_leaders') || $this->isAdminOrManager();
     }
 
     /**

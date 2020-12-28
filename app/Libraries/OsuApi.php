@@ -13,6 +13,11 @@ class OsuApi
         $this->apiKey = $apiKey;
     }
 
+    public function getBeatmap(int $id)
+    {
+        return $this->request('get_beatmaps', ['b' => $id]);
+    }
+
     public function getBeatmapset(int $id)
     {
         return $this->request('get_beatmaps', ['s' => $id]);

@@ -106,6 +106,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         });
     });
 
+    Route::group(['namespace' => 'PlaylistComposer', 'prefix' => 'playlist-composer'], function () {
+        Route::get('/', 'SeasonsController@index')->name('admin.playlist-composer.seasons');
+        Route::get('/{id}', 'SeasonsController@show')->name('admin.playlist-composer.seasons.show');
+        Route::post('/', 'SeasonsController@store')->name('admin.playlist-composer.seasons.store');
+
+        Route::group(['prefix' => 'entries'], function () {
+            Route::post('/{id}/remove', 'PlaylistEntriesController@remove')->name('admin.playlist-composer.entries.remove');
+            Route::post('/store', 'PlaylistEntriesController@store')->name('admin.playlist-composer.entries.store');
+        });
+
+        Route::group(['prefix' => 'playlists'], function () {
+            Route::post('/store', 'PlaylistsController@store')->name('admin.playlist-composer.playlists.store');
+        });
+    });
+
     Route::group(['prefix' => 'user-groups'], function () {
         Route::get('/', 'UserGroupsController@index')->name('admin.user-groups');
         Route::get('/create', 'UserGroupsController@create')->name('admin.user-groups.create');

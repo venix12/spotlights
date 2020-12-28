@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Season;
+use App\Models\Leaderboard\Season;
 
 class SupportersController extends Controller
 {

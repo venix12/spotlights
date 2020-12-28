@@ -6,7 +6,7 @@ class ManageController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('is_admin_or_manager');
+        $this->middleware('is_team_leader');
     }
 
     public function index()
@@ -34,11 +34,7 @@ class ManageController extends Controller
             ],
         ];
 
-        $sections = [
-            [
-                'title' => 'Application evaluations',
-                'route' => 'admin.app-eval',
-            ],
+        $managerSections = [
             [
                 'title' => 'Manage Spotlights',
                 'route' => 'admin.spotlist',
@@ -49,12 +45,24 @@ class ManageController extends Controller
             ],
             [
                 'title' => 'Log',
-                'route' => 'admin.log'
+                'route' => 'admin.log',
             ]
         ];
 
+        $sections = [
+            [
+                'title' => 'Application evaluations',
+                'route' => 'admin.app-eval',
+            ],
+            [
+                'title' => 'Playlist composer',
+                'route' => 'admin.playlist-composer.seasons',
+            ]
+            ];
+
         return view('admin.manage')
             ->with('adminSections', $adminSections)
+            ->with('managerSections', $managerSections)
             ->with('sections', $sections);
     }
 }

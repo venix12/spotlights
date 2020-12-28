@@ -209,6 +209,7 @@ function section_url(string $route) : ?string
         'Manage' => 'admin.manage',
         'Manage leaderboards' => 'admin.seasons',
         'Manage usergroups' => 'admin.user-groups',
+        'Playlist composer' => 'admin.playlist-composer.seasons',
         'Spotlights' => 'spotlights',
         'spotlights results' => 'spotlights-results',
         'Users' => 'user.list'

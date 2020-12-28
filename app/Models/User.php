@@ -245,7 +245,7 @@ class User extends Authenticatable
 
     public function isTeamLeader()
     {
-        return $this->isGroup('team_leaders') || $this->isAdminOrManager();
+        return $this->isGroup('team_leaders');
     }
 
     /**

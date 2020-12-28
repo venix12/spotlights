@@ -9,16 +9,7 @@ class SeasonsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('is_admin')->only('store');
-
-        $this->middleware(function ($request, $next) {
-            if (!auth()->user()->isTeamLeader()) {
-                abort(403);
-            }
-
-            return $next($request);
-        });
+        $this->middleware('is_team_leader');
     }
 
     public function index()

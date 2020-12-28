@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'is_admin_or_manager' => \App\Http\Middleware\IsAdminOrManager::class,
         'is_member' => \App\Http\Middleware\IsMember::class,
+        'is_team_leader' => \App\Http\Middleware\IsTeamLeader::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,

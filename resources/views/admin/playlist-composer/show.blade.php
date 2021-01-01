@@ -60,7 +60,7 @@
 
                 <h4>{{ gamemode($mode) }}</h4>
 
-                @if ($validationErrors[$mode] !== null)
+                @if (array_key_exists($mode, $validationErrors))
                     @component('components._alert-box', [
                         'type' => 'error',
                     ])

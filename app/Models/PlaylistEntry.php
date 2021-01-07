@@ -23,6 +23,6 @@ class PlaylistEntry extends Model
 
     public function metadataForDisplay()
     {
-        return "{$this->artist} - {$this->title} [{$this->difficulty_name}]";
+        return "{$this->artist} - {$this->title} ({$this->creator}) [{$this->difficulty_name}]";
     }
 }

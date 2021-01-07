@@ -119,6 +119,20 @@
 
         @if (Auth::user()->isAdmin())
             <div class="dark-section dark-section--3">
+                <form action="{{ route('admin.playlist-composer.wiki-export', $season->id) }}" method="GET">
+                    <input
+                        class="dark-form__input dark-from__input--long dark-form__input--inline"
+                        type="text"
+                        name="playlists"
+                        autocomplete="off"
+                        placeholder="A B C D..."
+                    >
+
+                    <button type="submit" class="dark-form__button dark-form__button--left dark-form__button--small dark-form__button--radius-square dark-form__button--top">
+                        <i class="fa fa-check"></i> Export wiki playlists
+                    </button>
+                </form>
+
                 <form action="{{ route('admin.playlist-composer.playlists.store') }}" method="POST">
                     @csrf
 

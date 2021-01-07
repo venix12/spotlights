@@ -111,6 +111,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/{id}', 'SeasonsController@show')->name('admin.playlist-composer.seasons.show');
         Route::post('/', 'SeasonsController@store')->name('admin.playlist-composer.seasons.store');
 
+        Route::get('/{id}/wiki-export', 'SeasonsController@wikiExport')->name('admin.playlist-composer.wiki-export');;
+
         Route::group(['prefix' => 'entries'], function () {
             Route::post('/{id}/remove', 'PlaylistEntriesController@remove')->name('admin.playlist-composer.entries.remove');
             Route::post('/store', 'PlaylistEntriesController@store')->name('admin.playlist-composer.entries.store');

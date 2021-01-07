@@ -13,16 +13,16 @@ class User extends Authenticatable
 
     const MODES = [
         'osu',
+        'taiko',
         'catch',
         'mania',
-        'taiko'
     ];
 
     const MODES_NAMES = [
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
         'catch' => 'osu!catch',
-        'mania' => 'osu!mania'
+        'mania' => 'osu!mania',
     ];
 
     protected $fillable = [

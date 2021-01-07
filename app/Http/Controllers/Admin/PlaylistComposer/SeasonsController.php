@@ -77,7 +77,6 @@ class SeasonsController extends Controller
 
                 $output .= "\n";
             }
-
         }
 
         return response($output)->header('Content-Type', 'text/plain');

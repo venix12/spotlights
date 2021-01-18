@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\AppCycle;
+use App\Models\AppCycle;
 use App\Events\ApplicationSubmitted;
 use Guzzle;
 

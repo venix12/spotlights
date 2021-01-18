@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Application;
+use App\Models\Application;
 
 class ApplicationSubmitted
 {

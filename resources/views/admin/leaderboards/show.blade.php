@@ -96,7 +96,11 @@
             </a>
 
             <a href="{{ route('admin.divisions.load-defaults', $season->id) }}"class="dark-form__button dark-form__button--radius-square dark-form__button--small">
-                <i class="fa fa-plus"></i> Load default divisions
+                <i class="fa fa-plus"></i> Load divisions
+            </a>
+
+            <a href="{{ route('admin.factors.load-defaults', $season->id) }}"class="dark-form__button dark-form__button--radius-square dark-form__button--small">
+                <i class="fa fa-plus"></i> Load factors
             </a>
         </div>
     @endcomponent

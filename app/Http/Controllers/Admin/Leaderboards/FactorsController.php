@@ -26,6 +26,20 @@ class FactorsController extends Controller
             ->with('factor', $factor);
     }
 
+    public function loadDefaults($season_id)
+    {
+        $defaults = [1, 0.875, 0.65, 0.45];
+
+        foreach ($defaults as $default) {
+            LeaderboardFactor::create([
+                'factor' => $default,
+                'season_id' => $season_id,
+            ]);
+        }
+
+        return redirect(route('admin.seasons.show', $season_id));
+    }
+
     public function store($season_id)
     {
         LeaderboardFactor::create([

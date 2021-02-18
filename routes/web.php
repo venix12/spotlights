@@ -84,12 +84,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::get('/{id}/create-factor', 'FactorsController@create')->name('admin.factors.create');
         Route::post('{id}/store-factor', 'FactorsController@store')->name('admin.factors.store');
+        Route::get('/{season_id}/load-default-factors', 'FactorsController@loadDefaults')->name('admin.factors.load-defaults');
 
         Route::get('/{id}/create-playlist', 'PlaylistsController@create')->name('admin.playlists.create');
         Route::post('/{id}/store-playlist', 'PlaylistsController@store')->name('admin.playlists.store');
 
         Route::get('/{season_id}/create-division', 'DivisionsController@create')->name('admin.divisions.create');
-        Route::get('/{season_id}/load-defaults', 'DivisionsController@loadDefaults')->name('admin.divisions.load-defaults');
+        Route::get('/{season_id}/load-default-divisions', 'DivisionsController@loadDefaults')->name('admin.divisions.load-defaults');
 
         Route::post('/{season_id}/store-division', 'DivisionsController@store')->name('admin.divisions.store');
 

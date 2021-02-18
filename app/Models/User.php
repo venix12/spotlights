@@ -161,7 +161,7 @@ class User extends Authenticatable
 
     public function seasonTotalScore(int $season_id)
     {
-        $season = Season::find($season_id);
+        $season = Leaderboard\Season::find($season_id);
         $playlistIds = $season->playlists->pluck('id');
 
         $scores = $this->scores
@@ -291,7 +291,7 @@ class User extends Authenticatable
 
     public function scores()
     {
-        return $this->hasMany(Score::class, 'user_id');
+        return $this->hasMany(Leaderboard\Score::class, 'user_id');
     }
 
     public function votes()

@@ -2,6 +2,7 @@
 
 namespace App\Models\Leaderboard;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Score extends Model

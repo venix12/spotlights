@@ -16,7 +16,7 @@ class SupportersController extends Controller
 
         foreach ($playlists as $playlist)
         {
-            $topScores = $playlist->scores->sortBy('total_score')->take(10);
+            $topScores = $playlist->scores->sortByDesc('total_score')->take(10);
 
             foreach ($topScores as $score) {
                 $user = $score->user;

@@ -24,10 +24,10 @@ class SeasonsController extends Controller
 
     public function show($id)
     {
-        $season = Season::findOrFail($id)
-            ->with('playlists')
+        $season = Season::with('playlists')
             ->with('playlists.entries')
-            ->first();
+            ->where('id', $id)
+            ->firstOrFail();
 
         $validationErrors = $season->validate();
 

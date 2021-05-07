@@ -14,8 +14,6 @@ class UserListController extends Controller
 
     public function index()
     {
-        $inactives = User::inactive()->orderBy('username')->get();
-
         $admins = Group::byIdentifier('admin')->members;
         $managers = Group::byIdentifier('manager')->members;
         $members = Group::byIdentifier('member')->members;
@@ -35,16 +33,7 @@ class UserListController extends Controller
             ]
         ];
 
-        $moderationArray = [
-            'inactives' => [
-                'colour' => User::INACTIVE_COLOUR,
-                'users' => $inactives,
-                'title' => 'Inactive users',
-            ],
-        ];
-
         return view('user.userlist')
-            ->with('membersArray', $membersArray)
-            ->with('moderationArray', $moderationArray);
+            ->with('membersArray', $membersArray);
     }
 }

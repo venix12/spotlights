@@ -15,11 +15,5 @@
         <div class="dark-section dark-section--4">
             @include('user._list', $membersArray)
         </div>
-
-        @if(Auth::user()->isAdminOrManager())
-            <div class="dark-section dark-section--4">
-                @include('user._list', ['membersArray' => $moderationArray])
-            </div>
-        @endif
     @endcomponent
 @endsection

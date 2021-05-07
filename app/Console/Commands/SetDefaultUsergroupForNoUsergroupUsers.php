@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Group;
-use App\User;
-use App\UserGroup;
+use App\Models\Group;
+use App\Models\User;
+use App\Models\UserGroup;
 use Illuminate\Console\Command;
 
 class SetDefaultUsergroupForNoUsergroupUsers extends Command

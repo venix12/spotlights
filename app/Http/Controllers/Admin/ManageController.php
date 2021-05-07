@@ -13,10 +13,6 @@ class ManageController extends Controller
     {
         $adminSections = [
             [
-                'title' => 'Add new member',
-                'route' => 'admin.add-member',
-            ],
-            [
                 'title' => 'Create new spotlights',
                 'route' => 'admin.newSpotlights',
             ],
@@ -51,6 +47,10 @@ class ManageController extends Controller
 
         $sections = [
             [
+                'title' => 'Manage members',
+                'route' => 'admin.add-member',
+            ],
+            [
                 'title' => 'Application evaluations',
                 'route' => 'admin.app-eval',
             ],
@@ -58,7 +58,7 @@ class ManageController extends Controller
                 'title' => 'Playlist composer',
                 'route' => 'admin.playlist-composer.seasons',
             ]
-            ];
+        ];
 
         return view('admin.manage')
             ->with('adminSections', $adminSections)

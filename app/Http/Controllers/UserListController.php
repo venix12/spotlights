@@ -15,7 +15,6 @@ class UserListController extends Controller
     public function index()
     {
         $inactives = User::inactive()->orderBy('username')->get();
-        $usersNotLogged = User::active()->where('has_logged_in', false)->get();
 
         $admins = Group::byIdentifier('admin')->members;
         $managers = Group::byIdentifier('manager')->members;
@@ -42,11 +41,6 @@ class UserListController extends Controller
                 'users' => $inactives,
                 'title' => 'Inactive users',
             ],
-            'users_not_logged' => [
-                'colour' => '',
-                'users' => $usersNotLogged,
-                'title' => 'Users that haven\'t logged in yet',
-            ]
         ];
 
         return view('user.userlist')

@@ -19,10 +19,6 @@ class UserListController extends Controller
         $members = Group::byIdentifier('member')->members;
 
         $membersArray = [
-            'admins' => [
-                'users' => $admins,
-                'title' => 'Administrators',
-            ],
             'managers' => [
                 'users' => $managers,
                 'title' => 'Managers',

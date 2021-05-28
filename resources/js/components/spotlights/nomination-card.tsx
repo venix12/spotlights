@@ -66,8 +66,10 @@ class NominationCard extends React.Component<Props, State> {
         switch (state) {
             case 'AWAITING VOTE':
                 return 'red';
+
             case 'NOMINATED':
                 return 'cyan';
+
             case 'PARTICIPATED':
                 return 'greenyellow';
         }
@@ -187,16 +189,24 @@ class NominationCard extends React.Component<Props, State> {
         const { is_legacy, threshold } = this.props;
         const { score } = this.state;
 
-        const spotlighted = (threshold && score >= threshold) && 'nomination-panel__score--spotlighted'
+        if (is_legacy) {
+            const spotlighted = (threshold && score >= threshold) && 'nomination-panel__score--spotlighted'
 
-        return (
-            <div
-                className={`nomination-panel__el nomination-panel__el--10 nomination-panel__score ${spotlighted}`}
-                style={{color: this.getScoreColor(score)}}
-            >
-                {score}
-            </div>
-        );
+            return (
+                <div
+                    className={`nomination-panel__el nomination-panel__el--10 nomination-panel__score ${spotlighted}`}
+                    style={{color: this.getScoreColor(score)}}
+                >
+                    {score}
+                </div>
+            );
+        } else {
+            return (
+                <div className="nomination-panel__el nomination-panel__el--10 nomination-panel">
+                    {score}
+                </div>
+            )
+        };
     }
 
     updateScore = (vote: Vote) => {

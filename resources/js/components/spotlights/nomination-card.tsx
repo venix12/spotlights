@@ -3,6 +3,7 @@ import { classModified } from '../../helpers/helpers';
 import NominationDetails from './nomination-details';
 
 interface Props {
+    is_legacy: boolean,
     nomination: Nomination,
     threshold?: number,
 }
@@ -104,10 +105,11 @@ class NominationCard extends React.Component<Props, State> {
     }
 
     renderDetails() {
-        const { nomination } = this.props;
+        const { is_legacy, nomination } = this.props;
 
         return (
             <NominationDetails
+                is_legacy={is_legacy}
                 nomination={nomination}
                 updateScore={this.updateScore}
                 updateScoreOnChange={this.updateScoreOnChange}
@@ -182,7 +184,7 @@ class NominationCard extends React.Component<Props, State> {
     }
 
     renderScore() {
-        const { threshold } = this.props;
+        const { is_legacy, threshold } = this.props;
         const { score } = this.state;
 
         const spotlighted = (threshold && score >= threshold) && 'nomination-panel__score--spotlighted'
@@ -204,11 +206,15 @@ class NominationCard extends React.Component<Props, State> {
     }
 
     updateScoreOnChange = (votes: Vote[]) => {
-        let score = 1;
+        let score = this.props.is_legacy ? 1 : 0;
 
         votes.forEach(vote => {
             score += vote.value;
         });
+
+        if (!this.props.is_legacy) {
+            score = score / votes.length;
+        }
 
         this.setState({
             score: score,

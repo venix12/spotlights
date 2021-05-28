@@ -15,6 +15,7 @@ class SpotlightsTransformer extends TransformerAbstract
     {
         return [
             'id' => $spotlights->id,
+            'is_legacy' => $spotlights->isLegacy(),
             'threshold' => $spotlights->threshold,
         ];
     }

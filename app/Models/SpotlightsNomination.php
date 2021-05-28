@@ -21,23 +21,36 @@ class SpotlightsNomination extends Model
     ];
 
     /**
-     * Attributes
+     * Methods
      */
 
-    public function getScoreAttribute()
+    public function score()
     {
         $key = "score_{$this->id}";
 
-        if (!Cache::get($key))
-        {
-            $votes = $this->votes;
+        if (!Cache::get($key)) {
+            $votes = $this->votes->where('value', '!==', null)->get();
 
-            $score = 1;
+            if ($this->spotlights->isLegacy()) {
+                $score = 1;
 
-            foreach ($votes as $vote) {
-                // 2 = contributor
-                if ($vote->value !== 2) {
-                    $score += $vote->value;
+                foreach ($votes as $vote) {
+                    if ($vote->value !== 2) {
+                        // 2 = contributor
+                        $score += $vote->value;
+                    }
+                }
+            } else {
+                $scoreRaw = 0;
+
+                foreach ($votes as $vote) {
+                    $scoreRaw += $vote->value;
+                }
+
+                if ($votes->count() > 0) {
+                    $score = $scoreRaw / $votes->count();
+                } else {
+                    $score = $scoreRaw;
                 }
             }
 
@@ -45,42 +58,6 @@ class SpotlightsNomination extends Model
         }
 
         return Cache::get($key);
-    }
-
-    /**
-     * Methods
-     */
-
-    public function getScoreColor()
-    {
-        $score = $this->score;
-
-        if ($score < -4)
-        {
-            $scoreColor = "#ff0000"; //red
-        }
-
-        else if ($score < 0 && $score > -5)
-        {
-            $scoreColor = "#ff7373"; //lightred
-        }
-
-        else if ($score > 2 && $score < 5)
-        {
-            $scoreColor = "#577557"; //lightgreen
-        }
-
-        else if ($score > 4)
-        {
-            $scoreColor = "#12b012"; //green
-        }
-
-        else
-        {
-            $scoreColor = "#757575"; //gray
-        }
-
-        return $scoreColor;
     }
 
     public static function createEntry(int $beatmap_id, int $spotlights_id)

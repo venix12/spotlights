@@ -1,33 +1,24 @@
 import React from 'react';
 
 interface Props {
-    comment: Vote,
+    vote: Vote,
 }
 
 class NominationComment extends React.Component<Props> {
     getVoteName = (value: number) => {
-        switch (value) {
-            case -1:
-                return 'criticizer';
-            case 0:
-                return 'neutral';
-            case 1:
-                return 'supporter';
-            case 2:
-                return 'contributor';
-            default:
-                return 'nominator';
-        }
+        return value !== null
+            ? `voted ${value}`
+            : 'nominator';
     }
 
     render() {
-        const { comment } = this.props;
-        const voteName = this.getVoteName(comment.value);
+        const { vote } = this.props;
+        const voteName = this.getVoteName(vote.value);
 
         return (
             <div className={`comment-card comment-card--${voteName}`}>
                 <div className="comment-card__header">
-                    {comment.voter.username}
+                    {vote.voter.username}
                     <div className="comment-card__header__dot" />
                     <div className="comment-card__header__state">
                         {voteName}
@@ -35,13 +26,13 @@ class NominationComment extends React.Component<Props> {
                 </div>
 
                 <div className="comment-card__content">
-                    <span className="comment-card__content__content">{comment.comment}</span>
+                    <span className="comment-card__content__content">{vote.comment}</span>
 
                     <div className="comment-card__info">
-                        <div className="comment-card__info__el">{`created at ${comment.created_at}`}</div>
+                        <div className="comment-card__info__el">{`created at ${vote.created_at}`}</div>
 
-                        {comment.comment_updated_at && <div className="comment-card__info__el">
-                            {`updated at ${comment.comment_updated_at}`}
+                        {vote.comment_updated_at && <div className="comment-card__info__el">
+                            {`updated at ${vote.comment_updated_at}`}
                         </div>}
                     </div>
                 </div>

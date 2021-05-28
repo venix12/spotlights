@@ -20,7 +20,7 @@ class NominationTransformer extends TransformerAbstract
             'creator' => $nomination->beatmap_creator,
             'creator_osu_id' => $nomination->beatmap_creator_osu_id,
             'id' => $nomination->id,
-            'score' => $nomination->score,
+            'score' => $nomination->score(),
             'spots_id' => $nomination->spots_id,
             'title' => $nomination->beatmap_title,
         ];

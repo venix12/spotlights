@@ -53,6 +53,7 @@ interface Question {
 
 interface Spotlights {
     id: number,
+    is_legacy: boolean,
     nominations: Nomination[],
     threshold?: number,
 }

@@ -15,19 +15,21 @@ class SpotlightsNominationVote extends Model
         'value',
     ];
 
-    const VOTE_VALUES = [
-        'contribute' => 2,
-        'criticize' => -1,
-        'neutral' => 0,
-        'support' => 1,
-    ];
+    const ALLOWED_VOTE_VALUES = [1, 2, 3, 4, 5];
+
+    public static function parseVoteValue($value)
+    {
+        return in_array($value, static::ALLOWED_VOTE_VALUES)
+            ? $value
+            : null;
+    }
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function vote()
+    public function nomination()
     {
         return $this->belongsTo(SpotlightsNomination::class, 'nomination_id');
     }

@@ -5,6 +5,7 @@ import { LoadingSpinner } from '../loading-spinner';
 import { Alert } from '../alert';
 
 interface Props {
+    is_legacy: boolean,
     nomination: Nomination,
     updateScore: (vote: Vote) => void,
     updateScoreOnChange: (votes: Vote[]) => void,
@@ -14,7 +15,7 @@ interface State {
     comment: string,
     loading: boolean,
     message: string[],
-    vote: string,
+    selectedVote: number | null,
     votes: Vote[],
 }
 
@@ -23,7 +24,7 @@ class NominationDetails extends React.Component<Props, State> {
         comment: '',
         loading: false,
         message: [],
-        vote: '',
+        selectedVote: null,
         votes: this.props.nomination.votes,
     }
 
@@ -109,7 +110,7 @@ class NominationDetails extends React.Component<Props, State> {
                     <div className="nomination-comments">
                         {comments.length > 0
                             ? comments.map(comment => {
-                                return <NominationComment comment={comment} key={comment.id}/>;
+                                return <NominationComment vote={comment} key={comment.id}/>;
                             })
                             : <span className="text-lightgray">there's no comments yet...</span>
                         }
@@ -146,6 +147,7 @@ class NominationDetails extends React.Component<Props, State> {
     }
 
     renderVotePanel() {
+        const { is_legacy } = this.props;
         const { comment, loading, message } = this.state;
 
         return (
@@ -183,52 +185,46 @@ class NominationDetails extends React.Component<Props, State> {
                 </div>
 
                 {message[0] && <Alert message={message[1]} type={message[0]} closeVar={this.closeMessage}/>}
-                {this.renderInfoSection()}
+                {is_legacy && this.renderInfoSection()}
             </div>
         );
     }
 
     renderVotingOptions() {
-        const { vote } = this.state;
+        if (this.props.is_legacy) return;
 
-        const votingOptions = [
-            { icon: 'thumbs-down', name: 'criticize', select: 'danger', title: 'Criticize the nomination' },
-            { icon: 'question', name: 'neutral', select: 'blue', title: 'Vote for neutral' },
-            { icon: 'thumbs-up', name: 'support', select: 'success', title: 'Support the nomination' },
-            { icon: 'user', name: 'contribute', select: 'lightgray', title: 'I contributed to this map!' },
-        ];
+        const votingOptions = [1, 2, 3, 4, 5];
 
-        const options = votingOptions.map((option, index) => {
+        const options = votingOptions.map(option => {
             return (
                 <div
-                    className={`nomination-voting__el ${vote === option.name && `text-${option.select}`}`}
-                    id={option.name}
-                    onClick={() => this.selectVote(option.name)}
-                    key={index}
+                    className={`nomination-voting__el ${this.state.selectedVote === option && 'text-blue'}`}
+                    onClick={() => this.selectVote(option)}
+                    key={option}
                 >
-                    <i className={`fa fa-${option.icon}`} title={option.title} />
+                    <b>{option}</b>
                 </div>
-            );
-        })
+            )
+        });
 
         return options;
     }
 
-    selectVote = (vote: string) => {
+    selectVote = (vote: number) => {
         this.setState({
-            vote: this.state.vote === vote ? '' : vote
+            selectedVote: this.state.selectedVote === vote ? null : vote,
         });
     }
 
     storeVote = async (event: React.FormEvent<HTMLFormElement>) => {
         const { nomination } = this.props;
-        const { comment, vote, votes } = this.state;
+        const { comment, selectedVote, votes } = this.state;
 
         event.preventDefault();
 
         this.setState({ loading: true });
 
-        if (!vote && this.isNotNominator()) {
+        if (!selectedVote && this.isNotNominator()) {
             this.setState({
                 loading: false,
                 message: ['error', 'you have to pick a vote!'],
@@ -245,7 +241,7 @@ class NominationDetails extends React.Component<Props, State> {
 
         const res: { data: Vote } = await Axios.post(
             laroute.route(postDestination, { id: nomination.spots_id }),
-            { comment: comment, id: nomination.id, vote: vote }
+            { comment: comment, id: nomination.id, vote: selectedVote }
         );
 
         if (this.needsToUpdate()) {
@@ -263,7 +259,7 @@ class NominationDetails extends React.Component<Props, State> {
                 votes: newVotes,
                 loading: false,
                 message: ['success', 'successfully updated a vote!'],
-                vote: '',
+                selectedVote: null,
             });
         } else {
             this.props.updateScore(res.data);
@@ -272,7 +268,7 @@ class NominationDetails extends React.Component<Props, State> {
                 comment: '',
                 loading: false,
                 message: ['success', 'successfully updated a vote!'],
-                vote: '',
+                selectedVote: null,
                 votes: this.state.votes.concat(res.data),
             });
         }

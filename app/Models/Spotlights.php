@@ -8,10 +8,10 @@ class Spotlights extends Model
 {
     const GAME_MODES = ['catch', 'mania', 'osu', 'taiko'];
 
-
     protected $casts = [
         'active' => 'boolean',
         'catch' => 'boolean',
+        'legacy_mode' => 'boolean',
         'mania' => 'boolean',
         'osu' => 'boolean',
         'released' => 'boolean',
@@ -41,6 +41,11 @@ class Spotlights extends Model
         }
 
         return $mode;
+    }
+
+    public function isLegacy()
+    {
+        return $this->legacy_mode === true;
     }
 
     public function nominations()

@@ -52,6 +52,10 @@ class SpotlightsNomination extends Model
                 } else {
                     $score = $scoreRaw;
                 }
+
+                if (strlen($score) > 1) {
+                    $score = number_format($score, 1, '.', '');
+                }
             }
 
             Cache::forever($key, $score);

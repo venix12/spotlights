@@ -29,7 +29,7 @@ class SpotlightsNomination extends Model
         $key = "score_{$this->id}";
 
         if (!Cache::get($key)) {
-            $votes = $this->votes->where('value', '!==', null)->get();
+            $votes = $this->votes->where('value', '!==', null);
 
             if ($this->spotlights->isLegacy()) {
                 $score = 1;

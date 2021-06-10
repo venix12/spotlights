@@ -8,6 +8,7 @@ use App\Models\Leaderboard\Playlist;
 use App\Models\Leaderboard\Score;
 use App\Models\User;
 use App\Models\UserGroup;
+use Illuminate\Support\Facades\DB;
 
 class PlaylistsController extends Controller
 {
@@ -27,52 +28,54 @@ class PlaylistsController extends Controller
         $roomId = request()->room_id;
         $roomInfo = app('osu-oauth')->getRoomInfo($roomId);
 
-        $playlist = Playlist::create([
-            'osu_room_id' => $roomId,
-            'osu_room_name' => $roomInfo['name'],
-            'participant_count' => $roomInfo['participant_count'],
-            'season_id' => $id,
-        ]);
+        DB::transaction(function () use ($id, $roomId, $roomInfo) {
+            $playlist = Playlist::create([
+                'osu_room_id' => $roomId,
+                'osu_room_name' => $roomInfo['name'],
+                'participant_count' => $roomInfo['participant_count'],
+                'season_id' => $id,
+            ]);
 
-        $pagesCount = ceil($roomInfo['participant_count'] / 50);
+            $pagesCount = ceil($roomInfo['participant_count'] / 50);
 
-        for ($i = 1; $i <= $pagesCount; $i++) {
-            $scores = app('osu-oauth')->getRoomLeaderboard($roomId, $i);
+            for ($i = 1; $i <= $pagesCount; $i++) {
+                $scores = app('osu-oauth')->getRoomLeaderboard($roomId, $i);
 
-            foreach ($scores['leaderboard'] as $score) {
-                $osuUserId = $score['user']['id'];
-                $user = User::where('osu_user_id', $osuUserId)->first();
+                foreach ($scores['leaderboard'] as $score) {
+                    $osuUserId = $score['user']['id'];
+                    $user = User::where('osu_user_id', $osuUserId)->first();
 
-                if ($user === null) {
-                    $user = User::create([
-                        'osu_user_id' => $osuUserId,
-                        'username' => $score['user']['username'],
-                    ]);
+                    if ($user === null) {
+                        $user = User::create([
+                            'osu_user_id' => $osuUserId,
+                            'username' => $score['user']['username'],
+                        ]);
 
-                    UserGroup::create([
-                        'group_id' => Group::byIdentifier('default')->id,
-                        'user_id' => $user->id,
-                    ]);
-                }
+                        UserGroup::create([
+                            'group_id' => Group::byIdentifier('default')->id,
+                            'user_id' => $user->id,
+                        ]);
+                    }
 
-                $totalScore = $score['total_score'];
+                    $totalScore = $score['total_score'];
 
-                $currentScore = Score::where('playlist_id', $playlist->id)
-                    ->where('user_id', $user->id);
+                    $currentScore = Score::where('playlist_id', $playlist->id)
+                        ->where('user_id', $user->id);
 
-                if ($currentScore->exists()) {
-                    $currentScore->update([
-                        'total_score' => $totalScore,
-                    ]);
-                } else {
-                    Score::create([
-                        'playlist_id' => $playlist->id,
-                        'total_score' => $totalScore,
-                        'user_id' => $user->id,
-                    ]);
+                    if ($currentScore->exists()) {
+                        $currentScore->update([
+                            'total_score' => $totalScore,
+                        ]);
+                    } else {
+                        Score::create([
+                            'playlist_id' => $playlist->id,
+                            'total_score' => $totalScore,
+                            'user_id' => $user->id,
+                        ]);
+                    }
                 }
             }
-        }
+        });
 
         return redirect(route('admin.seasons.show', $id));
     }

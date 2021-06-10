@@ -19,7 +19,7 @@
                     <div class="space-between">
                         <span>
                             <a href="https://osu.ppy.sh/multiplayer/rooms/{{ $playlist->osu_room_id }}">
-                                {{ $playlist->osu_room_name }} ({{ $playlist->osu_room_id }})
+                                {{ $playlist->osu_room_name }} ({{ $playlist->osu_room_id }}) (local id: {{ $playlist->id }})
                             </a>
                         </span>
                     </div>

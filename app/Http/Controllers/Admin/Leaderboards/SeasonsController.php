@@ -82,8 +82,6 @@ class SeasonsController extends Controller
     {
         $season = Season::find($id);
         $playlists = $season->playlists;
-
-        $userInfo = [];
         $raw = '';
 
         foreach ($playlists as $playlist)
@@ -93,11 +91,6 @@ class SeasonsController extends Controller
             foreach ($topScores as $score) {
                 $user = $score->user;
                 $raw .= "{$user->osu_user_id}|{$user->username}\n";
-
-                // $userInfo[$playlist->osu_room_id][] = [
-                //     'osu_id' => $user->osu_user_id,
-                //     'username' => $user->username,
-                // ];
             }
         }
 

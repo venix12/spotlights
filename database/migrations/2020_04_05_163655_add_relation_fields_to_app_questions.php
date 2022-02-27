@@ -16,10 +16,6 @@ class AddRelationFieldsToAppQuestions extends Migration
         Schema::table('app_questions', function (Blueprint $table) {
             $table->integer('relation_type')->default(0);
             $table->bigInteger('parent_id')->unsigned()->nullable();
-
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('app_questions');
         });
     }
 

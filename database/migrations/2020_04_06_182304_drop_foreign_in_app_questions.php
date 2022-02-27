@@ -14,7 +14,7 @@ class DropForeignInAppQuestions extends Migration
     public function up()
     {
         Schema::table('app_questions', function (Blueprint $table) {
-            $table->dropForeign(['parent_id']);
+            // $table->dropForeign(['parent_id']);
         });
     }
 
